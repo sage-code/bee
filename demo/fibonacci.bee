@@ -1,20 +1,21 @@
 +----------------------------
 |  Demo Fibonacci rule      |
 ----------------------------+
-use $pro_lib.console.(*);
 
 ** declare Fibonacci rule
 rule fib(n ∈ N) => (y ∈ N):
-  if (n = 1) ∨ (n = 0) do
-    y := 1; -- first value
+  if (n = 0) do
+    let y := 0;
+  else if (n = 1) do
+    let y := 1;
   else
-    y := fib(n-1) + fib(n-2);
+    let y := fib(n - 1) + fib(n - 2);
   done;
 return;
 
 rule main:
-   ** call fib rule using argument 5
-   r := fib(n: 5);
+   ** call fib rule using argument 
+   new r := fib(11);
 
    ** print the result to console
    print r;
