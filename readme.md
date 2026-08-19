@@ -1,29 +1,17 @@
-# Bee Language
+# Bee Language & Compiler
 
-Bee is a general-purpose computer language designed by Sage-Code Laboratory. We design this project in public with the help of the community. In this repository, we store language design documentation and demo code. 
+Bee is an system computer language designed by Sage-Code Laboratory.
 
 ## Documentation
 
-For the full Bee language specification, please refer to the [spec](spec/index.md) directory.
+We have .md specification in [spec](spec/index.md) directory.
 
-## Goals
+## Status & Contribution
 
-Bee is an experimental project with original syntax aiming to be:
-
-1. Efficient
-2. Explicit
-3. Reliable
-4. Disruptive
-
-## Design
-
-Bee is a rule-based programming language that is:
-
-1. Static-typed
-2. Modular
-3. Compiled
-4. Open-source
-5. Feature-rich
+* Bee is in havy review. 
+* We will modify the specification.
+* This repository will hold examples for testing
+* This repository will contain reference compiler
 
 ## References
 
