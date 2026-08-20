@@ -5,14 +5,14 @@ Bee is a disruptive strange looking language that will bring Math notation into 
 
 
 | # | Feature Name | How to Implement |
-| :--- | :--- |
-| 0 | readable | use English keywords |
-| 1 | efficient | use native types |
-| 2 | safe | avoid invalid references |
-| 3 | modular | reusable modules |
-| 4 | explicit | named results & arguments |
-| 5 | disruptive | unusual syntax choices |
-
+| :--- | :--- | :--- |
+| 1 | readable | use English keywords |
+| 2 | efficient | use native types |
+| 3 | safe | avoid invalid references |
+| 4 | modular | reusable modules |
+| 5 | explicit | named results & arguments |
+| 6 | deterministic | avoid side effects |
+| 7 | unicode | Unicode symbols and operators |
 
 
 ## Readable
@@ -114,7 +114,21 @@ Bee is an explicit language: We believe explicit is better than implicit. For th
 - In a rule, primitive type parameters are transferred by value while composite type parameters and objects are transferred by reference. Same rule apply for result variables.
 - Bee do not have pointers nor pointer arithmetic. However you can define references to primitive types using explicit boxing operator [x] that are as good as pointers.
 
-## Disruptive
+### Deterministic Execution
+
+A deterministic system ensures that given the same input and initial state, the program will always produce the same output through the exact same sequence of internal states. In language design, this is critical for reliability, testing, and debugging.
+
+#### Achieving Determinism
+
+To enforce determinism in a new language, the following architecture constraints must be implemented:
+
+1.  **Pure Functions by Default:** Encourage or enforce pure functions, where output depends solely on input parameters, with no reliance on or mutation of shared global state.
+2.  **Explicit Side-Effect Management:** If a function performs I/O, interacts with system clocks, or relies on external randomness, it must be explicitly marked (e.g., using a `system` or `impure` keyword). This separates logic from environment-dependent operations.
+3.  **Controlled Concurrency:** Avoid race conditions by disallowing shared-memory mutation across threads. Implement message-passing models or immutable data structures to ensure that execution order does not alter the outcome of calculations.
+4.  **Hardware/Platform Abstraction:** Normalize floating-point behavior and integer sizes across architectures. A language cannot be deterministic if the same code produces different results on ARM versus x86 due to varying IEEE 754 implementations or endianness.
+5.  **Deterministic Initialization:** Ensure the order of global object initialization and constant evaluation is defined by the language specification, not the compiler or linker’s internal heuristics.
+
+## Unicode Symbols
 
 
 We have try and failed to create a consistend language because the people who invented Unicode symbols have done such a mess. Some symbols are duplicated, some are not ordered, some are missing. Sometimes the unicode symbol look like a Latin letter. We have done our best to select the most useful symbols.
