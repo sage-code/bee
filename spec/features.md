@@ -4,9 +4,8 @@
 Bee is a disruptive strange looking language that will bring Math notation into the source code. Bee has some uncommon keywords, operators and symbols.
 
 
-| Table |
-| :--- | :--- |
 | # | Feature Name | How to Implement |
+| :--- | :--- |
 | 0 | readable | use English keywords |
 | 1 | efficient | use native types |
 | 2 | safe | avoid invalid references |
