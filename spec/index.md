@@ -30,4 +30,4 @@ This specification is now (2026) the new specification for Bee. It was reverse e
 
 ---
 
-**Disclaimer:** We know, there is another language called Bee on this website [beeprogram.org](http://www.beeprogram.org/). To avoid confusion, we call our language sage-bee on social platforms. So the official name of the project is "SAGE.BEE".
+**Notification:** We are aware of another language named "bee" at beeprogram.org featuring an insect logo. To avoid confusion, we call our language sage-bee. The repository remains /sage-code/bee, and we will not change it. We use "bee" as the short name and refer to it as sage-bee elsewhere. We apologize for the overlap.
