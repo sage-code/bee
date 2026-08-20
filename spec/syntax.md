@@ -2009,9 +2009,8 @@ Bee operators are ASCII or Unicode symbols. One operator can be created using on
 ## Delimiters
 
 
-| Table |
-| --- |
 | Symbol | Description |
+| --- | --- |
 | +-...-+ | Multi-line boxed comments |
 | #(....) | String interpolation (placeholder) for operator "?" |
 | (_,_,_) | Expression | List literal |
@@ -2023,9 +2022,8 @@ Bee operators are ASCII or Unicode symbols. One operator can be created using on
 ## Strings
 
 
-| Table |
-| --- |
-| symbol | description |
+| Symbol | Description |
+| --- | --- |
 | `x` | Back quoted string: regular expression. |
 | 'x' | Single quoted string literal or ASCII code point |
 | "y" | Double quoted string literal or UTF32 code point |
@@ -2035,9 +2033,8 @@ Bee operators are ASCII or Unicode symbols. One operator can be created using on
 ## Single Symbols
 
 
-| Table |
-| --- |
-| symbol | description |
+| Symbol | Description |
+| --- | --- |
 | ! | Negation symbol for relations | Excluded from domain |
 | ? | Template modifier. Associated with string templates |
 | * | String replication | Varargs prefix | Spread operator | Many something |
@@ -2053,10 +2050,10 @@ Bee operators are ASCII or Unicode symbols. One operator can be created using on
 | : | Pair-up key-value in: objects, rule parameters, rule arguments, hash-map pairs |
 | ; | End of statement | Statement separator |
 | . | Decimals for real numbers | Path string concatenation |
-| . | Membership dot notation | Prefix for public member/attribute | , | Enumeration of elements | expressions | | | Declarative collection builder: set := { x*2 | x ∈ (0..3)} | \ | Escape character ( \n := New Line), ( \" = Double Quotes) |
+| . | Membership dot notation | Prefix for public member/attribute |
 | , | Enumeration of elements | expressions |
-| | | Declarative collection builder: set := { x*2 | x ∈ (0..3)} |
-| \ | Escape character ( \n := New Line), ( \" = Double Quotes) |
+| \| | Declarative collection builder: set := { x*2 \| x ∈ (0..3)} |
+| \ | Escape character (\n := New Line), (\" = Double Quotes) |
 
 
 
@@ -2066,9 +2063,8 @@ Bee operators are ASCII or Unicode symbols. One operator can be created using on
 Listed in the order of precedence top down.
 
 
-| Table |
-| --- |
-| symbol | description |
+| Symbol | Description |
+| --- | --- |
 | - | Change sign, replace "y = -x" with "y = -1*x" |
 | / | Rational number division |
 | ^ | Power symbol used with fractions or expressions |
@@ -2090,9 +2086,8 @@ Listed in the order of precedence top down.
 Double symbols is a group of two ASCII symbols considered as one. Some of these symbols have an Unicode equivalent, some do not. When available, Unicode equivalent is preferred choice.
 
 
-| Table |
-| --- |
-| symbol | description |
+| Symbol | Description |
+| --- | --- |
 | -- | End of line comments (not in expression) |
 | ## | Single line subtitle comments (no indentation) |
 | ** | Single line comments (allow indentation) |
@@ -2125,9 +2120,8 @@ Double symbols is a group of two ASCII symbols considered as one. Some of these 
 Each modifier is created with pattern "x=" where x is a single symbol:
 
 
-| Table |
-| --- |
-| symbol | meaning |
+| Symbol | Meaning |
+| --- | --- |
 | := | Modify | (value | reference) |
 | += | Increment value |
 | -= | Decrement value |
@@ -2145,14 +2139,13 @@ Each modifier is created with pattern "x=" where x is a single symbol:
 Relation operators are used to compare expressions.
 
 
-| Table |
-| --- |
-| symbol | meaning |
+| Symbol | Meaning |
+| --- | --- |
 | ∈ | check if element belong to collection |
 | = | equal { compare values or attributes} |
 | ≠ | different { compare values or attributes} |
 | ≡ | equivalent | { compare values / convert type } |
-| ≈ | approximating equal numbers, used with ± like: (x ≈ 4 ± 0.25) |
+| ≈ | approximating equal numbers, used with ± like: (x ≈ 4 ± 0.25) |
 | > | value is greater than: (2 > 1) |
 | < | value is less than: (1 < 2) |
 | ≥ | greater than or equal to |
@@ -2178,9 +2171,8 @@ x != y; -- equivalent to: ¬(x = y)
 ## Collection operators
 
 
-| Table |
-| --- |
-| symbol | result | meaning |
+| Symbol | Result | Meaning |
+| --- | --- | --- |
 | ∩ | Set | Intersection between two collections |
 | ∪ | Set | Union between two collections |
 | ⊂ | Logic | Set is included in superset: "⊂" |
@@ -2201,9 +2193,8 @@ x != y; -- equivalent to: ¬(x = y)
 Bee is using enumeration symbols: True = 1 and False = 0
 
 
-| Table |
-| --- |
-| symbol | meaning | notes |
+| Symbol | Meaning | Notes |
+| --- | --- | --- |
 | ¬ | NOT | unary operator |
 | ∧ | AND | shortcut operator |
 | ∨ | OR | shortcut operator |
@@ -2213,9 +2204,8 @@ Bee is using enumeration symbols: True = 1 and False = 0
 
 
 
-| Table |
-| --- |
 | p | q | ¬ p | p ⊕ q | p ∧ q | p ∨ q |
+| --- | --- | --- | --- | --- | --- |
 | 1 | 1 | 0 | 0 | 1 | 1 |
 | 1 | 0 | 0 | 1 | 0 | 1 |
 | 0 | 1 | 1 | 1 | 0 | 1 |
@@ -2229,9 +2219,8 @@ Bee is using enumeration symbols: True = 1 and False = 0
 Bitwise operators are processing numbers not Boolean values.
 
 
-| Table |
-| --- |
-| symbol | meaning | notes |
+| Symbol | Meaning | Notes |
+| --- | --- | --- |
 | « | bit SHIFTL | shift bits to left |
 | » | bit SHIFTR | shift bits to right |
 | ~ | bit NOT | negate all bits |
@@ -2241,9 +2230,8 @@ Bitwise operators are processing numbers not Boolean values.
 
 
 
-| Table |
-| --- |
 | a | ~ a | a « 1 | a » 2 |
+| --- | --- | --- | --- |
 | 0000 | 1111 | 0000 | 0000 |
 | 1111 | 0000 | 1110 | 0011 |
 | 0111 | 1000 | 1110 | 0001 |
@@ -2251,9 +2239,8 @@ Bitwise operators are processing numbers not Boolean values.
 
 
 
-| Table |
-| --- |
 | a | b | a & b | a | b | a ⊕ b |
+| --- | --- | --- | --- | --- |
 | 00 | 00 | 00 | 00 | 00 |
 | 01 | 00 | 00 | 01 | 01 |
 | 11 | 01 | 01 | 11 | 10 |
@@ -2264,9 +2251,8 @@ Bitwise operators are processing numbers not Boolean values.
 ## String operators
 
 
-| Table |
-| --- |
 | Symbol | Description |
+| --- | --- |
 | * | string pattern repetition (right operator must be numeric) |
 | / | concatenate url or path using / not depending on OS |
 | + | concatenate two strings as they are preserving trial spaces. |
