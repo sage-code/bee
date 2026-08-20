@@ -216,8 +216,8 @@ rule main:
     print zum; -- expect [0,0,0,0,0,0,0,0,0,0]
 
     ** modify two special elements:
-    let zum.first  := 1;
-    let zum.last   := 10;
+    let zum[1]  := 1;
+    let zum[$]  := 10;
     print zum; -- expect [1,0,0,0,0,0,0,0,0,10]
 return;
 ```
@@ -269,7 +269,7 @@ rule main()
     ** modify matrix using ":=" operator
     let mat := [[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,16]]
     print mat[1,1]; -- 1  = first element
-    print mat[4,4]; -- 16 = last element
+    print mat[$,$]; -- 16 = last element
 
     ** support for 2D matrix literals
     pass if mat =  ⎡ 1,  2 , 3,  4 ⎤

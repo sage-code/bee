@@ -2186,6 +2186,7 @@ x != y; -- equivalent to: ¬(x = y)
 | ⊂ | Logic | Set is included in superset: "⊂" |
 | ⊃ | Logic | Set contain subset: "⊃" |
 | Δ | Set | Set symmetric difference |
+| $ | Index | Last element of a collection |
 | + | String | Concatenation between two strings |
 | + | List | Concatenation between two lists |
 | + | Array | Concatenation between two arrays |
