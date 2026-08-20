@@ -160,5 +160,6 @@ Producer Consumer Diagram
 - consumer is a worker that resolve a task given by the producer;
 - consumer is usually working on multiple threads;
 
-Read more:
-Graphics
+---
+
+[Go back](processing.md) | [Read next](graphics.md)

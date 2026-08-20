@@ -249,6 +249,7 @@ legend
 
 ## Planets
 
+This is a curiosity. Planets have symbols. Is a feature I have no intention to implement in the language but just in case here is a table:
 
 | Table |
 | --- |
@@ -265,6 +266,6 @@ legend
 | ♇ | Pluto |
 
 
+---
 
-Read next:
-System Library
+[Go back](concurrency.md) | [Read next](library.md)

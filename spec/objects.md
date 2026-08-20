@@ -396,6 +396,6 @@ Note: First element will have prior = Null. Last element will have next = Null. 
 Read next:
 Collections
 
+---
 
-Read next:
-Collections
+[Go back](functions.md) | [Read next](collections.md)

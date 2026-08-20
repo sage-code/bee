@@ -1,16 +1,12 @@
-
-# Bee Purpose
-
-
 # Bee Features
 
 
-Bee is a disruptive strange looking language that will bring Math notation into the source code. Bee has some uncommon keywords, operators and symbols. We have made an effort to maximize these features:
+Bee is a disruptive strange looking language that will bring Math notation into the source code. Bee has some uncommon keywords, operators and symbols.
 
 
 | Table |
-| --- |
-| # | Feature | How |
+| :--- | :--- |
+| # | Feature Name | How to Implement |
 | 0 | readable | use English keywords |
 | 1 | efficient | use native types |
 | 2 | safe | avoid invalid references |
@@ -135,5 +131,6 @@ We have try and failed to create a consistend language because the people who in
 - Bee use sigils: "$" for system variables. These are globals and we import all environment variables and configuration variables into the execution. Protecting these variables with a sigil is preventing overriding by mistake.
 - Bee use starting and ending keywords to define blocks of code, not curly brackets. This eliminate the nested bracket nightmares and improve visual aspect of the code. We can use brackets for data literals: ordinals, sets, hash tables and objects.
 
-Read next:
-Bee Syntax
+---
+
+[Go back](index.md) | [Read next](syntax.md)

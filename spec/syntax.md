@@ -2273,7 +2273,6 @@ Bitwise operators are processing numbers not Boolean values.
 | . | concatenate strings with "/" on Linux or "\" on Windows. |
 | ? | string format operator, replace "#" with number. |
 
+---
 
-
-Read next:
-Structure
+[Go back](features.md) | [Read next](structure.md)

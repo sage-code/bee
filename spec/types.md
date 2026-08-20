@@ -929,6 +929,6 @@ rule main:
 return
 ```
 
+---
 
-Read next:
-Control
+[Go back](structure.md) | [Read next](control.md)

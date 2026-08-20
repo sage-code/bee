@@ -1,6 +1,7 @@
 
 # Bee Functions
 
+Bee is a hybrid language, it has functional behaviour. In this chapter we ellaborate the functional aspects of Bee language.
 
 ## Lambda expressions
 
@@ -101,3 +102,7 @@ return
 
 Read next:
 Objects
+
+---
+
+[Go back](rules.md) | [Read next](objects.md)

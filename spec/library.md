@@ -220,7 +220,6 @@ Two data types must be available: File, Folder
 new file_name   := File.open('name','w');
 new folder_name := Folder.open('name');
 ```
+---
 
-
-Go back to:
-Bee Index
+[Go back](graphics.md)

@@ -1213,13 +1213,6 @@ Note: The text also support escape sequences like a normal string. However in a
 
 This was the Bee draft design for basic concepts. Thank you for reading it all. Our effort has merely begun. There is a lot of testing and developing ahead of us. Next chapter are advanced research topics, just some ideas. Don't read yet.
 
-Read next:
-Concurrency
+---
 
-
-Read next:
-Concurrency
-
-
-Read next:
-Concurrency
+[Go back](collections.md) | [Read next](concurrency.md)

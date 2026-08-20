@@ -897,5 +897,6 @@ It is up to you to log the messages in the final block,
 - There may be several errors recorded in a $trial.messages,
 - It is up to you to log the messages in the final block,
 
-Read next:
-Rules
+---
+
+[Go back](types.md) | [Read next](rules.md)
