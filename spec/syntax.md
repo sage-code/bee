@@ -77,8 +77,6 @@ Bee has a specific notation for block comments not used in any other language so
 Bee is an expressive language but it's core has about 72 reserved keywords so far:
 
 
-| Table |
-| --- |
 | begin | alias | and | apply | abort |
 | other | case | continue | done | default |
 | if | is | do | else | exit |
@@ -101,9 +99,8 @@ Bee is an expressive language but it's core has about 72 reserved keywords so fa
 ### Semantic keywords
 
 
-| Table |
-| --- |
 | Keyword | Purpose |
+| :--- | :--- |
 | if | conditional executor for one statement block |
 | is | query element or variable data type |
 | as | create alias for used modules |
@@ -121,77 +118,21 @@ Bee is an expressive language but it's core has about 72 reserved keywords so fa
 Statements can start with imperative keyword or a declarative keyword:
 
 
-| Table |
-| --- |
-| set | create a constant  
-new   create a variable  
-let   modify a variable  
-type  create a data type 
-read  accept input from console into a variable     
-write register in console cash a string             
-print output to console with end of new line | new | create a variable  
-let   modify a variable  
-type  create a data type 
-read  accept input from console into a variable     
-write register in console cash a string             
-print output to console with end of new line | let | modify a variable  
-type  create a data type 
-read  accept input from console into a variable     
-write register in console cash a string             
-print output to console with end of new line | type | create a data type 
-read  accept input from console into a variable     
-write register in console cash a string             
-print output to console with end of new line | read | accept input from console into a variable     
-write register in console cash a string             
-print output to console with end of new line | write | register in console cash a string             
-print output to console with end of new line | print | output to console with end of new line |
-| new | create a variable  
-let   modify a variable  
-type  create a data type 
-read  accept input from console into a variable     
-write register in console cash a string             
-print output to console with end of new line | let | modify a variable  
-type  create a data type 
-read  accept input from console into a variable     
-write register in console cash a string             
-print output to console with end of new line | type | create a data type 
-read  accept input from console into a variable     
-write register in console cash a string             
-print output to console with end of new line | read | accept input from console into a variable     
-write register in console cash a string             
-print output to console with end of new line | write | register in console cash a string             
-print output to console with end of new line | print | output to console with end of new line |
-| let | modify a variable  
-type  create a data type 
-read  accept input from console into a variable     
-write register in console cash a string             
-print output to console with end of new line | type | create a data type 
-read  accept input from console into a variable     
-write register in console cash a string             
-print output to console with end of new line | read | accept input from console into a variable     
-write register in console cash a string             
-print output to console with end of new line | write | register in console cash a string             
-print output to console with end of new line | print | output to console with end of new line |
-| type | create a data type 
-read  accept input from console into a variable     
-write register in console cash a string             
-print output to console with end of new line | read | accept input from console into a variable     
-write register in console cash a string             
-print output to console with end of new line | write | register in console cash a string             
-print output to console with end of new line | print | output to console with end of new line |
-| read | accept input from console into a variable     
-write register in console cash a string             
-print output to console with end of new line | write | register in console cash a string             
-print output to console with end of new line | print | output to console with end of new line |
-| write | register in console cash a string             
-print output to console with end of new line | print | output to console with end of new line |
-| print | output to console with end of new line |
-
-
 - One statement is usually indented 2 space,
 - One statement is usually described in a single line,
 - Multiple statements on a single line are separated with ";",
 - One expression in a statement can extend on multiple lines.
+
+| Key | Description |
+| :--- | :--- |
+| `set` | Create a constant |
+| `new` | Create a variable |
+| `let` | Modify a variable |
+| `type` | Create a data type |
+| `read` | Accept input from console into a variable |
+| `write` | Register in console cache a string |
+| `print` | Output to console with end of new line |
+
 
 ### Code blocks
 
@@ -199,9 +140,9 @@ print output to console with end of new line | print | output to console with en
 Statements can be contained in blocks of code.
 
 
-| Table |
-| --- |
+
 | Keyword | Block description |
+| :--- | :--- |
 | start | start local scope for do block |
 | with | qualifier suppression block |
 | if | first block in decision statement |
@@ -219,9 +160,8 @@ Statements can be contained in blocks of code.
 Next statements are used to declare new elements in a module.
 
 
-| Table |
-| --- |
 | Keyword | Purpose |
+| :--- | :--- |
 | use | Load module or module |
 | alias | Eliminate scope qualifier |
 | hide | Hiding public members from a loaded module |
@@ -236,9 +176,8 @@ Next statements are used to declare new elements in a module.
 Next keywords are simple statements. These represents actions called imperative statements.
 
 
-| Table |
-| --- |
 | Keyword | Purpose |
+| :--- | :--- |
 | apply | Execute a rule and ignore the result if there is one |
 | begin | Commence execution of a coroutine |
 | wait | Suspend current thread execution for a number of seconds |
@@ -256,9 +195,8 @@ Next keywords are simple statements. These represents actions called imperative 
 Control statements are used to create local blocks of code that resolve a small task synchronously. After task is finished the control is returned to the main thread.
 
 
-| Table |
-| --- |
 | Keyword | Purpose |
+| :--- | :--- |
 | start | Create non repetitive local scope |
 | if | Start a conditional branch |
 | else | Start an alternative branch |
@@ -283,9 +221,8 @@ Control statements are used to create local blocks of code that resolve a small 
 These statements execute a jump or make an interruption of current thread.
 
 
-| Table |
-| --- |
 | Keyword | Purpose |
+| :--- | :--- |
 | panic | Create unrecoverable error code and stop current program |
 | over | Silent termination of program. No error is raised in this case. |
 | exit | Silently stop execution of current rule and return to the caller |
@@ -336,50 +273,46 @@ yₐ yₑ yₕ yᵢ yⱼ yₖ yₗ yₘ yₙ yₒ yₚ yᵣ yₛ yₜ yᵤ yᵥ 
 
 
 Bee has support for exponent using superscript. You can make any integer exponent including negative numbers but you can not use dot or fraction in the exponent.
-
+```
 x⁺ x⁻ x¹ x² x³ x⁴ x⁵ x⁶ x⁷ x⁸ x⁹ x¹⁰
+```
+Note:
 
-Note: 
 Symbol (^) is exponent operator and is not required when you use superscript exponent. You can use it with expressions, constants or rational numbers to resolve the exceptional cases.
 Lowercase exponent:
 Identifiers that start with a lowercase Latin letter can be used as exponent. The superscript variable can start with a letter and can also use numbers.
-
+```
 yᵃ yᵇ yᶜ yᵈ yᵉ yᶠ yᵍ yʰ yⁱ yʲ yᵏ yᶩ 
 yᵐ yⁿ yᵒ yᵖ yʳ yˢ yᵗ yᵘ yᵛ yʷ yˣ yʸ yᶻ
-
+```
 Uppercase exponent:
 If you define a constant or variable that start with capital letter there may be some issues. You can't use all Latin letters or any Greek or Cyrilic capital letters in exponent. So your options are limited to create uppercase exponents.
-
+```
 zᴬ zᴮ zᴰ zᴱ zᴲ zᴳ zᵸ zᴵ zᴶ zᴷ zᴸ 
 zᴹ zᴺ zᴻ zᴼ zᴾ zᴿ zᵀ zᵁ zᵂ
-
+```
 
 Caution: Observe letters: {C, F ,S ,Q} are missing. So if you define a constant that use any of these letters, you will need symbol (^) to create exponent.
 Variable declarations
 In Bee, all variables must be declared using an imperative statement. Variables can be dynamic or static and can have a data type. Data type can be custom or pre-defined.
 
 
-type
-declare custom data type
+type - declare custom data type
+new  - declare a dynamic variable
+set  - declare a static variable
 
 
-new
-declare a dynamic variable
+**Expressions:**
 
-
-set
-declare a static variable
-
-
-Expressions
 Expressions are created using identifiers, operators, rules and constant literals. Expressions can be anonymous or can be assigned to identifiers to create lambda expressions.
 expressions ...
 
-can use () to establish order of operations,
-can be enumerated using comma separator "," in a list,
-can be combined to create more complex expressions,
+* can use () to establish order of operations,
+* can be enumerated using comma separator "," in a list,
+* can be combined to create more complex expressions,
 
-Examples
+**Examples**
+```
 ** expressions
 print 10
 print 10 + 10 + 15
@@ -406,16 +339,18 @@ Note: Previous statement is executed only if the condition is True.
 
 ** alternative expression
   expect condition else expression;
+```
 
 Note: Previous statement is executed only if the condition is False.
+
 restrictions:
 
-Can not use "if" with set statement;
-Can not use "if" with new statement;
-Can not use "if" after done;
+* Can not use "if" with set statement;
+* Can not use "if" with new statement;
+* Can not use "if" after done;
 
-Example:
-
+**Example:**
+```
 rule main:
   ** generate a random number
   new a := random(Z);
@@ -427,29 +362,32 @@ rule main:
   ** print result
   print "|b| = ", a;
 return;
+```
 
-Operations:
+**Operations:**
 Bee has support for fractions. Bee is using regular slash "/" for all fractions. You can use superscript for left and subscript for right: These two are equivalent (1/2 = ¹/₂). Unfortunately we can not support fractional power due to lower readability.
-
+```
 ¹/₂ ¹/₃ ¹/₄ ¹/₅ ¹/₆ ¹/₇ ¹/₈ ¹/₉  ¹/₁₀ ¹/₁₀₀
 x⁻¹ = 1/x, x⁻² = 1/x², x⁻³ = 1/x³ ...
-
+```
 Power operations have priority but we have support only for (+, -) no other operations are possible in exponent. In next expressions, (n-1) is done first before making the power operation.
-
--- equivalent notation
+```
+** equivalent notation
 xⁿ⁻¹ = x^(n-1)
 xˣ⁺¹ = x^(n+1)
 
--- equivalent  notation
+** equivalent  notation
 x^(¹/₂) = √2(x)  
 x^(¹/₃) = √3(x) 
-
+```
 
 Note:In expressions above () symbols are mandatory. The compiler will detect missing paranthesis and will ask for it. This will improve code readability and eliminate confusions.
-Pattern Matching
-Instead of ternary operator we use conditional expressions. Conditional expressions enable many choices unlike ternary operator that enable only 2 choices. Conditional expressions are also known as pattern matching expressions.
-Syntax:
 
+### Pattern Matching
+Instead of ternary operator we use conditional expressions. Conditional expressions enable many choices unlike ternary operator that enable only 2 choices. Conditional expressions are also known as pattern matching expressions.
+
+**Syntax:**
+```
 rule main:
   ** define a local variable
   new var ∈ type;
@@ -467,8 +405,11 @@ rule main:
                xp
               );
 return;
+```
 
 Example:
+
+```
 rule main:
    new x := '0'; -- symbol
    write "x:"
@@ -480,8 +421,9 @@ rule main:
 
    print ("x is " + kind); -- expect: "x is digit"
 return;
+```
 
-Operators
+## Operators
 Bee operators are ASCII or Unicode symbols. One operator can be created using one or two characters. This is why Bee language is considered experimental, esoteric & disruptive.
 Delimiters
 
@@ -2008,182 +1950,169 @@ Bee operators are ASCII or Unicode symbols. One operator can be created using on
 
 ## Delimiters
 
-
 | Symbol | Description |
-| --- | --- |
-| +-...-+ | Multi-line boxed comments |
-| #(....) | String interpolation (placeholder) for operator "?" |
-| (_,_,_) | Expression | List literal |
-| [_,_,_] | Index | Array literals | Parameterize types |
-| {_,_,_} | Enumeration type | Set of values | Hash map |
+| :--- | :--- |
+| `+-...-+` | Multi-line boxed comments |
+| `#(....)` | String interpolation (placeholder) for operator "?" |
+| `(_,_,_)` | Expression | List literal |
+| `[_,_,_]` | Index | Array literals | Parameterize types |
+| `{_,_,_}` | Enumeration type | Set of values | Hash map |
 
 
 
 ## Strings
 
 
+## Strings
+
 | Symbol | Description |
-| --- | --- |
+| :--- | :--- |
 | `x` | Back quoted string: regular expression. |
-| 'x' | Single quoted string literal or ASCII code point |
-| "y" | Double quoted string literal or UTF32 code point |
+| `'x'` | Single quoted string literal or ASCII code point |
+| `"y"` | Double quoted string literal or UTF32 code point |
 
 
 
 ## Single Symbols
 
-
 | Symbol | Description |
-| --- | --- |
-| ! | Negation symbol for relations | Excluded from domain |
-| ? | Template modifier. Associated with string templates |
-| * | String replication | Varargs prefix | Spread operator | Many something |
-| @ | Domain name | Example @sagecode.net |
-| $ | System constant | Environment variables |
-| & | String concatenation | number concatenation |
-| # | Title | String interpolation |
-| ∈ | Define variable/constant/result/parameter type |
-| _ | Anonymous variable | Constant value = one space (_ = ' ') |
-| + | Maximum upper limit for a domain | Unicode notation U+ |
-| - | Minimum lower limit in a domain | Unicode notation U- |
-| : | Start a block or define something |
-| : | Pair-up key-value in: objects, rule parameters, rule arguments, hash-map pairs |
-| ; | End of statement | Statement separator |
-| . | Decimals for real numbers | Path string concatenation |
-| . | Membership dot notation | Prefix for public member/attribute |
-| , | Enumeration of elements | expressions |
-| \| | Declarative collection builder: set := { x*2 \| x ∈ (0..3)} |
-| \ | Escape character (\n := New Line), (\" = Double Quotes) |
+| :--- | :--- |
+| `!` | Negation symbol for relations | Excluded from domain |
+| `?` | Template modifier. Associated with string templates |
+| `*` | String replication | Varargs prefix | Spread operator | Many something |
+| `@` | Domain name | Example @sagecode.net |
+| `$` | System constant | Environment variables |
+| `&` | String concatenation | number concatenation |
+| `#` | Title | String interpolation |
+| `∈` | Define variable/constant/result/parameter type |
+| `_` | Anonymous variable | Constant value = one space (_ = ' ') |
+| `+` | Maximum upper limit for a domain | Unicode notation U+ |
+| `-` | Minimum lower limit in a domain | Unicode notation U- |
+| `:` | Start a block or define something |
+| `:` | Pair-up key-value in: objects, rule parameters, rule arguments, hash-map pairs |
+| `;` | End of statement | Statement separator |
+| `.` | Decimals for real numbers | Path string concatenation |
+| `.` | Membership dot notation | Prefix for public member/attribute |
+| `,` | Enumeration of elements | expressions |
+| `\|` | Declarative collection builder: set := { x*2 \| x ∈ (0..3)} |
+| `\` | Escape character (\n := New Line), (\" = Double Quotes) |
 
 
 
 ## Numeric operators
 
-
 Listed in the order of precedence top down.
 
-
 | Symbol | Description |
-| --- | --- |
-| - | Change sign, replace "y = -x" with "y = -1*x" |
-| / | Rational number division |
-| ^ | Power symbol used with fractions or expressions |
-| √ | Radical: x√n is equivalent to x^(1/n) |
-| * | Multiplication alternative |
-| \ | Rational number division |
-| / | Real number division |
-| × | Array multiplication | Matrix multiplication |
-| % | Modulo operator 5 % 2 = 2 |
-| + | Numeric addition | List append | Matrix addition |
-| - | Numeric subtraction | Collection difference |
-| ± | Numeric tolerance (use with ≈) |
+| :--- | :--- |
+| `-` | Change sign, replace "y = -x" with "y = -1*x" |
+| `/` | Rational number division |
+| `^` | Power symbol used with fractions or expressions |
+| `√` | Radical: x√n is equivalent to x^(1/n) |
+| `*` | Multiplication alternative |
+| `\` | Rational number division |
+| `/` | Real number division |
+| `×` | Array multiplication | Matrix multiplication |
+| `%` | Modulo operator 5 % 2 = 2 |
+| `+` | Numeric addition | List append | Matrix addition |
+| `-` | Numeric subtraction | Collection difference |
+| `±` | Numeric tolerance (use with ≈) |
 
 
 
 ## Double Symbols
 
-
 Double symbols is a group of two ASCII symbols considered as one. Some of these symbols have an Unicode equivalent, some do not. When available, Unicode equivalent is preferred choice.
 
-
 | Symbol | Description |
-| --- | --- |
-| -- | End of line comments (not in expression) |
-| ## | Single line subtitle comments (no indentation) |
-| ** | Single line comments (allow indentation) |
-| .. | Define range/domain/slice (n..m) | [n..m] |
-| .! | Define range/domain with excluded limit (n.!m) | [n.!m] |
-| !. | Define range/domain with excluded limit (n!.m) | [n.!m] |
-| !! | Define range/domain with excluded limits: (n!!m) | [n.!m] |
-| -. | Minus infinite domain: instead of [-∞..0] write: [-..0] |
-| .+ | Plus infinite domain: instead of [0..+∞] write: [0..+] |
-| => | Define: rule expression | rule result |
-| <- | Define and generate values in a loop from range or set |
-| <: | Define subset from set | Specify super-type for a new type |
-| :> | Data cast pipeline operator / Type conversion |
-| << | Shift values of collection to right by removing first elements |
-| >> | Shift values of collection to left by removing first elements |
-| :: | Deep copy | Clone operator |
-| ++ | Extend an array with one or more elements |
-| -= | Find and delete one element, from a collection |
-| +> | Append element to beginning of a list |
-| <+ | Append element to end of a list |
-| ~= | Relation operator: regular expression match |
-| >= | Relation operator: greater then or equal to |
-| <= | Relation operator: less then or equal to |
+| :--- | :--- |
+| `--` | End of line comments (not in expression) |
+| `##` | Single line subtitle comments (no indentation) |
+| `**` | Single line comments (allow indentation) |
+| `..` | Define range/domain/slice (n..m) | [n..m] |
+| `.!` | Define range/domain with excluded limit (n.!m) | [n.!m] |
+| `!.` | Define range/domain with excluded limit (n!.m) | [n.!m] |
+| `!!` | Define range/domain with excluded limits: (n!!m) | [n.!m] |
+| `-.` | Minus infinite domain: instead of [-∞..0] write: [-..0] |
+| `.+` | Plus infinite domain: instead of [0..+∞] write: [0..+] |
+| `=>` | Define: rule expression | rule result |
+| `<-` | Define and generate values in a loop from range or set |
+| `<:` | Define subset from set | Specify super-type for a new type |
+| `:>` | Data cast pipeline operator / Type conversion |
+| `<<` | Shift values of collection to right by removing first elements |
+| `>>` | Shift values of collection to left by removing first elements |
+| `::` | Deep copy | Clone operator |
+| `++` | Extend an array with one or more elements |
+| `-=` | Find and delete one element, from a collection |
+| `+>` | Append element to beginning of a list |
+| `<+` | Append element to end of a list |
+| `~=` | Relation operator: regular expression match |
+| `>=` | Relation operator: greater then or equal to |
+| `<=` | Relation operator: less then or equal to |
 
 
 
 ## Modifiers
 
-
 Each modifier is created with pattern "x=" where x is a single symbol:
 
-
 | Symbol | Meaning |
-| --- | --- |
-| := | Modify | (value | reference) |
-| += | Increment value |
-| -= | Decrement value |
-| *= | Multiplication modifier |
-| /= | Real division modifier |
-| ^= | Power modifier |
-| √= | Radical modifier |
-| %= | Modulo modifier |
+| :--- | :--- |
+| `:=` | Modify | (value | reference) |
+| `+=` | Increment value |
+| `-=` | Decrement value |
+| `*=` | Multiplication modifier |
+| `/=` | Real division modifier |
+| `^=` | Power modifier |
+| `√=` | Radical modifier |
+| `%=` | Modulo modifier |
 
 
 
 ## Relation Operators
 
-
 Relation operators are used to compare expressions.
 
-
 | Symbol | Meaning |
-| --- | --- |
-| ∈ | check if element belong to collection |
-| = | equal { compare values or attributes} |
-| ≠ | different { compare values or attributes} |
-| ≡ | equivalent | { compare values / convert type } |
-| ≈ | approximating equal numbers, used with ± like: (x ≈ 4 ± 0.25) |
-| > | value is greater than: (2 > 1) |
-| < | value is less than: (1 < 2) |
-| ≥ | greater than or equal to |
-| ≤ | less than or equal to |
+| :--- | :--- |
+| `∈` | check if element belong to collection |
+| `=` | equal { compare values or attributes} |
+| `≠` | different { compare values or attributes} |
+| `≡` | equivalent | { compare values / convert type } |
+| `≈` | approximating equal numbers, used with ± like: (x ≈ 4 ± 0.25) |
+| `>` | value is greater than: (2 > 1) |
+| `<` | value is less than: (1 < 2) |
+| `≥` | greater than or equal to |
+| `≤` | less than or equal to |
 
+Negation:
 
-
-negation:
-
-
-Operator: "!" can be used in combination with other operators:
-
+Operator "!" can be used in combination with other operators:
 
 ```
-x != y; -- equivalent to: ¬(x = y)
- x !≡ y; -- equivalent to: ¬(x ≡ y)
- x !∈ y; -- equivalent to: ¬(x ∈ y)
- x !≈ y; -- equivalent to: ¬(x ≈ y)
- x !~ y; -- equivalent to: ¬(x ~ y)
+x != y;  -- equivalent to: ¬(x = y)
+x !≡ y;  -- equivalent to: ¬(x ≡ y)
+x !∈ y;  -- equivalent to: ¬(x ∈ y)
+x !≈ y;  -- equivalent to: ¬(x ≈ y)
+x !~ y;  -- equivalent to: ¬(x ~ y)
 ```
 
 
 ## Collection operators
 
-
 | Symbol | Result | Meaning |
-| --- | --- | --- |
-| ∩ | Set | Intersection between two collections |
-| ∪ | Set | Union between two collections |
-| ⊂ | Logic | Set is included in superset: "⊂" |
-| ⊃ | Logic | Set contain subset: "⊃" |
-| Δ | Set | Set symmetric difference |
-| $ | Index | Last element of a collection |
-| + | String | Concatenation between two strings |
-| + | List | Concatenation between two lists |
-| + | Array | Concatenation between two arrays |
-| ∀ | Element | All: used in collection qualification |
-| ∃ | Logic | One: used in collection qualification |
+| :--- | :--- | :--- |
+| `∩` | Set | Intersection between two collections |
+| `∪` | Set | Union between two collections |
+| `⊂` | Logic | Set is included in superset: "⊂" |
+| `⊃` | Logic | Set contain subset: "⊃" |
+| `Δ` | Set | Set symmetric difference |
+| `$` | Index | Last element of a collection |
+| `+` | String | Concatenation between two strings |
+| `+` | List | Concatenation between two lists |
+| `+` | Array | Concatenation between two arrays |
+| `∀` | Element | All: used in collection qualification |
+| `∃` | Logic | One: used in collection qualification |
 
 
 
