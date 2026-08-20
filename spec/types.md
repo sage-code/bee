@@ -826,7 +826,7 @@ Next I have predefined some numbers for orientation.
 
 | Table |
 | --- |
-| rezolution -> | 1\4 ≈ | 1\8 ≈ | 1\16 ≈ | 1\32 ≈ | 1\64 ≈ |
+| rezolution | 1\4 ≈ | 1\8 ≈ | 1\16 ≈ | 1\32 ≈ | 1\64 ≈ |
 | ↓ memory space | ±0.25 | ±0.125 | ±0.062 | ±0.031 | ±0.015 |
 | 8 bytes | Q(5.2 ) | Q(4.3 ) | Q(3.4 ) | Q(2.5 ) | Q(1.6 ) |
 | 16 bytes | Q(13.2 ) | Q(12.3 ) | Q(11.4 ) | Q(10.5 ) | Q(9.6  ) |
