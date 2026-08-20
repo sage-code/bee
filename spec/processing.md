@@ -326,8 +326,8 @@ Anonymous slicing notation can be used to extract or modify specific elements fr
 start:
   new a:= [0,1,2,3,4,5,6,7,8,9];
 do
-  print a[1..-1];  -- will print [0,1,2,3,4,5,6,7,8,9]
-  print a[-3..-1]; -- will print [7,8,9]
+  print a[1..$];   -- will print [0,1,2,3,4,5,6,7,8,9]
+  print a[$-2..$]; -- will print [7,8,9]
   print a[1..1];   -- will print [0]
   print a[1..4];   -- will print [1,2,3,4]
 
@@ -360,7 +360,7 @@ do
   print a; -- [1,1,1,2,2]
 
   ** modify last 2 elements using anonymous slicing
-  let a[-2..-1] := [2,3];
+  let a[$-1..$] := [2,3];
   print a; -- [1,1,1,2,3]
 done;
 ```
