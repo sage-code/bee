@@ -61,7 +61,6 @@ This document enumerates the operators available in the Bee language, categorize
 | Symbol | Description |
 | :--- | :--- |
 | `--` | End of line comments (not in expression) |
-| `**` | Single line comments (allow indentation) |
 | `..` | Define range/domain/slice (n..m) | [n..m] |
 | `.!` | Define range/domain with excluded limit (n.!m) | [n.!m] |
 | `!.` | Define range/domain with excluded limit (n!.m) | [n.!m] |
