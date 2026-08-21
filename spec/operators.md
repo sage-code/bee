@@ -141,7 +141,7 @@ This document enumerates the operators available in the Bee language, categorize
 | `»` | bit SHIFTR | shift bits to right |
 | `~` | bit NOT | negate all bits |
 | `&` | bit AND | execute AND between each bits |
-| `|` | bit OR | execute OR between each bits |
+| `\|` | bit OR | execute OR between each bits |
 | `⊕` | bit XOR | execute XOR between each bits |
 
 ## String Operators
@@ -153,3 +153,7 @@ This document enumerates the operators available in the Bee language, categorize
 | `-` | concatenate two strings and trim spaces to a single space. |
 | `.` | concatenate strings with "/" on Linux or "\" on Windows. |
 | `?` | string format operator, replace "#" with number. |
+
+---
+
+[Go back](syntax.md) | [Read next](structure.md)

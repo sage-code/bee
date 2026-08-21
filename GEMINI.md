@@ -9,3 +9,10 @@
 - Never execute parallel or rapid-fire requests.
 
 If you create a Python script that call Gemini API use time.sleep(10) in Python or sleep 10 in Bash to slow down execution for each API call. If the call process a file increase the sleep time proportional with file size up to 2 minutes.
+
+- Use correct md table alligniation for easy code readability. Here is an example:
+
+| DEC | HEX  | CODE| NAME           |
+| :---| :--- | :---| :---           |
+| 00  | 0x00 | $NL | Null           |
+| 08  | 0x08 | $BS | Backspace      |

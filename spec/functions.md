@@ -98,11 +98,6 @@ rule main:
    print foo(2,3,(x,y)=> x/y); -- 1.5 
 return
 ```
-
-
-Read next:
-Objects
-
 ---
 
 [Go back](rules.md) | [Read next](objects.md)

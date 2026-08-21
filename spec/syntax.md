@@ -228,13 +228,12 @@ These statements execute a jump or make an interruption of current thread.
 | done | end a block statement |
 | repeat | end a repetitive block |
 
+## Identifiers
+
+Bee identifiers (names), can start with Latin letters. An identifier can contain numbers but can not start with a number and can't use spaces inside. Bee is Unicode language but does not permit Unicode identifiers for a good reason: Unicode characters are hard to find and select. 
 
 
-Bee identifiers can start with dolar ($), dot (.), underscore (_), Latin, Greek, Chyrillic. An identifier can contain numbers but can not start with a number.
-
-
-In mathematics is very popular notation for angles to use Greek letters. We support in Bee a limited number of Greek an Cyrillic letters for identifiers:
-
+In mathematics is very popular notation for angles to use Greek letters. Bee will support a limited set of Greek an Cyrillic letters for identifiers. We include these letters on the Bee keyboard design for easy access. 
 
 ```
 Σ Π Δ Ξ Γ Ψ Ω ζ
@@ -243,49 +242,63 @@ In mathematics is very popular notation for angles to use Greek letters. We supp
 ```
 
 
-### Subscript:
+### Subscript
 
 
-You can use a limited number of letters and numbers available in Unicode as subscript to make identifier names. You can not start an identifier with one of these symbols and you can't add other symbols that are not subscript after a subscript:
+You can use a limited number of letters and numbers available in Unicode as subscript. If used these are permited to make identifier names in second and next positions but not first postion. You can not start an identifier with one of these symbols:
 
+**examples**
 
 ```
 x₀ x₁ x₂ x₃ x₄ x₅ x₆ x₇ x₈ x₉ x₁₀
-yₐ yₑ yₕ yᵢ yⱼ yₖ yₗ yₘ yₙ yₒ yₚ yᵣ yₛ yₜ yᵤ yᵥ yₓ
+aₐ eₑ hₕ iᵢ jⱼ kₖ lₗ mₘ nₙ oₒ pₚ rᵣ sₛ tₜ uᵤ vᵥ zₓ
 ```
 
+**restrictions**
 
-### Superscript:
+* subscript symbol must be last letter in identifier
+* after first subscript, next symbols can be only subscript
+* not all letters in latin alphabet have a subscript unfortunately
 
 
-Bee has support for exponent using superscript. You can make any integer exponent including negative numbers but you can not use dot or fraction in the exponent.
+### Superscript
+
+Bee has support for exponent using superscript. You can make any integer exponent including negative numbers but you can not use dot in the exponent. Here are some examples permitted:
 ```
 x⁺ x⁻ x¹ x² x³ x⁴ x⁵ x⁶ x⁷ x⁸ x⁹ x¹⁰
 ```
 **Note:**
 
 Symbol (^) is exponent operator and is not required when you use superscript exponent. You can use it with expressions, constants or rational numbers to resolve the exceptional cases.
-Lowercase exponent:
-Identifiers that start with a lowercase Latin letter can be used as exponent. The superscript variable can start with a letter and can also use numbers.
+
+**Lowercase exponent:**
+
+Identifiers can be used as exponent. The superscript variable can start with a letter and can also use numbers. An exponent therefore can be a number or a variable or a constant recognized by Bee and replaced by it's value.
 ```
-yᵃ yᵇ yᶜ yᵈ yᵉ yᶠ yᵍ yʰ yⁱ yʲ yᵏ yᶩ 
-yᵐ yⁿ yᵒ yᵖ yʳ yˢ yᵗ yᵘ yᵛ yʷ yˣ yʸ yᶻ
+aᵃ bᵇ cᶜ dᵈ eᵉ fᶠ gᵍ hʰ iⁱ jʲ kᵏ lᶩ 
+mᵐ nⁿ oᵒ pᵖ rʳ sˢ tᵗ uᵘ vᵛ wʷ xˣ yʸ zᶻ
 ```
+
+**restrictions**
+* there is limited support for expressions
+* only 3 expressions are permited in superscript (+, -, /)
 
 **Uppercase exponent:**
 
 If you define a constant or variable that start with capital letter there may be some issues. You can't use all Latin letters or any Greek or Cyrilic capital letters in exponent. So your options are limited to create uppercase exponents.
 
 ```
-zᴬ zᴮ zᴰ zᴱ zᴲ zᴳ zᵸ zᴵ zᴶ zᴷ zᴸ 
-zᴹ zᴺ zᴻ zᴼ zᴾ zᴿ zᵀ zᵁ zᵂ
+Aᴬ Bᴮ Dᴰ Eᴱ Eᴲ Gᴳ Hᵸ Iᴵ Jᴶ Kᴷ Lᴸ 
+Mᴹ Nᴺ Nᴻ Oᴼ Pᴾ Rᴿ Tᵀ Uᵁ Wᵂ
 ```
 
-**Caution:** Observe letters: {C, F ,S ,Q} are missing. So if you define a constant that use any of these letters, you will need symbol (^) to create exponent.
+**Caution:** Observe letters: {C, F ,S ,Q, X, Y, Z} are missing unfortunately. We just don't find them in Uncode set. I think this is a Unicode bug. So if you define a constant that use any of these letters, you will need symbol (^) to create exponent instead of superscript.
+
+All exponents will be replaced with variable value. For example if a variable A has value 3, the expression Aᴬ becomes 9, because 3^3 = 9. 
 
 **Variable declarations**
 
-In Bee, all variables must be declared using an imperative statement. Variables can be dynamic or static and can have a data type. Data type can be custom or pre-defined.
+In Bee, all variables must be declared using an imperative statement Variables can be dynamic or static and can have a data type. Data type can be custom or pre-defined.
 
 
 * type - declare custom data type
@@ -311,11 +324,14 @@ print "this is a test"
 
 ** complex expressions
 print (10 > 5) ∨ (2 < 3)
-print -b + sqr(b² - 4·a·b)/(2·a)
+print -b + sqr(b² - 4*a*b)/(2*a)
 
 ** enumeration of expressions
 print (1,2,3)
 print (1,',',2,',',3)
+```
+
+**Note:** Mathematical expressions use the middle dot "·" for multiplication, whereas computer science uses `*`. This convention was established long ago, and we will continue the tradition here rather than being brave. On this one, we chose to be cowards.
 
 ## Conditional Execution
 
@@ -324,8 +340,9 @@ A condition is a logic expression used to control statement execution. For this 
 ** conditional statement execution
 statement if condition;
 
-Note: Previous statement is executed only if the condition is True.
+**Note:** Previous statement is executed only if the condition is True.
 
+```
 ** alternative statement 
   expect condition else statement;
 
@@ -358,12 +375,33 @@ return;
 
 **Operations:**
 
-Bee has support for fractions. Bee is using regular slash "/" for all fractions. You can use superscript for left and subscript for right: These two are equivalent (1/2 = ¹/₂). Unfortunately we can not support fractional power due to lower readability.
+Bee has support for fractional power. Bee is using regular slash "/" for all fractions. You can use superscript for left and subscript for right: These two are equivalent 1/2 = (¹/₂). Using ^() when we create fractional power expressions is mandatory. For example:
+
 ```
-¹/₂ ¹/₃ ¹/₄ ¹/₅ ¹/₆ ¹/₇ ¹/₈ ¹/₉  ¹/₁₀ ¹/₁₀₀
-x⁻¹ = 1/x, x⁻² = 1/x², x⁻³ = 1/x³ ...
+x^(¹/₂)  
+x^(¹/₆) 
+x^(¹/₁₀)
 ```
-Power operations have priority but we have support only for (+, -) no other operations are possible in exponent. In next expressions, (n-1) is done first before making the power operation.
+
+**negative power**
+
+```
+x⁻¹ = 1/x¹ 
+x⁻² = 1/x² 
+x⁻³ = 1/x³
+```
+**expressions power**
+
+```
+new n := 3;   -- define new variable to be used as exponent 
+new y := 2ⁿ⁻¹; -- expression n-1 is evaluated first to 3 then power 
+expect y = 4; 
+```   
+
+
+**priority:**
+
+Power operations have priority but we have support only for (+, -) no other operations are possible in exponent expressions. In next expressions, (n-1) is evaluated first before making the power operation.
 ```
 ** equivalent notation
 xⁿ⁻¹ = x^(n-1)
@@ -374,7 +412,7 @@ x^(¹/₂) = √2(x)
 x^(¹/₃) = √3(x) 
 ```
 
-Note:In expressions above () symbols are mandatory. The compiler will detect missing paranthesis and will ask for it. This will improve code readability and eliminate confusions.
+**Note:** The compiler will detect missing paranthesis and missing carot symbol "^" and will signal error. This will improve code readability and eliminate confusions. Using "^" enable complex expressions inclusiv fraction exponent.
 
 ### Pattern Matching
 Instead of ternary operator we use conditional expressions. Conditional expressions enable many choices unlike ternary operator that enable only 2 choices. Conditional expressions are also known as pattern matching expressions.
@@ -405,7 +443,7 @@ Example:
 ```
 rule main:
    new x := '0'; -- symbol
-   write "x:"
+   write "x:";
    read   x;
 
    new kind := ("digit"  if x ∈ ['0'..'9'] else
@@ -418,4 +456,4 @@ return;
 
 ---
 
-[Go back](features.md) | [Read next](structure.md)
+[Go back](features.md) | [Read next](operators.md)
