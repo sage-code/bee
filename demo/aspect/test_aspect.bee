@@ -1,8 +1,0 @@
-# declare module name
-aspect test_aspect:
-
-# define a public rule
-rule .main(t ∈ Z) => (r ∈ N):
-  alter r := t; --prepare the result
-  wait t;       --wait for t seconds
-return;

@@ -1,22 +1,18 @@
-# Style of comment
-+----------------------------------
- Bee has support for:
-   ** Single line comments
-   -- End of line comments
-   |: Nested comments     :|
-   |: Expression comments :|
-   |: Debug-code comments :|
-----------------------------------+
-
-## rule
+-- Style of comments
++-----------------------------------
+| Bee has support for:             |
+|   -- Single line comments        |
+|   -- End of line comments        |
++----------------------------------+
+-- entry point (line comment)
 rule main:
-  ** Single line comment
+  -- single line comment
   pass; -- end of line comment
   ...
 
-  ** Expression comments
-print ("comments     |: expression:|
-        are working  |: comments  :|
-        in strings"  |: are useful:|
-        ); 
+-- comments in expressions
+print ("comments     -- end of line
+        are working  -- comments
+        in strings"  -- are useful
+        );
 return;

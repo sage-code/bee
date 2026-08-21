@@ -27,7 +27,7 @@ This document enumerates the operators available in the Bee language, categorize
 | `@` | Domain name | Example @sagecode.net |
 | `$` | System constant | Environment variables |
 | `&` | String concatenation | number concatenation |
-| `#` | Title | String interpolation |
+| `#` | String interpolation (value placeholder) |
 | `∈` | Define variable/constant/result/parameter type |
 | `_` | Anonymous variable | Constant value = one space (_ = ' ') |
 | `+` | Maximum upper limit for a domain | Unicode notation U+ |
@@ -61,7 +61,6 @@ This document enumerates the operators available in the Bee language, categorize
 | Symbol | Description |
 | :--- | :--- |
 | `--` | End of line comments (not in expression) |
-| `##` | Single line subtitle comments (no indentation) |
 | `**` | Single line comments (allow indentation) |
 | `..` | Define range/domain/slice (n..m) | [n..m] |
 | `.!` | Define range/domain with excluded limit (n.!m) | [n.!m] |

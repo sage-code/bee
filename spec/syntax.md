@@ -13,13 +13,13 @@ We use examples and sometimes a simplified version of BNF notation to explain th
 
 ## Comments
 
-Comments are very important part of Bee code. We have multiple conventions for making good comments for any project. Bee comments are tailored by architectural principle: "if there are no comments in the code the code is wrong."
+Comments are very important part of Bee code. We have multiple conventions for making good comments for any project. Bee comments are tailored by architectural principle: "usually if there are no comments in the code the code is wrong."
 
 **Example:**
 
 
 ```
-# Bee Language Syntax Example
+              ** Bee Language Syntax Example **
 +------------------------------------------------------------------
 | At the beginning of program you can have  several comments,     |
 | to explain how the program works. This notation is preferred.   |
@@ -39,9 +39,7 @@ return;
 *******************************************************************
 ```
 
-
-For single line title comments we use one "#" symbol. You can use two "##" for subtitles for large code sections. This can be used in combination with "!" to create "shebang" comment known in scripting languages on Linux to specify interpreter location. This is in case someone create an interpreter for Bee. We plan to create a compiler where such a comment is useless. 
-
+** Single line comment **
 
 For single line comments we use two stars like this: "**", there is a catch single line comments can't be also end of line comments. For end of line we use -- comments.
 
