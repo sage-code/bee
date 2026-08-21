@@ -5,7 +5,7 @@ use $lib.graphic.core.(test);
 
 -- two points and two vectors
 (p1, p2) ∈ ⊡; -- graphic point
-(v1, v2) ∈ ↗; -- graphic vector
+(v1, v2) ∈ ↗;  -- graphic vector
 
 rule main:
   -- setup the points

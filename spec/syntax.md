@@ -13,37 +13,36 @@ We use examples and sometimes a simplified version of BNF notation to explain th
 
 ## Comments
 
-Comments are very important part of Bee code. We have multiple conventions for making good comments for any project. Bee comments are tailored by architectural principle: "usually if there are no comments in the code the code is wrong."
+We have two conventions for making good comments for any project, inspired from Ada language. Bee comments are tailored by architectural principle: "Code without comments is wrong."
 
 **Example:**
 
 
-```-- Bee Language Syntax Example **
+```          
+-------------------------------------------------------------------
+                  -- Bee Language Syntax Example --
 +------------------------------------------------------------------
 | At the beginning of program you can have  several comments,     |
 | to explain how the program works. This notation is preferred.   |
 +-----------------------------------------------------------------+
 rule main:
-  continue; -- this statement does nothing
--- this is a single line comment
+  -- next statement ";" does nothing is an emtpy statement
+  ; 
+  -- next statement demonstrate end of line comments in arguments
   print ("end of line comments",    -- first argument
          "can be used to explain",  -- second argument
          "diverse arguments"        -- third argument
         );
 return;
-*******************************************************************
--- This is the old style boxed comment, used for matrix printers **
--- In Bee you can add comments/notes at the end of your code     **
-*******************************************************************
 ```
 
 ** Single line comment **
 
-For single line comments we use two stars like this: "**", there is a catch single line comments can't be also end of line comments. For end of line we use -- comments.
+For single line comments we use two stars like this: "--"
 
-- This comment can be extended to multiple stars to create a separator,
+- This comment can be extended to multiple lines to create a separator,
 - You can use single line comment at beginning of new line,
-- You can use two spaces to indent the comment and align with the code.
+- You can use indentation the comment a line and align with the code.
 
 **end of line comments**
 
@@ -55,10 +54,7 @@ Before new line of code: (EOL) you can use comments starting with: "-- "
 
 **block comments**
 
-Bee has a specific notation for block comments not used in any other language so far. It is a multi-line comment starting with "+-" and end with "-+". The upper right corner is missing. I guess you will notice this defect later. However you can use old-style C comments.
-
-- Bee comments are inspired from Wiki Markdown, Python and Ada languages
-- Bee comments are designed for better syntax coloring, that is not available in other languages. So Bee comments are expressive and easy to use to create documentation based on comments with a tool.
+Bee has a specific notation for block comments not used in any other language so far. It is a multi-line comment starting with "+-" and end with "-+". The upper right corner is missing in a block comment. I guess you will notice this defect later. 
 
 ## Bee Keywords
 
