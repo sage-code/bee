@@ -1,6 +1,4 @@
-
 # Data Processing
-
 
 In next topic we will explain several features that are important for data processing. These examples are not yet tested but once we create a compiler this is how things should work.
 

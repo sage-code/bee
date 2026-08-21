@@ -1,15 +1,7 @@
 # Bee Syntax
 
 
-Next we enumerate the fundamental concepts to grasp Bee syntax. After this overview we will go in details. We use long pages you can scroll. Here are the main topics for this page:
-
-- Comments
-- Keywords
-- Variables
-- Expressions
-- Statements
-- Conditions
-- Operators
+Next we enumerate the fundamental concepts to grasp Bee syntax. After this overview we will go in details. We use long pages you can scroll down and reaad. A better experience is on our homepage where we have bookmarks for headers.
 
 We use examples and sometimes a simplified version of BNF notation to explain the syntax rules. If you do not know anything about BNF don't wary, here is a short introduction to this weird notation:
 
@@ -21,15 +13,13 @@ We use examples and sometimes a simplified version of BNF notation to explain th
 
 ## Comments
 
-
 Comments are very important part of Bee code. We have multiple conventions for making good comments for any project. Bee comments are tailored by architectural principle: "if there are no comments in the code the code is wrong."
 
-
-In next example we are using various comments into a demo program.
+**Example:**
 
 
 ```
-#!/bin/bee
+# Bee Language Syntax Example
 +------------------------------------------------------------------
 | At the beginning of program you can have  several comments,     |
 | to explain how the program works. This notation is preferred.   |
@@ -50,31 +40,33 @@ return;
 ```
 
 
-For single line title comments we use one "#" symbol. This can be used in combination with "!" to create "shebang" comment known in scripting languages on Linux to specify interpreter location. You can use two "##" for subtitles for large code sections.
+For single line title comments we use one "#" symbol. You can use two "##" for subtitles for large code sections. This can be used in combination with "!" to create "shebang" comment known in scripting languages on Linux to specify interpreter location. This is in case someone create an interpreter for Bee. We plan to create a compiler where such a comment is useless. 
 
 
-For single line comments we use two stars like this: "**";
+For single line comments we use two stars like this: "**", there is a catch single line comments can't be also end of line comments. For end of line we use -- comments.
 
 - This comment can be extended to multiple stars to create a separator,
 - You can use single line comment at beginning of new line,
 - You can use two spaces to indent the comment and align with the code.
 
+**end of line comments**
+
 Before new line of code: (EOL) you can use comments starting with: "-- "
 
 - notice one line may be or not a full statement. the end of statement is not (EOL),
-- you can use "-- " in the middle of an expression, if expression is on multiple lines,
-- you can have multiple statements separated by ";" in a line but only one comment.
+- you can use "-- " in the middle of an expression, only if the expression span over multiple lines,
+- you can have multiple statements separated by ";" in a line but only one comment at the end of all statements on a single line.
+
+**block comments**
 
 Bee has a specific notation for block comments not used in any other language so far. It is a multi-line comment starting with "+-" and end with "-+". The upper right corner is missing. I guess you will notice this defect later. However you can use old-style C comments.
 
-- Bee comments are inspired from Ada language and Wiki markdown
-- Bee comments are designed for better syntax coloring
+- Bee comments are inspired from Wiki Markdown, Python and Ada languages
+- Bee comments are designed for better syntax coloring, that is not available in other languages. So Bee comments are expressive and easy to use to create documentation based on comments with a tool.
 
 ## Bee Keywords
 
-
 Bee is an expressive language but it's core has about 72 reserved keywords so far:
-
 
 {begin , alias , and , apply , abort , other , case , continue , done , default , if , is , do , else , exit , fail , final , miss , panic , like , load , next , job , match , over , print , pass , void , rule , return , fail , retry , none , scrap , type , read , trial , stop , yield , xor , write , wait , when , or , with , hide , new , cycle , let , set , while , for , resum , put , pop , raise , not , as , in , start , try , expect} 
 
@@ -84,7 +76,6 @@ Bee is an expressive language but it's core has about 72 reserved keywords so fa
 - New keywords are going to be created for new features;
 
 ### Semantic keywords
-
 
 | Keyword | Purpose |
 | :--- | :--- |
@@ -100,14 +91,12 @@ Bee is an expressive language but it's core has about 72 reserved keywords so fa
 
 ## Statements
 
+Statements can start with an imperative or declarative keyword and must end with a mandatory semicolon `;`. While one statement can span multiple lines, all statements must be explicitly terminated.
 
-Statements can start with imperative keyword or a declarative keyword:
-
-
-- One statement is usually indented 2 space,
-- One statement is usually described in a single line,
-- Multiple statements on a single line are separated with ";",
-- One expression in a statement can extend on multiple lines.
+- Statements are indented by 2 or more spaces.
+- Multiple statements on a single line are separated by `;`.
+- Expressions within a statement may span multiple lines.
+- **Note:** All code examples in this specification strictly follow this rule, and the compiler will issue an error for any missing semicolons.
 
 | Key | Description |
 | :--- | :--- |
@@ -122,16 +111,14 @@ Statements can start with imperative keyword or a declarative keyword:
 
 ### Code blocks
 
-
 Statements can be contained in blocks of code.
 
 
-
-| Keyword | Block description |
-| :--- | :--- |
+| Kword | Block description |
+| :---  | :--- |
 | start | start local scope for do block |
-| with | qualifier suppression block |
-| if | first block in decision statement |
+| with  | qualifier suppression block |
+| if    | first block in decision statement |
 | cycle | repetitive or iterative blocks |
 | match | multi-path value selector block |
 | trial | exception handler block |
@@ -155,9 +142,7 @@ Next statements are used to declare new elements in a module.
 | return | End rule declaration and transfer control to caller |
 
 
-
 ### Execution statements
-
 
 Next keywords are simple statements. These represents actions called imperative statements.
 
@@ -171,12 +156,11 @@ Next keywords are simple statements. These represents actions called imperative 
 | write | Add something to console buffer but no new line |
 | print | Output expression result, variable or constant to console |
 | let | Mutate variable value using an expression |
+| new  | Create a new variable and allocate space in memory |
 | scrap | Remove one element from its collection |
 
 
-
 ## Control statements
-
 
 Control statements are used to create local blocks of code that resolve a small task synchronously. After task is finished the control is returned to the main thread.
 
@@ -198,7 +182,6 @@ Control statements are used to create local blocks of code that resolve a small 
 | case | Associated with trial to resolve specific errors |
 | miss | Default trial block, executed when there is no case |
 | final | Associated with trial to finalize the trial block |
-
 
 
 ## Transfer statements
@@ -305,33 +288,17 @@ In Bee, all variables must be declared using an imperative statement Variables c
 * new  - declare a dynamic variable
 * set  - declare a static variable
 
+## Expressions
 
-**Expressions:**
+Expressions are created using identifiers, operators, rules, and constant literals. 
 
-Expressions are created using identifiers, operators, rules and constant literals. Expressions can be anonymous or can be assigned to identifiers to create lambda expressions.
-expressions ...
+- Mathematical multiplication is performed using the `*` operator. The middle dot `·` may be used in documentation for illustrative purposes but is not a valid operator in Bee code.
+- Boolean operations utilize the symbols `∧` (AND) and `∨` (OR). The keywords `and` and `or` act as semantic aliases in formal language descriptions but must not be used as operators in expressions.
 
-* can use () to establish order of operations,
-* can be enumerated using comma separator "," in a list,
-* can be combined to create more complex expressions,
-
-**Examples**
-```
-** expressions
-print 10
-print 10 + 10 + 15
-print "this is a test"
-
-** complex expressions
-print (10 > 5) ∨ (2 < 3)
-print -b + sqr(b² - 4*a*b)/(2*a)
-
-** enumeration of expressions
-print (1,2,3)
-print (1,',',2,',',3)
-```
-
-**Note:** Mathematical expressions use the middle dot "·" for multiplication, whereas computer science uses `*`. This convention was established long ago, and we will continue the tradition here rather than being brave. On this one, we chose to be cowards.
+**Precedence and Power Operators:**
+- Simple integer or negative powers may be represented via superscript notation (e.g., `x²`, `x⁻¹`).
+- For fractional powers, complex expressions, or any case where superscript characters are unavailable, the caret `^` operator is mandatory (e.g., `x^(n+1)`, `x^(¹/₂)`, `x^y`).
+- The compiler strictly enforces the use of `^` and parentheses for complex exponents to eliminate ambiguity.
 
 ## Conditional Execution
 
