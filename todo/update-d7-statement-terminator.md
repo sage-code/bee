@@ -4,3 +4,5 @@ The decision D7 (L136-147) states the statement terminator is `;`. Verify if `sp
 
 Task: Use `;` as statement terminator.
 Affected Files: `spec/syntax.md`.
+
+DONE (21 AUG 2026)
