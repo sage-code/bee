@@ -2,45 +2,45 @@
 |          Working with references            |  
 ----------------------------------------------+
 rule main:
-  ** reference to number
+  -- reference to number
   s := 10 ∈ [Z]; 
   d, e    ∈ [Z]; 
   
-  ** assign "by share" 
+  -- assign "by share" 
   d := s;  -- use same location
   d += 1;  -- increment
   claim s = 11; -- is modified)
   
-  ** verify identity
+  -- verify identity
   claim d = s ; -- is equal
   claim d ≡ s ; -- is identical
   
-  ** assign "by copy"
+  -- assign "by copy"
   e :: d; -- copy value of d
   e += 1;
   
-  ** verify value  
+  -- verify value  
 
   claim d = 11; -- unmodified  
   claim e = 12; -- modified
    
-  ** verify identity
+  -- verify identity
   claim e = d; -- same value
   claim e ≢ d; -- different locations
   
-  ** boxing/ unboxing  
+  -- boxing/ unboxing  
   i := 10 ∈  Z  ; -- native type
   c := 0  ∈ [Z] ; -- reference
   
   c := @i; -- explicit boxing
   claim c  = 10; -- defines c = 10 
   
-  ** verify identity
+  -- verify identity
   claim i  = c ; -- same value
   claim @i ≡ @c; -- same location
   claim i  ≢ c ; -- different type
   
-  ** implicit unboxing
+  -- implicit unboxing
   i := e; 
   
   claim i = 12; -- modified
@@ -48,4 +48,4 @@ rule main:
   claim i ≢ e;  -- different locations
   
 return;
-# end of module
+-- end of module

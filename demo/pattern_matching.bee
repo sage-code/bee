@@ -3,7 +3,7 @@
 ------------------------------+
 use $pro_lib.console:(*);
 
-** making a lambda expression
+-- making a lambda expression
 pmc := λ(p1,p2 ∈ N) =>
   (0 if p1 = 0
   ,1 if p2 = 0
@@ -12,7 +12,7 @@ pmc := λ(p1,p2 ∈ N) =>
   ,4 ) ∈ N;
 
 rule main:
-  ** execute pm expression
+  -- execute pm expression
   print pmc(0,2); -- 0
   print pmc(1,0); -- 1
   print pmc(1,1); -- 2

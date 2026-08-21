@@ -2,7 +2,7 @@
 |  Demo Fibonacci rule      |
 ----------------------------+
 
-** declare Fibonacci rule
+-- declare Fibonacci rule
 rule fib(n ∈ N) => (y ∈ N):
   if (n = 0) do
     let y := 0;
@@ -14,10 +14,10 @@ rule fib(n ∈ N) => (y ∈ N):
 return;
 
 rule main:
-   ** call fib rule using argument 
+   -- call fib rule using argument 
    new r := fib(11);
 
-   ** print the result to console
+   -- print the result to console
    print r;
 return;
 #end of module

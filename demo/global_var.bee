@@ -2,27 +2,27 @@
    global variables are public
    use prefix @ and lowercase
 ------------------------------+
-** declare a public variable x
+-- declare a public variable x
 .x := 0;
 
-** use module variable x in rule "add1"
+-- use module variable x in rule "add1"
 rule add1:
   x += 1;
   print x;
 return;
 
-** demo shadow effect by making a local x
+-- demo shadow effect by making a local x
 rule add2: 
   x := 0;     -- a local variable x 
    x := x + 1; -- increment local variable
 return;
 
 rule main:
-  ** call a subroutine by name
+  -- call a subroutine by name
    add1; 
    add1; 
   claim x = 2;    
-  ** variable shadowing
+  -- variable shadowing
    add2; 
    add2; 
   claim x = 2;

@@ -3,19 +3,18 @@
 +--------------------------+
 use $pro_lib.console:(*);
 
-** array with 10 elements
+-- array with 10 elements
 new a ∈ [Z](10);
 
 rule main:
-  ** array initialization
+  -- array initialization
 
   for ∀ i ∈ (1..$) do
      let a[i] := i - 1;
   repeat;
 
-  ** array traversal and print
+  -- array traversal and print
   for ∀ i ∈ (1..$) do
      print " a[#(n)] = #(n)" ? (i, a[i]);
   repeat;
 return;
-#end of module

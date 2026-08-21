@@ -7,16 +7,16 @@ rule sum(a, b &isin; Z) => (r &isin; Z):
   repeat;    
 return;
 
-** prepare for execution on 4 threads
+-- prepare for execution on 4 threads
 rule main:
     sums ∈ (Z); -- partial sum
-    ** use a mapping technigue to split data in 4 equal batches
+    -- use a mapping technigue to split data in 4 equal batches
     for ∀ i ∈ (1.!100:25) do
         begin sums <+ test(i,i+25); 
     repeat;        
     yield test; --wait for other threads to finish    
        
-    ** reduce results into output
+    -- reduce results into output
     output := 0 ∈ Z;
     for partial ∈ results do
         output += partial;

@@ -6,16 +6,16 @@ rule main:
    l ∈ L; -- Logical value False := 0
    h ∈ S; -- Default 255 char string
    
-   ** printing initial values
+   -- printing initial values
    print n; -- 0
    print l; -- 0 
    print h; -- ''
    
-   ** declaring with initial value
+   -- declaring with initial value
    (g, h) := -10  ∈ Z;
    (x: 10, y: 20) ∈ N;
    
-   ** native array are auto initialized
+   -- native array are auto initialized
    a:= 0  ∈ [N](10) ; -- array of 10 natural numbers
    m:= 0  ∈ [N](3,3); -- matrix of 3x3 natural numbers
    b:= '' ∈ [U](10) ; -- array of 10 NUL symbols
@@ -25,15 +25,15 @@ rule main:
    print b; -- ['','','','','','','','','','']
 
    
-   ** use all member initialization [*]
+   -- use all member initialization [*]
    a[*] :=  5 ; -- scalar modification, all = 5
    m[*] :=  1 ; -- scalar matrix modification
    b[*] := 's'; -- assign 's' with all elements 
-   ** use index to find member
+   -- use index to find member
    print a[0] ;   -- will print 5
    print m[2,2];  -- will print 1
    print b[0] ;   -- will print 's' 
-   ** use slice to elements
+   -- use slice to elements
    a[2..*] := 1; -- [5,5,1,1,1,1,1,1,1,1] 
    a[0..5] := 2; -- [2,2,2,2,2,2,1,1,1,1] 
 return;

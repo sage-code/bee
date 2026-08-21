@@ -5,26 +5,26 @@
 use $pro_lib.console:(*);
 
 rule main:
-  ** declare two natural numbers
+  -- declare two natural numbers
    a := 10, b := 5 ∈ N;
-  ** simple decision
+  -- simple decision
   print "a = b" if a = b;
   print "a < b" if a < b;
   print "a > b" if a > b;
 
-  ** single branch decision
+  -- single branch decision
   if a = b do
     print "a = b";
   done;
 
-  ** decision with alternate branch
+  -- decision with alternate branch
   if a < 5 do
     print "a < 5";
   else
     print "no";
   done;
 
-  ** nested statements are supported
+  -- nested statements are supported
   a:= 1; -- True
   b:= 0; -- False
   if a ∧ b do
@@ -42,17 +42,17 @@ rule main:
   +---------------------------------------
   |  case statement replace nested if  |
   +--------------------------------------+
-  ** mutual exclusive multi-path selector
+  -- mutual exclusive multi-path selector
   trial
     a := 2;
     if a ∈ (0..4) do
-        ** this is true since a = 2
+        -- this is true since a = 2
         print 'a is between 0 and 4';
     else if a ∈ (2..5) do
-        ** this is also true since a = 2
+        -- this is also true since a = 2
         print 'a is between 2 and 5';
     else if a < 0 do
-        ** this is not true since a > 0
+        -- this is not true since a > 0
         print 'a ≤ 0';
     else
         print 'a ≥ 5'; -- no match

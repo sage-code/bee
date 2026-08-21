@@ -1,10 +1,10 @@
 +----------------------------------------------------
 |        user defined data types                    |
 ----------------------------------------------------+
-** this type is public (uses dot prefix)
+-- this type is public (uses dot prefix)
 type .New_Data := {key:U, value:N} <: Hash;
 
-** variable using new data type:
+-- variable using new data type:
  x ∈ New_Data;
 
 x := {key:'a', value:10};
@@ -28,10 +28,10 @@ type Number: {
 | Note: first element has assigned a value := 0,   | 
 | all other elements have previous value  + 1      |
 ---------------------------------------------------+
-** example of use
+-- example of use
 rule main:
   a := 0;
-  ** example of use
+  -- example of use
   if a = zero do
     print "zero!";
   else

@@ -3,21 +3,21 @@
 --------------------------------+
 use $bee_lib.console:(*);
 
-** initialize the system library
+-- initialize the system library
 use $bee.system.io:(*);
 use $bee.system.console.(*);
 
 rule main:
    file := io.open('foo.txt','+w');
 
-   ** write into the file using print
+   -- write into the file using print
     file.write("Hello World!",LF);
 
-   ** read the entire content from file
+   -- read the entire content from file
     content := file.read() ∈  X;
     file.close;
 
-   ** display the entire content to console
+   -- display the entire content to console
    write content;
 
    print;

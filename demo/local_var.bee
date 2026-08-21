@@ -3,15 +3,15 @@
 -------------------------------------------+
 use $pro_lib.console:(*);
 
-** global variable
+-- global variable
 x := 1;
 
-** rule side-effects
+-- rule side-effects
 rule add:
   x := x + 1;
   print x;
 return;
-** local context attribute
+-- local context attribute
 rule add2:
   x := 0; -- local
   x += 1;
@@ -19,17 +19,17 @@ rule add2:
 return;
 
 rule main:
-  ** test side effects
+  -- test side effects
   add; -- will print 2
   add; -- will print 3
   print x; -- x = 3 (is modified)
 
-  ** changing x influence rule
+  -- changing x influence rule
   x := 1; -- global x = 1
   add2; -- will print 1
   add2; -- will print 2
 
-  ** verify global variable x
+  -- verify global variable x
   print x;         -- x = 1 (unmodified)
   print $Global.x; -- x = 1 (unmodified)
 rule;

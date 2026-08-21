@@ -1,7 +1,7 @@
 +------------------------------------
 |  asynchronous call using "begin"  |
 +-----------------------------------+
-** suspend with 2.5 sec
+-- suspend with 2.5 sec
 rule test(n ∈ N):
   wait n; 
   print ".";
@@ -9,7 +9,7 @@ return; -- test
 
 rule main:
   cycle local: 
-    ** start 8 threads
+    -- start 8 threads
     i := 0; 
   while (i ≤ 8) do
     begin test(i); 

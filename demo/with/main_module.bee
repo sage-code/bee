@@ -2,7 +2,7 @@
 use qualifier:lib_folder.test_module;
 
 with qualifier do:
-   ** call external routine .test
+   -- call external routine .test
    print test(1); --2
    print test(2); --3
 done;

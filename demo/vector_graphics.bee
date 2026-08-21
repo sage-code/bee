@@ -3,23 +3,23 @@
 ------------------------------------+
 use $lib.graphic.core.(test);
 
-** two points and two vectors
+-- two points and two vectors
 (p1, p2) ∈ ⊡; -- graphic point
 (v1, v2) ∈ ↗; -- graphic vector
 
 rule main:
-  ** setup the points
+  -- setup the points
   p1 := {x:0,  y:0};
   p2 := {x:10, y:10};
 
-  ** setup the vectors
+  -- setup the vectors
   v1 := {o:p1, p:p2};
   v2 := {o:p2, p:p1};
 
-  ** one 2D graphic layer
+  -- one 2D graphic layer
   c := {o:{0,0}, w: 1200, h: 675};
 
-  ** check canvas properties
+  -- check canvas properties
   c.size  := 400;
   c.color := white;
   c.pen   := black;
@@ -38,15 +38,15 @@ rule main:
   -----------------------------------+
   hide c;
 
-  ** two circles
-  ** circles in p1, p2 radius 5
+  -- two circles
+  -- circles in p1, p2 radius 5
   c1 := {o:p1,r:5} ∈ ○;
   c2 := {o:p2,r:5} ∈ ○;
 
   draw c;
   draw c1, c2;
 
-  ** activate canvas
+  -- activate canvas
   show c;
   wait 30;
 return;

@@ -1,4 +1,4 @@
-# Bee-3 — Language Specification
+-- Bee-3 — Language Specification
 
 **Version:** 3.0 · **Status:** implemented and conformance-tested · **Date:** 2026-08-17
 
@@ -27,7 +27,7 @@ Bee is statically typed, compiled in intent, and rule-oriented. A program is one
 one of them holds `rule main`, which is the entry point.
 
 ```bee
-** hello world
+-- hello world
 rule main:
   print "Hello World";
 return;
@@ -923,9 +923,9 @@ begin with a bare `if`; wrap it in `start` to nest.
 
 ```bee
 start [label]:
-  ** declarations
+  -- declarations
 do
-  ** statements
+  -- statements
 done [label];
 ```
 
@@ -933,11 +933,11 @@ done [label];
 
 ```bee
 cycle [label]:
-  ** declarations, evaluated once
+  -- declarations, evaluated once
 ( do | while condition do )
-  ** body
+  -- body
 [ then
-  ** runs once, when the while condition first fails ]
+  -- runs once, when the while condition first fails ]
 repeat [label] [ if condition ];
 ```
 
@@ -1018,15 +1018,15 @@ a compile-time error.
 
 ```bee
 trial [label]:
-  ** declarations, run once
+  -- declarations, run once
 try [code]:
-  ** a job
+  -- a job
 case condition do
-  ** a handler
+  -- a handler
 miss
-  ** no case matched
+  -- no case matched
 final
-  ** always runs
+  -- always runs
 done [label];
 ```
 

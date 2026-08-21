@@ -4,10 +4,10 @@
 use $pro_lib.console:(*);
 
 rule swap(x, y ∈ [Z]):
-   ** create temporary value
+   -- create temporary value
    t := x;
 
-   ** swap the values
+   -- swap the values
    y := x;
    x := t;
 return;
@@ -15,10 +15,10 @@ return;
 rule main:
    (a: 1, b: 2) ∈ Z;
    print "a = #(n), b = #(n)" ? (a,b);
-   ** swap to variables using single statement
+   -- swap to variables using single statement
    a := b, b := a;
    print "a = #(n), b = #(n)" ? (a,b); --a = 2, b = 1
-   ** swap to variables using swap rule
+   -- swap to variables using swap rule
     swap(a, b);
    print "a = #(n), b = #(n)" ? (a,b); --a = 1, b = 2
 return;

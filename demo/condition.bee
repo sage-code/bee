@@ -1,4 +1,4 @@
-# module condition.bee
+-- module condition.bee
 +-----------------------------
 |  conditional execution "if"|
 |  was inspired from ruby!   |
@@ -7,11 +7,11 @@ use $bee_lib/console:(*);
 
 rule main:
   x := 0 ∈ N;
-  ** input a number in console
+  -- input a number in console
   write "number:";
   read x; -- wait user for ∀ input
 
-  ** claim one of these:
+  -- claim one of these:
   print "x = 0" if x = 0;
   print "x ≠ 0" if x ≠ 0;
 return;

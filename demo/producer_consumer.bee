@@ -1,12 +1,12 @@
 +-----------------------------------
   Producer-consumer design pattern 
 -----------------------------------+
-** data source/target to process
+-- data source/target to process
 s := [0](1000); --array of integers
 
-** producer coroutine
+-- producer coroutine
 rule foo(channel ∈ (N), start, end, batch ∈ N):
-    ** prepare next batch    
+    -- prepare next batch    
   cycle:
     mark := start;
   while mark < end do    
@@ -20,7 +20,7 @@ rule foo(channel ∈ (N), start, end, batch ∈ N):
   repeat;  
 return;
 
-** consumer coroutine
+-- consumer coroutine
 rule bar(channel ∈ (N), batch ∈ N):  
   cycle:  
     index = 0;
@@ -38,12 +38,12 @@ return;
 
 rule main:  
   cycle:
-    ** prepare a channel
+    -- prepare a channel
     ch ∈  (N); --empty list of natural numbers
-    ** activate producer
+    -- activate producer
     begin foo(ch, start:1000, end:2000, batch:100); --synchronous call  
   while ch.length > 0 do
-    ** prepare consumers
+    -- prepare consumers
     for ∀ i ∈ (1..4) do
       begin bar(n); --asynchronous call
     repeat; 

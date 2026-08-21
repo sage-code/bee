@@ -1,13 +1,13 @@
 +-----------------------------------
  demonstrate main rule
 ------------------------------------+
-# main rule is mandatory in drivers
+-- main rule is mandatory in drivers
 rule main(*params ∈ (S)):
-  ** read the number of parameters
+  -- read the number of parameters
   c := params.count;
   panic if (c = 0);
   
-  ** print comma separated parameters
+  -- print comma separated parameters
   cycle:
     i:= 0 ∈ Z;
   while (i < c) do
@@ -15,6 +15,6 @@ rule main(*params ∈ (S)):
     write "," if (i < c);
     i += 1;    
   repeat;
-  ** print the buffer to console
+  -- print the buffer to console
   print;  
 return;

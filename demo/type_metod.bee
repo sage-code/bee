@@ -1,11 +1,11 @@
 +----------------------------------------
  demonstrate rule associated to a type
 ----------------------------------------+
-** enumeration with public members
+-- enumeration with public members
 type Number: {.zero, .one, .two} <: Ordinal;
 
 
-** a rule with Number
+-- a rule with Number
 rule convert(self ∈ Number) => (y ∈ S):
   y := ("zero"  if self = zero,
               "one"   if self = one,
@@ -13,7 +13,7 @@ rule convert(self ∈ Number) => (y ∈ S):
               "none");
 return;
 
-** a wrapper rule with convert
+-- a wrapper rule with convert
 rule equal(self ∈ Number, s ∈ S) => (r ∈ L):
   r := (s = convert(x));
 return;
@@ -22,7 +22,7 @@ rule main:
   test ∈ Number;
   test := zero; -- instance of Number
       
-  ** calling test rules 
+  -- calling test rules 
   print test.convert;       -- will print "zero"
   print test.equal('zero'); -- will print 1
 return;

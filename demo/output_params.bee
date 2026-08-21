@@ -1,20 +1,20 @@
 +------------------------------------
 |      Input/Output parameters      |
 ------------------------------------+
-** rule with boxed parameters
+-- rule with boxed parameters
 rule pro(a,b ∈ [N]):
   a += 1; -- parameter a
   b += 2; -- parameter b 
 return;
 
 rule main:
-   ** native integers using inference
+   -- native integers using inference
    x, y := 10 ∈ N;
    
-   ** execute pro and claim x, y  to be modified
+   -- execute pro and claim x, y  to be modified
    pro(a:@x, b:@y);
    
-   ** verify new values with arguments
+   -- verify new values with arguments
    print x; -- will print 11
    print y; -- will print 12
 return;  

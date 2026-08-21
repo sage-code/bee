@@ -3,18 +3,18 @@
 ----------------------------------+
 use $pro_lib.console:(*);
 
-** enumeration is a type
+-- enumeration is a type
 type Enum: {.fst:1, .snd, .trd} <: Ordinal;
 
 rule main:
-  ** print enumeration members
+  -- print enumeration members
   print fst ; -- 1
   print snd ; -- 2
   print trd ; -- 3
 
-  ** hash map variable
+  -- hash map variable
   s ∈ {(U:N)};
-  ** assign (key:value) pairs
+  -- assign (key:value) pairs
   s :=
     {
      ("first" : 1),
@@ -25,44 +25,44 @@ rule main:
   print s["second"]; -- 2
   print s["third"] ; -- 3
 
-  ** array with capacity
+  -- array with capacity
   v1 ∈ [Z](10) ; -- vector of 10 integer elements
   v2 ∈ [R](2,3); -- matrix of 2 rows and 3 columns
-  ** dynamic map collections
+  -- dynamic map collections
   p ∈ {U};     -- collection of symbols
   m ∈ {(R:S)}; -- hash map of strings with real key
 
-  ** Establish map using literals
+  -- Establish map using literals
   m := {'a':1, 'b':2, 'c':3}
-  ** complex list examples
+  -- complex list examples
   ∈ (U) ;      -- a list of characters
   ∈ (R) ;      -- a list of real numbers
   ∈ ((U));     -- a list of lists of symbols
   ∈ ([U](10)); -- a list of array with 10 symbols
 
-  ** Array and Matrix literals
+  -- Array and Matrix literals
   l2 := [1,2,3];        -- array of 3 elements
   m2 := [[1,1],[2,2]] ; -- matrix of 2x2
-  ** Demo with "set" operations
+  -- Demo with "set" operations
   s1 := {Z}; -- empty set of strings
 
-  ** initialized set of 3 elements
+  -- initialized set of 3 elements
   s2 := {1, 2, 3};
-  ** Append one element into a set
+  -- Append one element into a set
   s1 <+ 0; -- {0}
   s1 <+ 1; -- {0,1}
   s1 <+ 2; -- {0,1,2}
-  ** Remove one element from set
+  -- Remove one element from set
   s1 -? 1; -- {0,2}
   s1 -? 2; -- {0}
-  ** Set literals using type inference
+  -- Set literals using type inference
   s3 := {'a','b','c'}; -- set of 3 symbols
   s4 := {'a','b','d'}; -- set of 3 symbols
-  ** union between 2 sets (a, b) are nod duplicated
+  -- union between 2 sets (a, b) are nod duplicated
   print (s3 ∨ s4); -- {'a','b','c','d'}
-  ** intersection between 2 sets
+  -- intersection between 2 sets
   print (s3 ∧ s4); -- {'a','b'}
-  ** difference between two sets
+  -- difference between two sets
   print (s3 - s4); -- {'c'}
   print (s4 - s3); -- {'d'}
 return;

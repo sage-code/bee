@@ -2,34 +2,34 @@
   type inference is using
   operator := with initialization
 -----------------------------------+
-** constant type inference
+-- constant type inference
 store a := 10;     -- Z (integer on 64bit)
 store x := 0.5;    -- R (double precision)
 store y := 1/2;    -- Q (rational number)
 store f := False;  -- L (logic)
 store t := True;   -- L (logic)
 
-** variable type inference
+-- variable type inference
 v := (1,2,3);     -- List of Z
 s := "string";    -- Unrestricted capacity string
 c := 'c';         -- Single symbol type A
 
-** explicit conversion + inference
+-- explicit conversion + inference
 t := "23:45"      -> T24; -- Time
 t := "1:45am"     -> T12; -- Time
 d := "10/10/2010" -> DMY; -- Date
 
-** optional parameters inference
+-- optional parameters inference
 rule add(x,y:0) => (z ∈ Z):
   z := x + y;
 return;
 
-** argument x is mandatory, y is optional
+-- argument x is mandatory, y is optional
 rule plus(x ∈ Z, y:1 ∈ Z) => (z ∈ Z):
   z := (x + y);
 return;
 
-** input/output arguments
+-- input/output arguments
 rule inc(x, y ∈ [Z]):
   x += 1;
   y += 1;

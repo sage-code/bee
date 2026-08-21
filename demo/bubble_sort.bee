@@ -3,18 +3,18 @@
 +-------------------------------------+
 use $pro_lib.console:(*);
 
-** bubble sort with integers
+-- bubble sort with integers
 rule sort(this ∈ [Z]):
-  ** local variables
+  -- local variables
   new n := length(this);
   swap := True ∈ L;
-  ** repetitive block: if
+  -- repetitive block: if
   cycle: do
     swap := False; -- reset flag
     for ∀ i ∈ (1..$ - 1) do
-      ** this pair is out of order ?
+      -- this pair is out of order ?
       if this[i] < this[i+1] do
-        ** swap two elements
+        -- swap two elements
         let (this[i], this[i+1]) := (this[i+1], this[i]);
         let swap := True; -- set flag
       done;
@@ -23,15 +23,15 @@ rule sort(this ∈ [Z]):
 return;
 
 rule main:
-  ** test & result fixture
+  -- test & result fixture
   new test   := [1,4,1,5,9,2,6,5,3,5];
   new result := [1,1,2,3,4,5,5,5,6,9];
 
-  ** test sort rule
+  -- test sort rule
   apply sort(test);
   print test; --[1,1,2,3,4,5,5,5,6,9]
 
-  ** check result
+  -- check result
   claim test = result;
 return;
 #end of module

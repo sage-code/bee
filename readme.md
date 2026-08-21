@@ -1,4 +1,4 @@
-# Bee Language & Compiler
+-- Bee Language & Compiler
 
 Bee is an system computer language designed by Sage-Code Laboratory.
 
