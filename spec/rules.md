@@ -50,9 +50,9 @@ rule main:
     new r := com(3, 2);
     print r; -- (5, 1)
 
-    ** deconstruction of result into variables: s, d
+  ** deconstruction of result into variables: s, d
     new s, d := com(3, 2);
-    print (s, d, sep: ","); -- 5, 1
+    print (s, d); -- 5, 1
 
     ** ignore second result using variable "_"
     new a, _ := com(3);
@@ -77,9 +77,12 @@ rule foo(*bar ∈ [Z]) => (x ∈ Z):
         let x := 0;
         exit;
     done;
-    for ∀ i ∈ (0.!c) do
+    ** repetitive block: for ∀
+  for ∀ i ∈ (1..$) do
+      if (bar[i] ≠ 0) do
         let x += bar[i];
-    repeat;
+      done;
+  repeat;
 return;
 
 rule main:
