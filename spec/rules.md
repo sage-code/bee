@@ -16,7 +16,7 @@ A rule declaration starts with the keyword "rule" and ends with "return".
 Parameters are special variables defined in the rule signature using parentheses.
 
 ```bee
-** a rule with two parameters
+-- a rule with two parameters
 rule foo(name ∈ S, message ∈ [S]):
     let message := "hello: " + name + ". I am Foo. Nice to meet you!";
 return;
@@ -39,22 +39,20 @@ return;
 A rule can have multiple results, declared in a result list similar to the parameter list. A rule that have results can be used like a function in right side of the assign expression.
 
 ```bee
-** rule with two results "s" and "d"
+-- rule with two results "s" and "d"
 rule com(x ∈ Z, y: 0 ∈ Z) => (s, d ∈ Z):
     let s := x + y;
     let d := x - y;
 return;
 
 rule main:
-    ** capture result into a single variable
+-- capture result into a single variable
     new r := com(3, 2);
     print r; -- (5, 1)
-
-  ** deconstruction of result into variables: s, d
+-- deconstruction of result into variables: s, d
     new s, d := com(3, 2);
     print (s, d); -- 5, 1
-
-    ** ignore second result using variable "_"
+-- ignore second result using variable "_"
     new a, _ := com(3);
     print a; -- 3
 return;
@@ -77,7 +75,7 @@ rule foo(*bar ∈ [Z]) => (x ∈ Z):
         let x := 0;
         exit;
     done;
-    ** repetitive block: for ∀
+-- repetitive block: for ∀
   for ∀ i ∈ (1..$) do
       if (bar[i] ≠ 0) do
         let x += bar[i];

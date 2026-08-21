@@ -21,12 +21,11 @@ Asynchronous call can be done using a control cycle and keyword  "begin". This i
 
 
 ```
-** suspend n seconds
+-- suspend n seconds
 rule test:
     wait 10 + i*5;
 return;
-
-** prepare for execution 4 threads
+-- prepare for execution 4 threads
 rule main:
     for ∀ i ∈ (1..4) do
        begin test(i);
@@ -42,8 +41,7 @@ A big problem in asynchronous call is to capture the results of a rule that run 
 Map-Reduce Pattern
 
 
-```
-** suspend n seconds
+```-- suspend n seconds
 rule sum(a, b ∈ Z) => (r ∈ Z):
   cycle:
     new i := 0
@@ -51,11 +49,10 @@ rule sum(a, b ∈ Z) => (r ∈ Z):
     let r += i;
   repeat;
 return;
-
-** prepare for execution on 4 threads
+-- prepare for execution on 4 threads
 rule main:
     new results <: List; -- partial sum collection
-    ** use a mapping technigue to split data in 4 equal batches
+-- use a mapping technigue to split data in 4 equal batches
     cycle:
         new i ∈ N;
     for ∀ i ∈ (1.!100:25) do
@@ -63,7 +60,7 @@ rule main:
     repeat;
     wait; -- wait for other threads to finish;
     new output ∈ Z;
-    ** reduce results into output
+-- reduce results into output
     for ∀ partial ∈ results do
        let output += partial;
     repeat;
@@ -93,19 +90,19 @@ Coroutines can be used as a branch of main thread. This is not yet running in pa
 
 ```
 rule test(n ∈ N) => (result ∈ N):
-  ** can generate n numbers
+-- can generate n numbers
   cycle:
     new i ∈ N;
   for ∀ i ∈ (1..n) do
     let result := i;
-    ** suspend execution
+-- suspend execution
     yield; -- wait for the main thread
   cycle;
   result = 0; -- finalization signal
 return;
 
 rule main:
-    ** start secondary process
+-- start secondary process
     begin test(9)     -- initialize coroutine
     cycle:
       new  r ∈ N;  -- result reference

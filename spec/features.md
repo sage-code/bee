@@ -32,9 +32,8 @@ The result of these choices is demonstrate below. You can observe different comm
 
 
 ```
-# Demo: Fibonacci Sequence
-
-** declare Fibonacci rule
+--  Demo: Fibonacci Sequence
+-- declare Fibonacci rule
 rule fib(n ∈ N) => (y ∈ N):
   if (n = 1) ∨ (n = 0) do
     let y := 1; -- first value
@@ -44,10 +43,9 @@ rule fib(n ∈ N) => (y ∈ N):
 return;
 
 rule main:
-   ** call fib rule using argument 5
+-- call fib rule using argument 5
    new r := fib(n: 5);
-
-   ** print the result to console
+-- print the result to console
    print r;
 return; -- end of module
 ```

@@ -30,10 +30,10 @@ In this example we use "start" to create a local scope and a new variable (a) in
 
 ```
 start [label]:
-  ** local variables
+-- local variables
   ...
 do
-  ** executable block
+-- executable block
   ...
 done [label];
 ```
@@ -64,10 +64,10 @@ We load a secondary module and use a qualifier for it:
 use lib_folder/test_module as test;
 
 rule main:
-  ** define locals
+-- define locals
   new x := 2;
   with test do
-    ** call external routine .test
+-- call external routine .test
     expect x == 3;
     print inc(x);
   done;
@@ -310,9 +310,9 @@ Using "if" keyword we can create a conditional branch:
 
 
 ```
-# decision
+--  decision
 if condition do
-  ** statements
+-- statements
   ...
 done;
 ```
@@ -322,7 +322,7 @@ In this example we use "begin" to create a local scope and a new variable (a) in
 
 
 ```
-# fragment
+--  fragment
 start test:
   new a := random();
 if a < 0 do
@@ -343,12 +343,12 @@ decision diagram
 
 
 ```
-# decision with two branches
+--  decision with two branches
 if condition do
-  ** true branch
+-- true branch
   ...
 else
-  ** false branch
+-- false branch
   ...
 done;
 ```
@@ -366,7 +366,7 @@ decision ladder
 ```
 #decision ladder
 start test:
-  ** local scope
+-- local scope
   new a ∈ Z; -- control variable
   read("a = ", a);   -- expressions in declaration area
 if a = 0 do        -- first decision
@@ -376,7 +376,7 @@ else if a > 0 do  -- second decision
 else if a < 0 do  -- third decision
   print "a < 1";
 else
-  ** default block
+-- default block
   print "unexpected:" + a;
 done test;
 ```
@@ -400,9 +400,9 @@ infinite cycle
 ```
 #infinite cycle
 cycle [label]:
-  ** local variables
+-- local variables
 do
-  ** repetitive block
+-- repetitive block
   ...
 repeat [label];
 ```
@@ -420,10 +420,10 @@ stop condition
 ```
 #conditional run cycle
 cycle:
-  ** local variables
+-- local variables
   ...
 do
-  ** repetitive block
+-- repetitive block
   ...
   [redo if condition1];
   ...
@@ -445,17 +445,17 @@ start-condition cycle
 ```
 #conditional start cycle
 cycle [label]:
-    ** define local variables
+-- define local variables
     ...
 while start_condition do
-    ** first repetitive block
+-- first repetitive block
     ...
     [stop if condition]; -- break the cycle
     ...
     [redo if condition]; -- restart the cycle
     ...
 then
-    ** non repetitive block
+-- non repetitive block
     ...
 repeat [label];
 ```
@@ -474,9 +474,9 @@ Next syntax pattern show how to use a nested cycles with labels.
 
 
 ```
-# nested blocks
+--  nested blocks
 cycle 42:
-    ** local variables
+-- local variables
     ...
 do
     ...
@@ -575,17 +575,17 @@ for cycle
 ```
 #iterative cycle
 cycle [label]:
-  ** local variables
+-- local variables
   new i ∈ N;
 for ∀ i ∈ (min..max:rate) do
-  ** repetitive block
+-- repetitive block
   ...
   [next if condition]; -- fast forward
   ...
   [stop if condition]; -- early transfer
   ...
 [then]
-  ** non repetitive block
+-- non repetitive block
   ...
 repeat [label];
 ```
@@ -653,16 +653,16 @@ type Selector: {v1,v2,v3,v4} <: E;
 rule main:
   new select := Selector.random()
   match select [all] | [one]:
-    ** declare locals
+-- declare locals
     ...
   when v1 do
-    ** first path
+-- first path
     ...
   when v1, v2 do
-    ** second path
+-- second path
     ...
   other
-    ** v3 or v4 found
+-- v3 or v4 found
     ...
   done;
 return;
@@ -702,47 +702,46 @@ Next keywords are used to create a full trial block:
 ```
 #complex trial with many cases
 trial [label]:
-    ** initial or default statements
+-- initial or default statements
     ....
-    ** preconditions: create recoverable error
+-- preconditions: create recoverable error
     expect condition else "message";
     ...
 try [code1]: -- description
     ...
-    ** jump to next try (no error)
+-- jump to next try (no error)
     pass if condition;
         ...
-    ** record error, and jump to next try
+-- record error, and jump to next try
     fail {code, message} if condition;
     ...
-    ** create error, and jump to cases
+-- create error, and jump to cases
     raise {code, message} if condition;
     ...
 try [code2]: -- description
     ...
-    ** skip the rest (no error) and jump to final
+-- skip the rest (no error) and jump to final
     pass if condition;
-   
-    ** optional create error and jump to final
+-- optional create error and jump to final
     fail {code, message} if condition;
     ...  
-    ** create error and jump to cases
+-- create error and jump to cases
     raise {code, message} if condition;
     ...  
 case $error.code = code do
-    ** handler1
+-- handler1
     ...
     resume; -- continue witj next try
 case $error.code ∈ (code1,code2) do
-    ** handler2
+-- handler2
     ...
     retry; -- repeat trial from beginning
 miss
-    ** cover all other errors
+-- cover all other errors
     ...
     raise; -- propagate last error
 final
-    ** finalization statement (executed before leaving)
+-- finalization statement (executed before leaving)
     print "final error:" + $error.code if $error.code > 0;
 done [label];
 ```
@@ -757,8 +756,7 @@ done [label];
 Exceptions can be defined in your program using next notation. Exceptions and recoverable errors are using the same type. You can predefine exceptions/errors or issue them with one of: (expect, raise):
 
 
-```
-** define error
+```-- define error
 new exception := {code,"message"} ∈ X;
 ```
 
@@ -766,8 +764,7 @@ new exception := {code,"message"} ∈ X;
 Recoverable errors can be issued using "raise" keyword.
 
 
-```
-** "raise" can create a customized error or message
+```-- "raise" can create a customized error or message
 raise exception   if condition; -- create an error that is predefined
 raise "message"   if condition; -- create instant user error code: 200
 raise {code,"message"} if condition; -- create instant custom error with code
@@ -841,7 +838,7 @@ trial:
 try()
   raise my_error; -- issue user error
 case $error.code == 200 do
-  ** we catch the the error and do something
+-- we catch the the error and do something
   print $error.message;
   print $error.line;
 miss
@@ -858,7 +855,7 @@ By using  "retry"  you can repeat a trial several times until other ending condi
 
 ```
 #example of repeating trial
-** try maximum 3 times
+-- try maximum 3 times
 trial [name]:
     new count ∈ (1..3);
     new a ∈ (0..9);

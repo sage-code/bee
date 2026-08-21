@@ -129,14 +129,11 @@ Bee define a collection literal using a special notation based on brackets. Thes
 User can define type alias using operators ":" and sub-types using operator "<:" (inheritance). Usr can specify type of variables explicit usin operator ∈
 
 
-```
-** declare new type alias
+```-- declare new type alias
 type Type_Identifier: type_descriptor <: super_type;
-
-** declare variables using type alias
+-- declare variables using type alias
 new var_name ∈ Type_Identifier;
-
-** declare many variables using type alias
+-- declare many variables using type alias
 new var_name, var_name ... ∈ Type_Identifier;
 ```
 
@@ -178,15 +175,14 @@ return;
 Ranges can use symbols that are ASCII or Unicode. In this case the symbols must be included in single quotes: 'X' or use U+ notation:
 
 
-```
-** sub-type declarations
+```-- sub-type declarations
 type  .Digit:    ('0'..'9')       <: Z;
 type  .Capital:  ('A'..'Z')       <: A;
 type  .Lowercase:('a'..'z')       <: A;
 type  .Latin:    (U+0041..U+FB02) <: U;
 
 rule main:
-  ** following statements should pass
+-- following statements should pass
   pass if '0' ∈ Digit;
   fail if 'x' ∈ Capital;
   pass if 'X' ∈ Capital;
@@ -206,11 +202,9 @@ type Domain: (min..max:ratio)  <: Super_Type;
 ```
 
 
-```
-** generate rational numbers
+```-- generate rational numbers
 print (0..1:1&\4); -- 0&\4, 1&\4, 2&\4, 3&\4, 1
-
-** generate float numbers
+-- generate float numbers
 print (0..1:0.25); -- 0.00, 0.25, 0.50, 0.75, 1.00
 ```
 
@@ -221,11 +215,9 @@ print (0..1:0.25); -- 0.00, 0.25, 0.50, 0.75, 1.00
 Constants literals bound to identifiers using keyword "set".
 
 
-```
-** using explicit type
+```-- using explicit type
 set constant_name: constant_literal ∈ type_name;
-
-** using implicit type
+-- using implicit type
 set constant_name := constant_literal;
 ```
 
@@ -266,19 +258,15 @@ Variables are defined using type inference and these operators:
 - Symbol ":=" can can be used to define or mutate the value of variables or parameters.
 - Symbol "<:" used in declarations is used to indicate a supertype,
 
-```
-** primitive variable declarations with type
+```-- primitive variable declarations with type
 new var_name ∈  type_name; -- declaration only type without initial value
 new var_name: value ∈  type_name; -- declaration with initial value and type
-
-** Variable declaration using type inference
+-- Variable declaration using type inference
 new var_name := expression; -- expression ":=" do not require type hint ("∈").
-
-** Multiple variables can be define in one single line using comma separator:
+-- Multiple variables can be define in one single line using comma separator:
 new var1, var2 ... ∈  TypeName;   -- default initial values
 new var1, var2 ... := Expression; -- use type inference for all initial values
-
-** Initialize multiple variables, of the same type (type is required)
+-- Initialize multiple variables, of the same type (type is required)
 new var1:con1, var2:con2 ... ∈ TypeName;
 ```
 
@@ -303,30 +291,24 @@ expect b = 12;    -- check if b has proper value
 - {":=","::"}
 - {"+=","-=","&\=","*=","^=","%=", "*=", "/=", "√="}
 
-```
-** declare a public constant
+```-- declare a public constant
 set .PI: 3.14 ∈ R;
 
 rule main:
-  ** declare a single variable
+-- declare a single variable
   new a   ∈ Z; -- Integer
-
-  ** declare multiple variables
+-- declare multiple variables
   new (x,y):0 ∈ R; -- Double
   new (q,p):0 ∈ L; -- Logic
-
-  ** using modifiers
+-- using modifiers
   let a := 10; -- modify value of: a == 10
   let a += 1;  -- increment value of: a == 11
   let a -= 1;  -- decrement value of: a == 10
-
-  ** modify two variables using one single constant
+-- modify two variables using one single constant
   let x, y := 10.5;
-
-  ** modify two variables using two constants
+-- modify two variables using two constants
   let q, p := True, False;
-
-  ** swapping two variables
+-- swapping two variables
   let p, q := q, p;
 return;
 ```
@@ -342,15 +324,14 @@ When data type mismatch you must perform explicit conversion.
 - Data precision may suffer. Some decimals may be lost;
 - If data do not fit in the new type, the overflow exception is raised.
 
-```
-** data conversion
+```-- data conversion
 rule main:
    new a:0, b:20 ∈ Z;
    new v:10.5, x:0.0 ∈ R;
-** explicit conversion
+-- explicit conversion
    let a:=v :> N;
    print a; -- truncated to 10
-** explicit conversion
+-- explicit conversion
    let x := b :> R;
    print x; -- expect 20.00
 return;
@@ -383,12 +364,11 @@ return;
 You can use symbol ":=" to initialize variables using type inference.
 
 
-```
-** declare constants
+```-- declare constants
 set i := 4;   -- integer constant
 set r := 2.5; -- real constant
 set q := 1&\8; -- rational constant
-** declare variables
+-- declare variables
 new x := 0;   -- integer number
 new y := 0.0; -- real number
 new z := 0\1; -- rational number
@@ -401,8 +381,7 @@ new z := 0\1; -- rational number
 We can use variable type to validate expression type.
 
 
-```
-** using type inference
+```-- using type inference
 rule main:
   new a := 0;   -- integer variable
   new b := 0.0; -- real variable
@@ -418,8 +397,7 @@ You can use operator "∈" to verify data type:
 ```
 rule main:
   new a := 0 ∈ Z;
-
-  ** expected: Integer
+-- expected: Integer
   expect a ∈ Z;
 return;
 ```
@@ -431,8 +409,7 @@ return;
 Boolean type is Bee is native numeric of type B. However we also implement native two constants True, False that are publicly available in core library
 
 
-```
-** overwrite the default values
+```-- overwrite the default values
 set False = 0; 
 set True  = 1;
 ```
@@ -441,8 +418,7 @@ set True  = 1;
 Printing native Boolean values is going to print numbers. Type B can support a number between 0b0 and 0b00000001. Therefore printing this type is done using notation 0B0 and 0B1.
 
 
-```
-** printing Boolean values
+```-- printing Boolean values
 rule main:
   print False; -- 0B0
   print True;  -- 0B1
@@ -476,7 +452,7 @@ In Bee we define special operators to perform bitwise operations. One opperator 
 - ⊕ (xor)
 
 ```
-# bitwise operations
+--  bitwise operations
 print 4 | 3; -- out:7 is because 100 | 011 = 111 = 7;
 print ~4;    -- out:3 is because: 100 ~  100 = 011 = 3;
 print 4 & 7; -- out:4 is because: 100 & 111 = 100 = 4;
@@ -495,23 +471,20 @@ Comparison operators will create a Boolean response: 1 = True or 0 = False. Also
 ```
 rule main:
   new (x, y):4 ∈  Z; -- primitive integer
-  ** value comparison
+-- value comparison
   print x = 4;  -- 1 (equal)
   print x ≡ 4;  -- 1 (identical)
   print x = y;  -- 1 (equal)
   print x ≡ y;  -- 1
   print x ≠ 5;  -- 1 (different)
   print x!≡ 5;  -- 1 (not identical)
-
-  ** reference ordering
+-- reference ordering
   print x ≥ y;  -- 1: x and a are actually equal
   print x ≥ 4;  -- 1: greater or equivalent to 4
   print x ≤ 4;  -- 1: less than or equivalent to 4
   print x > 4;  -- 0: not greater than 4
   print x < 4;  -- 0: not less than 4
-
-
-  ** arithmetic expressions have primitive results
+-- arithmetic expressions have primitive results
   print x - 4 = 0; -- 1
   print x - 4 ≡ 0; -- 1
 return;
@@ -524,12 +497,10 @@ singleton
 Primitive types are unique. That means they are equivalent. A literal or constant is equivalent to another literal having the same value.
 
 
-```
-** primitive values are singleton
+```-- primitive values are singleton
 print  1  ≡  1;  -- 1
 print "s" ≡ "s"; -- 1
-
-** alternative operator have the same significance
+-- alternative operator have the same significance
 print  1  == 1;  -- 1
 print "s" == "s"; -- 1
 ```
@@ -547,17 +518,15 @@ Logic operators have greater precedence than comparison operators.
 Logical expression have value { 0 = False, 1 = True }
 
 
-```
-** define constants based on Boolean values
+```-- define constants based on Boolean values
 set f: False;
 set t: True;
 
 rule main:
-  ** expressions with single operant
+-- expressions with single operant
   print f; -- 0
   print ¬ t; -- 0
-
-  ** expressions with two operands
+-- expressions with two operands
   print (f = t); -- 0
   print (f ≡ t); -- 0
   print (f ≠ t); -- 1
@@ -594,18 +563,15 @@ return;
 design
 
 
-```
-** logical values are numeric
+```-- logical values are numeric
 print True  ≡ 1;  -- 1
 print False ≡ 0;  -- 1
-
-** logical values do not compute
+-- logical values do not compute
 print False - True; -- Error
 print True  + True; -- Error
-
-** Null value is not True
+-- Null value is not True
 print Null  ≡ True   -- 0
-** Null value is not False
+-- Null value is not False
 print Null  ≡ False  -- 0
 ```
 
@@ -625,20 +591,19 @@ Type inference is a logical deduction of data type from constant literals.
 Each literal has associated a default type, induced by operators {":=", "::"}.
 
 
-```
-** string expressions
+```-- string expressions
 new c := 'a'     ;  -- type = A
 new s := '∈'    ;  -- type = U
 new s := "str"   ;  -- type = S
-** numeric expressions
+-- numeric expressions
 new i := 0;    -- type = Z
 new j := 0.50; -- type = R
-** define synonyms for logic constants
+-- define synonyms for logic constants
 set f := False; -- type B
 set t := True;  -- type B
-** multiple variables get same value
+-- multiple variables get same value
 new (x, y, z) := 5; -- type = Z for all
-** multiple variables get multiple values
+-- multiple variables get multiple values
 new int, rea := -4, 4.44;
 print type(int); -- Z
 print type(rea); -- R
@@ -651,30 +616,29 @@ print type(rea); -- R
 Composite structures are using () [] and {} to create different data types. Next you can study some examples. We wil explain later all these types: List, Map, Array, Object. All of these are also called Bee collections.
 
 
-```
-** boxed integer (type = Z)
+```-- boxed integer (type = Z)
 new i := [10]; -- array of one value = 10!
-** array with capacity of 4 integers: Z
+-- array with capacity of 4 integers: Z
 new d := [1,2,3,4];
-** array with capacity of 10 real numbers: R = 0.00
+-- array with capacity of 10 real numbers: R = 0.00
 new e := [0.00](10);
-** list of one value (Z)
+-- list of one value (Z)
 new a := (1);
-** list of integers (Z)
+-- list of integers (Z)
 new b := (1,2);
-** list of symbols (type = A)
+-- list of symbols (type = A)
 new l := ('a','b');
-** list of Unicode symbol (type = U)
+-- list of Unicode symbol (type = U)
 new u := ("Δ", "Λ", "Γ");
-** 2d matrix with capacity of 10x10 real numbers: R
+-- 2d matrix with capacity of 10x10 real numbers: R
 new m := [0.00](10,10);
-** 3d matrix with capacity of 10x10x10 reals: R = 0.00
+-- 3d matrix with capacity of 10x10x10 reals: R = 0.00
 new m := [0.00](10,10,10);
-** data set of 4 integers: Z
+-- data set of 4 integers: Z
 new s := {1,2,3,4};
-** hash map of (Integer: String)
+-- hash map of (Integer: String)
 new c := {1:"storage",2:"string"};
-** object with two attributes: name ∈ S, age ∈ Z
+-- object with two attributes: name ∈ S, age ∈ Z
 new b := {name:"Goliath", age:30};
 ```
 
@@ -688,8 +652,7 @@ When we define parameters we can use type inference only for optional parameters
 Optional Parameters:
 
 
-```
-** in rule foo, parameters a, b are optional.
+```-- in rule foo, parameters a, b are optional.
 rule foo(a: 0 ∈ Z, b: 0 ∈ Z) => (r ∈ Z):
   let r := a + b;
 rule;
@@ -705,8 +668,7 @@ return;
 Multiple parameters:
 
 
-```
-** parameters: a, b are mandatory, c is optional.
+```-- parameters: a, b are mandatory, c is optional.
 rule foo(a, b, c:0 ∈ Z) => (r ∈ Z):
   let r := a + b + c;
 return;
@@ -725,12 +687,11 @@ Pass arguments by name:
 We can use parameter name and pair-up symbol ":" for argument value.
 
 
-```
-** rule with optional parameter (c)
+```-- rule with optional parameter (c)
 rule bar(a, b, c:0 ∈ Z) => (result ∈ Z):
   let result := a+b+c;
 return;
-** observe we use pair-up ":" to give value for each argument
+-- observe we use pair-up ":" to give value for each argument
 rule main:
   print bar( 1, 1 );    -- print 2 because c = 0
   print bar( a:1, b:1, c:1 ); -- print 3 because c = 1
@@ -882,17 +843,15 @@ Rational numbers and other numbers can be compared using "≈" instead of "=". B
 In next example b = 0.33(3), delta = (b - a) = 0.083
 
 
-```
-** override default precision
+```-- override default precision
 set $precision := 0.01;
 
 rule main:
     new a := 0.25; -- real
     new b := 1\3;  -- rational O.33(3)
-    ** using specified precision 0.01
+-- using specified precision 0.01
     print (a ≈ b); -- 0B0: (False, 0.033 - 0.25 = 0.08 )
-
-    ** using specified precision:
+-- using specified precision:
     print (a ≈ b ± 0.01); -- 0B0 (False)     
     print (a ≈ b ±  0.05); -- 0B0 (False)    
     print (a ≈ b ±  0.10); -- 0B1 (True)
@@ -907,23 +866,19 @@ Rational numbers are similar to complex numbers. The calculation of rational num
 - Conversion from rational number to real is implicit;
 - Conversion from real to rational is explicit;
 
-```
-** execute conversion
+```-- execute conversion
 rule main:
     new a := 0.25; -- real
     new b := 1\4;  -- rational
-
-    ** explicit conversion R :> Q
+-- explicit conversion R :> Q
     expect a ≠ b; -- not equal, type mismatch
     expect a ≈ b; -- values match, aproximation
     expect a ≡ b; -- implicit conversion, match
-
-    ** explicit conversion R :> Q
+-- explicit conversion R :> Q
     new c := a :> Q; 
     expect c = b; -- type & value match
     expect c ≡ b; -- type & value match
-
-    ** implicit conversion Q :> R
+-- implicit conversion Q :> R
     new r := c ∈ R;
     expect c = 0.25;
 return

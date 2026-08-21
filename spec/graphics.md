@@ -201,24 +201,19 @@ Map data types are represented by Unicode symbols:
 - ♁ = Map
 - ⁉ = Condition
 
-```
-** map simple point: λ = Latitude, φ = Longitude, i = index
+```-- map simple point: λ = Latitude, φ = Longitude, i = index
   type • : {i ∈ N, λ ∈ Λ, φ ∈ Φ} <: Object;
-
-** network node:  λ = Latitude, φ = Longitude, ε = Elevation
+-- network node:  λ = Latitude, φ = Longitude, ε = Elevation
   type ◉ : {id ∈ N, λ ∈ Λ, φ ∈ Φ, ε ∈ P} <: Object;
-
-** network link
+-- network link
   type ↯ : {id ∈ N, start_node ∈ ◉, end_node ∈ ◉, shape ∈ [•]} <: Object;
-
-** place of interest
+-- place of interest
   type ◈ : {id ∈ N, point ∈ •, label ∈ S} <: Object;
-** map area
+-- map area
   type ■ : {id ∈ N, origin ∈ •, shape ∈ [•], category ∈ S} <: Object;
-** area of interest
+-- area of interest
   type ▣ : {id ∈ N, point ∈ •, shape ∈ [•], label ∈ S} <: Object;
-
-** map data model
+-- map data model
   type ♁ : {origin ∈ •, extent ∈ •, scale ∈ Q
              nodes ∈ [◉], links ∈ [↯],
              area ∈ [■], pint ∈ [◈], aint ∈  [▣] } <: Object;

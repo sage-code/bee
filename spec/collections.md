@@ -27,8 +27,7 @@ Bee uses composite types to declare ...
 A new type is defined from a super-type using symbol "<:"
 
 
-```
-** type declaration
+```-- type declaration
 type new_type: descriptor <: super_type;
 ```
 
@@ -62,8 +61,7 @@ return;
 Note: When element name start with "." no need to use qualifiers for the individual values. This is because values starting with "." are public by default and known in the scope where ordinal is defined (or loaded).
 
 
-```
-** using public elements in ordinal
+```-- using public elements in ordinal
 type Type: (0){.name0, .name1} <: Ordinal;
 rule main()
    new a, b ∈ Type;
@@ -101,17 +99,13 @@ type Type_name: (element_type) <: List;
 variable declaration You can use one of three forms of declarations:
 
 
-```
-** declare emty list without type
+```-- declare emty list without type
 new name1: ();  -- element type will be established later
- 
-** declare empty list, using explicit type
+-- declare empty list, using explicit type
 new name1: (element_type);  
-
-** declare populated lists using type inference
+-- declare populated lists using type inference
 new name2 := (e1,e2...); -- implicit declaration
-
-** 
+-- 
 new name3 := (e1,e2...) ∈ Type_name; -- full declaration
 ```
 
@@ -135,9 +129,9 @@ new two:(1,2);     -- initialize list with two elements
 ```
 ## list traversal demo
 rule main:
-  ** define a list variable of defined type Lou
+-- define a list variable of defined type Lou
   new myList := (0, 1, 2, 3, 4, 5);
-  ** list traversal
+-- list traversal
   cycle: for ∀ x ∈ myList do
     write x;
     write "," if (x ≠ myList.head);
@@ -153,16 +147,13 @@ rule;
 Bee define Arrays using notation: [type](c), where [type] is the data type of elements and (c) is the capacity (total number of elements). Arrays are automatically initialized. However, if the array contains composite types all elements are null until initialized.
 
 
-```
-** diverse array variables
+```-- diverse array variables
 new array_name1: [element_type]  ;    -- single element array
 new array_name3: [element_type](c);   -- capacity c
 new array_name4: [element_type](n,m); -- capacity c = n * m
-
-** define new sub-type of array
+-- define new sub-type of array
 type AType:[element_type] < Array;
-
-** use previous defined sub-type
+-- use previous defined sub-type
 new array_name5 := AType(c);
 ```
 
@@ -177,10 +168,9 @@ Lets implement previous array: numbers[] and print its elements using a cycle. F
 
 
 ```
-# define array
+--  define array
 new numbers[Z](10) := [0,1,2,3,4,5,6,7,8,9];
-
-** access .numbers elements one by one
+-- access .numbers elements one by one
 rule main:
     write "numbers = [";
     cycle: for ∀ i ∈ (1..10) do
@@ -207,15 +197,13 @@ initialize elements
 Initial value for elements can be set during declaration or later:
 
 
-```
-** you can use a single value to initialize all vector elements
+```-- you can use a single value to initialize all vector elements
 rule main:
     new zum:[Z](10) ∈ Vector; 
-    ** explicit initialization using single value
+-- explicit initialization using single value
     let zum[*]  := 0;
     print zum; -- expect [0,0,0,0,0,0,0,0,0,0]
-
-    ** modify two special elements:
+-- modify two special elements:
     let zum[1]  := 1;
     let zum[$]  := 10;
     print zum; -- expect [1,0,0,0,0,0,0,0,0,10]
@@ -227,20 +215,17 @@ Deferred initialization: We can define an empty array and initialize its elemen
 
 
 ```
-** array without capacity
+-- array without capacity
 rule main:
     new vec:[A]();
     new nec:[N]();
-
-    ** arrays are empty
+-- arrays are empty
     print vec = []; -- True
     print nec = []; -- True
-
-    ** smart initializer with operator "++"
+-- smart initializer with operator "++"
     let vec ++ 10; -- add 10 elements;
     print vec; -- expect ['','','','','','','','','','']
-   
-    ** smart initializer with 0 values
+-- smart initializer with 0 values
     let nec ++ 10;
     print nec; -- expect [0,0,0,0,0,0,0,0,0,0];
 return;
@@ -260,24 +245,21 @@ In next example we demonstrate a curious notation for matrix. You have maybe not
 
 
 ```
-# define a subtype of Matrix
+--  define a subtype of Matrix
 type Mat:[R](4,4) ∈ Matrix
 
 rule main()
     new mat ∈ Mat -- define matrix variable
-
-    ** modify matrix using ":=" operator
+-- modify matrix using ":=" operator
     let mat := [[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,16]]
     print mat[1,1]; -- 1  = first element
     print mat[$,$]; -- 16 = last element
-
-    ** support for 2D matrix literals
+-- support for 2D matrix literals
     pass if mat =  ⎡ 1,  2 , 3,  4 ⎤
                    ⎢ 5,  6 , 7,  8 ⎥
                    ⎢ 9, 10 ,11, 12 ⎥
                    ⎣13, 14 ,15, 16 ⎦;
-
-    ** nice output using array print method
+-- nice output using array print method
     apply mat.print;
 return;
 ```
@@ -295,10 +277,9 @@ Memory is linear, so we fake a matrix. In reality elements are organized in row-
 
 
 ```
-** initialize matrix elements
+-- initialize matrix elements
 rule main:
   new mat: [Z](3,3) <: Matrix;
-  ** initialize matrix elements
   cycle: 
     new i   := 1;
     new x   := mat.length;
@@ -324,33 +305,28 @@ return;
 A data set is a sorted collection of unique values. Elements of a data set can be accessed sequential. There is no index associated with elements like we have in Arrays so the access to an element is slow.
 
 
-```
-** user defined set
+```-- user defined set
 type NS:{N} <: Set -- define a set of natural numbers
 
 rule main:
    new uds ∈ NS;     -- define a shared variable of type set
-   ** define shared sets s1, s2 of 3 elements each
+-- define shared sets s1, s2 of 3 elements each
    new s1 := {1,2,3} ∈ {N};
    new s2 := {2,3,4} ∈ {N};
-   ** specific operations
+-- specific operations
    new u  := s1 ∪ s2; -- {1,2,3,4,5}:union
    new i  := s1 ∩ s2; -- {2,3}  :intersection
    new d1 := s1 - s2; -- {1}        :difference 1
    new d2 := s2 - s1; -- {4}        :difference 2
    new d  := s2 Δ s1; -- {1,4}      :symmetric difference
-
-   ** verify expectation
+-- verify expectation
    expect d = d1 ∪ d2;
-
-   ** belonging check
+-- belonging check
    print s1 ⊂ s;  -- True
    print s  ⊃ s2; -- True
-
-   ** declare a new set
+-- declare a new set
    new a := {1,2,3};
-
-   ** using operator +/- to add/remove elements
+-- using operator +/- to add/remove elements
    let a += 4;  -- {1,2,3,4}
    let a -= 3;  -- {1,2,4}
 return;
@@ -366,8 +342,7 @@ return;
 A hash map is a set of (key:value) pairs sorted by key.
 
 
-```
-** declare a new empty hash map
+```-- declare a new empty hash map
 new new_map ∈ {key_type: value_type};
 ```
 
@@ -375,20 +350,16 @@ new new_map ∈ {key_type: value_type};
 Hash-Map Anatomy
 
 
-```
-** initial value of map
+```-- initial value of map
 rule main:
    new map := {key1:"value1", key2:"value2"};
-
-   ** create new element
+-- create new element
    let map['key3'] := "value3";
-
-   ** finding elements by key
+-- finding elements by key
    print map['key1']; -- "value1"
    print map['key2']; -- "value2"
    print map['key3']; -- "value3"
-
-   ** remove an element by key
+-- remove an element by key
    scrap map['key1']; -- remove "first" element
    apply map.print;   -- expected: {'key2':"value2", 'key3':"value3"};
 return;
@@ -480,18 +451,15 @@ select name, age
 Single quoted or back quoted literals can contain a single symbol.
 
 
-```
-** fixed capacity vector of ASCII symbols
+```-- fixed capacity vector of ASCII symbols
 type A128: [A](128) <: Vector;
 rule main()
-  ** declare a string of type A128
+-- declare a string of type A128
   new str ∈ A128;
-
-  ** populate vector using spreading operator (*)
+-- populate vector using spreading operator (*)
   let *str := 'test'; -- spreading the ASCII literal
   print str;   -- ['t','e','s','t']
-
-  ** fixed capacity vector of symbols UTF32
+-- fixed capacity vector of symbols UTF32
   new  uco: [U](128);
   let *uco := "∈≡≤≥÷≠"; -- spreading a Unicode literal
   print  uco; -- ["∈","≡","≤","≥","÷","≠"];
@@ -507,7 +475,7 @@ Double quoted string literals are Unicode strings.
 
 ```
 rule main:
-   ** variable capacity string UTF32
+-- variable capacity string UTF32
    new uco ∈ S; -- Unicode string unknown capacity
    let uco := "∈ ≡ ≤ ≥ ÷ ≠ × ¬ ↑ ↓ ∧ ∨";
 return;
@@ -537,11 +505,10 @@ Next example demonstrate working with strings. We use "+" operator to make sever
 ```
 rule main:
    new (c, s) ∈ S; -- default length is 128 octets = 1024 bit
-
-   ** string concatenation
+-- string concatenation
    let c := "This is 
              a large unicode string";
-   ** automatic conversion to string
+-- automatic conversion to string
    let s := 'This is an ASCII string';
 return;
 ```
@@ -556,10 +523,9 @@ An error is when program enter a difficult state that is confusing. An error can
 Parts of Bee compiler will be created using Bee language. Here is the definition of global variable $error, that is available for introspection after you call a rule.
 
 
-```
-** global error type
+```-- global error type
 define Error: {code ∈ Z, message ∈ S, line ∈ Z} <: Object;
-** global system error
+-- global system error
 new $error ∈ Error;
 ```
 

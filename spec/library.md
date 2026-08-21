@@ -103,14 +103,12 @@ date
 Bee has pre-define Error objects with codes in range (1..200):
 
 
-```
-** global type
+```-- global type
 type Error: {code ∈ Z, message ∈ S} <: Object;
 ```
 
 
-```
-** exception objects
+```-- exception objects
 $zero_division  := {100,"division by zero"}     ∈ Error;
 $null_reference := {101,"null reference usage"} ∈ Error;
 $value_overflow := {102,"value overflow"}       ∈ Error;
@@ -118,7 +116,7 @@ $out_of_range   := {103,"value out of range"}   ∈ Error;
 $type_mismatch  := {104,"data type mismatch"}   ∈ Error;
 $user_error     := {200,"user defined error"}   ∈ Error;
 ...
-** Standard error
+-- Standard error
 $standard_error  := {1,"standard error"}    ∈ Error;
 $unexpected_error:= {2,"unexpected error"}  ∈ Error;
 ```

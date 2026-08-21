@@ -167,20 +167,19 @@ A module can define "rules". These are sub-programs that can be executed on dema
 
 
 ```
-# main rule
+--  main rule
 rule main(*params ∈ S):
-   ** read the number of parameters
+-- read the number of parameters
    new c := params.count;
    panic if (c = 0);
-
-   ** print comma separated parameters
+-- print comma separated parameters
    new i:= 0 ∈ Z;
    while (i < c) do
      write params[i];
      let i += 1;
      write "," if (i < c);
    repeat;
-   ** print the buffer to console
+-- print the buffer to console
    print;
 return;
 ```
@@ -200,7 +199,7 @@ Library modules that are reusable for multiple projects can be imported in Bee "
 
 
 ```
-# loading modules
+--  loading modules
 use $bee_lib.folder_name.(*);     -- load all modules from folder
 use $bee_lib.folder_name.(x,y,z); -- load modules x.bee, y.bee and z.bee
 ```
@@ -213,7 +212,7 @@ Qualifier Bee can use  "dot notation" to locate external members. This techniqu
 
 
 ```
-# load a single module and create a qualifier
+--  load a single module and create a qualifier
 use  $bee_lib.folder_name.module_name as qualifier; -- load a single module
 ...
 apply qualifier.member_name; -- using dot notation with qualifier
@@ -254,19 +253,16 @@ A module has its own scope, that is called name-space where you can define membe
 ```
 #define a module
 module demo_module:
-
-** public constant
+-- public constant
 set .pi: 3.14;
-
-** expression rule foo is private
+-- expression rule foo is private
 rule foo(x ∈ N) ∈ N => (x + 1);
-
-** block rule bar is public
+-- block rule bar is public
 rule .bar(x, y ∈ N) => (r ∈ N):
-  ** define local variable
+-- define local variable
   new str := "test";
   ...
-  ** assign the result
+-- assign the result
   let r := x + y; -- r, x, y are locals
 return;
 ```
@@ -281,11 +277,9 @@ Aliases:
 You can create an alias for a specific member to eliminate the qualifier. This rule can be used to "merge" public members into current scope. A member can have one single alias in a module. If you do it multiple times, only the last alias is used. It is a bad practice to change the alias of a member.
 
 
-```
-** import library module
+```-- import library module
 use library as qualifier
-
-** create alias for a particular member
+-- create alias for a particular member
 alias new_name: qualifier.member_name;
 ```
 
@@ -295,21 +289,17 @@ This example demonstrate how to use a rule from a module named "module_name"
 
 ```
 #define program name
-** loading a module with qualifier
+-- loading a module with qualifier
 use $pro.src.demo_module as demo;
-
-** give alias to module rule
+-- give alias to module rule
 alias sum = demo.bar;
-
-** define main rule
+-- define main rule
 rule main:
-    ** call rule using qualifier
+-- call rule using qualifier
     new test := demo.bar(1,1); -- 2
-
-    ** call rule using alias
+-- call rule using alias
     new result := sum(1,1); -- 2
-
-    ** call rule using "with" block
+-- call rule using "with" block
     with demo do
          print foo(2);   -- 3
          print bar(2,1); -- 3
@@ -337,7 +327,7 @@ In next module called: "test_module.bee", we create a public rule that delay exe
 
 
 ```
-# secondary module: test_module.bee
+--  secondary module: test_module.bee
 rule .test(t ∈ Z) => (r ∈ N):
   let  r := t; -- prepare the result
   wait t;      -- wait for t seconds
@@ -349,7 +339,7 @@ Let's use the module previously defined in synchronous mode.
 
 
 ```
-# main module
+--  main module
 use $pro_src.test_module;
 
 alias test = test_module.test;
@@ -359,15 +349,14 @@ execute test() and append result
 at the end of "collect" list
 --------------------------------+
 rule main:
-   ** define a collector (list)
+-- define a collector (list)
    new collect ∈ (N);
 
    apply collect <+ test(30);
    apply collect <+ test(40);
    apply collect <+ test(10);
    apply collect <+ test(20);
-
-   ** the collector is unordered
+-- the collector is unordered
    print collect; -- (30,40,10,20)
 return;
 ```
@@ -377,7 +366,7 @@ Let's use the module previously defined in asynchronous mode. For this we use ke
 
 
 ```
-# main module
+--  main module
 use $pro_src.test_aspect.(*);
 
 +-----------------------------------------
@@ -385,7 +374,7 @@ use $pro_src.test_aspect.(*);
    at the end of "collect" list
 -----------------------------------------+
 rule main:
-   ** define a collector (list)
+-- define a collector (list)
    new collect ∈ (N);
 
    begin collect <+ test(30); -- open one thread
@@ -394,8 +383,7 @@ rule main:
    begin collect <+ test(20); -- open one thread
 
    wait; -- stop and wait for the all open threads to finish
-
-   ** the collector is ordered
+-- the collector is ordered
    print collect; -- (10,20,30,40)
 return;
 ```

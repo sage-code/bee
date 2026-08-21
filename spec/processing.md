@@ -23,7 +23,7 @@ syntax Boxed value is an Array or Vector with a single element.
 
 
 ```
-# define boxed values
+--  define boxed values
 new int ∈ [Z]; -- boxed integer
 new flt ∈ [R]; -- boxed double float
 ```
@@ -32,27 +32,23 @@ new flt ∈ [R]; -- boxed double float
 Boxing is the process of converting a primitive type to a reference.
 
 
-```
-** define two integers
+```-- define two integers
 new n ∈  Z;  -- primitive integer
 new k ∈ [Z]; -- boxed integer
 
 rule main:
-  ** check type of variable
+-- check type of variable
   print type(k);          -- [Z]
   print type(k) is Array; -- 1 = True
-
-  ** boxing notation
+-- boxing notation
   let k :=  n;  -- auto-boxing
   let k := [n]; -- explicit boxing
-
-  ** comparison
+-- comparison
   print n = 0; -- 1 (true, initial value)
   print n = k; -- 1 (true, same values)
   print n ≡ k; -- 0 (false, different types)
   print n == k; -- 0 (false, not the same)
-
-  ** consequence
+-- consequence
   let n := 2; -- n = 2 (modify n)
   print k;      -- k = 0 (unmodified)
   print k := 10; -- auto-boxing
@@ -64,18 +60,17 @@ return;
 Unboxing is the process of converting a reference to a primitive type. This will unwrap the value from the heap and stores it on the stack. Unboxing is always explicit. If you try to do implicit unboxing the compiler will signal an error.
 
 
-```
-** create a native and boxed integer
+```-- create a native and boxed integer
 new n: 0  ∈  Z;  -- native integer
 new r: 10 ∈ [Z]; -- reference to integer
 rule main:
-  ** use data type like a function
+-- use data type like a function
   let n := Z(r);   -- explicit unboxing (default notation)
   let n := r :> Z  -- explicit unboxing (alternative notation)
-  ** verify value identity
+-- verify value identity
   print n = r; -- 1 (true:  same values)
   print n ≡ r; -- 0 (false: different types)
-  ** consequence: variables are unbound
+-- consequence: variables are unbound
   let n += 2;  -- n = 12 (modified)
   print r; -- r = 10 (unmodified)
 return;
@@ -91,16 +86,15 @@ A reference can be shared between two variables. As a consequence, when one is m
 A reference is shared using operator ":="
 
 
-```
-** create a reference using ":="
+```-- create a reference using ":="
 new a := [1]; -- create a reference
 new b :=  b;  -- share a reference
 
 rule main:
-  ** variable c is bound to a
+-- variable c is bound to a
   pass if b = a; -- 1 (same values)
   pass if b ≡ a; -- 1 (same location, same data type)
-  ** consequence of sharing:
+-- consequence of sharing:
   let a := 2;    -- [2] (modify denoted value)
   print a;       -- [2] (new value is boxed)
   print b;       -- [2] (shared reference is modified)
@@ -114,16 +108,14 @@ example for cloning
 
 - A reference is copied using operator "::"
 
-```
-** create a clone using "::"
+```-- create a clone using "::"
 new a := [1]; -- create a reference
 new b :: a;   -- value [1]
 
 rule main:
   expect a  = b; -- pass (same values)
   expect a !≡ b; -- expect different locations
-
-  ** consequence of cloning:
+-- consequence of cloning:
   let a := 3;
   print a; -- [3] (new value)
   print b; -- [1] (unmodified)
@@ -147,19 +139,19 @@ new test ∈ [R](10); -- vector of 10 real numbers
 new m := length(test)-1;
 
 rule main:
-  ** array index start from 0
+-- array index start from 0
   print test[0]; -- first element
   print test[m]; -- last element
-  ** alternative notation
+-- alternative notation
   print test[0];  -- first element
   print test[-1]; -- last element
-  ** array traversal
+-- array traversal
   new x := 0;
   if (x < m) do
     test[i] := x;
     let x += 1;
   cycle;
-  ** print all elements of array
+-- print all elements of array
   print test;
 return;
 ```
@@ -174,21 +166,18 @@ operations
 
 
 ```
-# Initialized arrays
+--  Initialized arrays
 new a1 := [1, 2, 3]; 
 new a2 := [2, 3, 4];
 rule main:
-  ** addition between two Arrays "+"
+-- addition between two Arrays "+"
   new a3 := a1 + a2; -- [1,2,3,2,3,4]
-
-  ** difference between two Arrays "-"
+-- difference between two Arrays "-"
   new a4 := l1 - l2; -- [1]
   new := l2 - l1; -- [4]
-  
-  ** intersection between two Arrays "&"
+-- intersection between two Arrays "&"
   new := a1 ∩ a2; -- [2,3]
-
-  ** union between two Arrays "|"
+-- union between two Arrays "|"
   new := a1 ∪ a2; -- [1,2,3,4]
 return;
 ```
@@ -196,22 +185,20 @@ return;
 
 ```
 rule test_array:
-  ** array  with capacity of 10 elements
+-- array  with capacity of 10 elements
   new my_array ∈ [Z](10);
   new m := my_array.capacity();
-
-  ** traverse array and modify elements
+-- traverse array and modify elements
   cycle:
     new i := 0 ∈ N;
   while i < m do
     let my_array[i] := i;
     let i += 1;
   repeat;
-  ** array  elements using escape template by index #[]
+-- array  elements using escape template by index #[]
   print ("First element: #[1]"  ? my_array);
   print ("Last element:  #[-1]" ? my_array);
-
-  ** range of array elements are comma separated [1,2,3]
+-- range of array elements are comma separated [1,2,3]
   print ("First two: #[1..2]"  ? my_array);
   print ("Lat two:   #[-2..-1]"  ? my_array);
   print ("All except lat two: #[1..-3]"  ? my_array);
@@ -231,18 +218,15 @@ This is the last element: 10
 resize Array capacity can be modified using union operator "+" or "+=". This will reset the array reference. That means it will not update any slice or other references you may have to this array.
 
 
-```
-** define new array and reference
+```-- define new array and reference
 new array := [0](10);
 new acopy := array; -- copy reference
 rule main:
   print array = acopy; -- 1 = True (same array)
-
-  ** extend array with 10 more elements
+-- extend array with 10 more elements
   let acopy    ++ [0](10); -- 10 new elements
   let acopy[*] := 1; -- modify all
-
-  ** print new array and reference
+-- print new array and reference
   print acopy;  -- [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
   print array;  -- [0,0,0,0,0,0,0,0,0,0]
 
@@ -285,7 +269,7 @@ Array data can be assigned to multiple variables. Last elements can be captured 
 new array := [1,2,3,4,5];
 
 rule main():
-  ** read all array elements using decomposition
+-- read all array elements using decomposition
   new x, y, *other := [1,2,3,4,5]; 
   print "x = #(n)" ? x;  -- x = 1
   print "y = #(n)" ? y;  -- y = 2
@@ -300,14 +284,13 @@ return;
 A slice is a small view from a larger array, created with notation [n..m].
 
 
-```
-** declare array with capacity c
+```-- declare array with capacity c
 new array_name ∈ [element_type](c);
 
 rule main:
-  ** unnamed slice can be used in expressions
+-- unnamed slice can be used in expressions
   print array_name[n..m];
-  ** create named slice from array
+-- create named slice from array
   new slice_name := array_name[n..m];
 return;
 ```
@@ -319,8 +302,7 @@ Where: n,m are 2 optional numbers, n ≥ 0, m <= capacity-1.
 Anonymous slicing notation can be used to extract or modify specific elements from an array;
 
 
-```
-** initialized array
+```-- initialized array
 start:
   new a:= [0,1,2,3,4,5,6,7,8,9];
 do
@@ -328,11 +310,9 @@ do
   print a[$-2..$]; -- will print [7,8,9]
   print a[1..1];   -- will print [0]
   print a[1..4];   -- will print [1,2,3,4]
-
-  ** modify first 4 elements
+-- modify first 4 elements
   let a[1..4] += 2;
-
-  ** first 4 elements of (a) are modified
+-- first 4 elements of (a) are modified
   print a; -- [2,3,4,5,4,5,6,7,8,9]
 done;
 ```
@@ -341,23 +321,19 @@ done;
 Slicing notation can be used to create a view to original array.
 
 
-```
-** original array
+```-- original array
 start:
     new a:= [0](5); -- [0,0,0,0,0]
-    
-    ** making two slices
+-- making two slices
     new c := a[1..3]; -- [0,0,0]
     new e := a[4..5]; -- [0,0]
 do
-  ** modify all slice elements
+-- modify all slice elements
   let c[*] := 1;
   let e[*] := 2;
-
-  ** original array is modified
+-- original array is modified
   print a; -- [1,1,1,2,2]
-
-  ** modify last 2 elements using anonymous slicing
+-- modify last 2 elements using anonymous slicing
   let a[$-1..$] := [2,3];
   print a; -- [1,1,1,2,3]
 done;
@@ -370,8 +346,7 @@ done;
 Modify all elements of the matrix is possible using [*] and assign operator “ := ”
 
 
-```
-** a matrix having 2 rows and 2 columns
+```-- a matrix having 2 rows and 2 columns
 new M: [Z](2,2);
 
 rule main():
@@ -387,19 +362,16 @@ return;
 #define a shared matrix
 new M: [Z](2,2);
 rule main():
-  ** assign same value to all elements
+-- assign same value to all elements
   let M[*] := 100;
-
-  ** modify all elements
+-- modify all elements
   let M[*] += 10;
   print(M); -- [[110,110],[110,110]]
-
-  ** modify an entire row
+-- modify an entire row
   let M[1,*] := 0;
   let M[2,*] := 1;
   print(M); -- [[0,0],[1,1]]
-
-  ** modify an entire column
+-- modify an entire column
   let M[*,1] += 1;
   let M[*,2] += 2;
   print(M); -- [[1,2],[2,3]]
@@ -412,10 +384,10 @@ matrix addition Two matrices can be added to each other if they have the same d
 
 ```
 start:
-  ** creation of local matrix with 10 × 10 elements
+-- creation of local matrix with 10 × 10 elements
   new M  := [1](10,10) + [2](10,10); 
 do
-  ** verify the result is a matrix of same dimensions
+-- verify the result is a matrix of same dimensions
   expect M = [3](10,10); 
 done;
 ```
@@ -437,16 +409,15 @@ Example: In this example we traverse all the rows then all the column, this is t
 
 
 ```
-# define a matrix using unicode literal
+--  define a matrix using unicode literal
 new M :=  ⎡'a0','b0','c0'⎤
           ⎢'a1','b1','c1'⎥
           ⎣'a2','b2','c2'⎦;
 
 rule main():
-  ** local control variables
+-- local control variables
   new row, col := 0;  -- type inference: ∈ Z
-
-  ** traverse matrix with index pattern
+-- traverse matrix with index pattern
   if col < 3 do     -- traverse columns
     if row < 3 do   -- traverse row first
       print M[row,col];
@@ -454,8 +425,7 @@ rule main():
     repeat;
     let col += 1;
   repeat;
-
-  ** traversal with visitor pattern
+-- traversal with visitor pattern
   for e ∈ M do
     print e;
   repeat;
@@ -499,13 +469,13 @@ legend
 - filter ::= condition, logic rule or logic expression
 
 ```
-# define new sets of integer numbers
+--  define new sets of integer numbers
 new (test1, test2): {Z};
 rule main;
-  ** populate the sets with new values
+-- populate the sets with new values
   new test1 := { x  | x ∈ (1..3)};
   new test2 := { x² | x ∈ (1..3)};
-  ** expected result
+-- expected result
   exlect test1 = {1,2,3};
   exlect test2 = {1,4,9};
 return;
@@ -534,7 +504,7 @@ New map defined from a domain
 
 
 ```
-# define hash-map using a map-builder
+--  define hash-map using a map-builder
 new mymap := { (x:x²) | x ∈ (0.!10) ∧ (x % 2 = 0) };
 rule main():
   print mymap; -- {(0:0),(2:4),(4:16),(6:36),(8:64)}
@@ -573,15 +543,14 @@ Qualifiers can be used as logical expressions in conditional expressions.
 ```
 
 
-```
-** create a set of bit-masks
+```-- create a set of bit-masks
 start:
   new here := {0b10011,0b10001,0b11101};
   new verify ∈ L; -- logical flag
 do
-  ** verify if any mask element has second bit from the end
+-- verify if any mask element has second bit from the end
   let verify := ∃(x ∈ here) ∧ (x ⊕ 0b10 = x);
-  ** verify if all elements in Here ha ve first bit from the end
+-- verify if all elements in Here ha ve first bit from the end
   let verify := ∀(x ∈ here) ∧ (x ⊕ 0b01 = x);
 done;
 ```
@@ -626,7 +595,7 @@ The elements in one set or list can be transformed by a function or expression t
 ```
 new source := {0,1,2,3,4,5};
 rule main():
-  ** create Table pairs (key, value) for Table map
+-- create Table pairs (key, value) for Table map
   new target := {(x:x^2) | x ∈ source };
   print target; -- { 0:0, 1:1, 2:4, 3:9, 4:16, 5:25}
 return;
@@ -695,15 +664,12 @@ return;
 A stack is a LIFO list of elements: LIFO = (last in first out)
 
 
-```
-** declare a list
+```-- declare a list
 new a := (1, 2, 3); 
 rule main():
-
-  ** add using equeue operator: "<+"
+-- add using equeue operator: "<+"
   put a <+ 4; -- (1,2,3,4)
-
-  ** delete operator "-="
+-- delete operator "-="
   pop a -= a.tail; -- a = (1,2,3)
 return;
 ```
@@ -719,14 +685,11 @@ A queue is a FIFO collection of elements: (first in first out)
 new q := (1,2,3);
 rule main():
    new first ∈ N;
-
-   ** enqueue new element into list
+-- enqueue new element into list
    put q <+ 4; -- (1,2,3,4)
-
-   ** read first element using ":="
+-- read first element using ":="
    let first := a.head; -- first = 1
-
-   ** shift list to left with 1
+-- shift list to left with 1
    pop a << 1; -- a = (2,3,4)
 return;
 ```
@@ -793,8 +756,7 @@ Will print:
 Hash tables are sorted in memory by key for faster search. It is more difficult to search by value because is not unique and not sorted. To search by value one must create a cycle and verify every element. This rule is very slow so you should never use it.
 
 
-```
-** check if a key is present in a hash collection
+```-- check if a key is present in a hash collection
 new my_map := {(1:'a'),(2:'b'),(3:'c')};
 rule main()
    let my_key := 3;
@@ -833,14 +795,12 @@ Output:
 ### Example
 
 
-```
-** partial declaration
+```-- partial declaration
 new animals := {}; 
 rule main():
-  ** establish element types (S:X)
+-- establish element types (S:X)
   new animals["Rover"] := "dog";
-
-  ** use direct assignment to create 2 more element
+-- use direct assignment to create 2 more element
   new animals["Bear"] := "dog";
   new animals["Kiwi"] := "bird";
   print(animals);
@@ -865,7 +825,7 @@ Conversion of a string into number is done using parse rule:
 ```
 rule main:
   new x,y ∈ R;
-  ** rule parse return; a Real number
+-- rule parse return; a Real number
   let x := parse("123.512",2);     -- convert to real 123.5
   let y := parse("10,000.3333",2); -- convert to real 10000.33
 return;
@@ -880,14 +840,12 @@ Strings can be concatenated using:
 - default concatenation operator: "+"
 - path concatenation operator: "/"
 
-```
-** this is example of string concatenation
+```-- this is example of string concatenation
 new str := "";
 rule main():
-  ** stupid fast concatenate two string as they are
+-- stupid fast concatenate two string as they are
   let str := "this " + " string"; -- "this  string"
-
-  ** smart slower concatenation for path or url
+-- smart slower concatenation for path or url
   let str := "this/  " / "  string";   -- "this/string"
   let str := "c:\this" . "is\path";         -- "c:\this\is\path"
   let str := "https:" . "domain.com";    -- "https://domain.com"
@@ -914,19 +872,17 @@ return;
 Replication operator: "*" will concatenate a string with itself multiple times:
 
 
-```
-** create string of 10 spaces
+```-- create string of 10 spaces
 new s := ' ' * 10;
 ```
 
 
 ```
 rule main():
-  ** a string from pattern 01
+-- a string from pattern 01
   new a := "01" * 4;
   print a; -- 01010101;
-
-  ** used in expression will generate string
+-- used in expression will generate string
   new b := (a & ' ') * 4;
   print b; -- 01010101 01010101 01010101 01010101
 return;
@@ -1000,8 +956,7 @@ We use notation "#()" or "#()[]" to create a placeholder template inside of a St
 - If a placeholder index is not resolved then it is preserved unmodified;
 - Unlike JavaScript or other languages, variables are not recognized in string templates;
 
-```
-** next template uses #(n) placeholder
+```-- next template uses #(n) placeholder
 new template := "Duration:#(n) minutes and #(n) seconds";
 new var1 := 4;
 new var2 := 55;
@@ -1012,19 +967,16 @@ return;
 ```
 
 
-```
-** define two A codes
+```-- define two A codes
 new x := 30; -- Code ASCII 0
 new y := 41; -- Code ASCII A
 rule main():
-   ** template writing alternative
+-- template writing alternative
    print "#(n) > #(n)" ? (x,y); -- "30 > 41"
    print "#(a) > #(a)" ? (x,y); -- "0 > A"
-
-   ** using two dots : to separate hour from minutes
+-- using two dots : to separate hour from minutes
    print "#(n):#(n)" ? (10, 45); -- 10:45
-
-   ** using numeric format
+-- using numeric format
    print "#(1,000.00)" ? (1000.45); -- 1,234.56
 return;
 ```
@@ -1146,7 +1098,7 @@ Number type is implementing format() rule. This rule has one string parameter th
 
 
 ```
-# format signature
+--  format signature
 rule format(number ∈ R, pattern ∈ S) => (result ∈ S):
   ...
 return;

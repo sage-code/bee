@@ -18,24 +18,22 @@ Comments are very important part of Bee code. We have multiple conventions for m
 **Example:**
 
 
-```
-              ** Bee Language Syntax Example **
+```-- Bee Language Syntax Example **
 +------------------------------------------------------------------
 | At the beginning of program you can have  several comments,     |
 | to explain how the program works. This notation is preferred.   |
 +-----------------------------------------------------------------+
 rule main:
   continue; -- this statement does nothing
-
-  ** this is a single line comment
+-- this is a single line comment
   print ("end of line comments",    -- first argument
          "can be used to explain",  -- second argument
          "diverse arguments"        -- third argument
         );
 return;
 *******************************************************************
-** This is the old style boxed comment, used for matrix printers **
-** In Bee you can add comments/notes at the end of your code     **
+-- This is the old style boxed comment, used for matrix printers **
+-- In Bee you can add comments/notes at the end of your code     **
 *******************************************************************
 ```
 
@@ -307,11 +305,9 @@ statement if condition;
 
 **Note:** Previous statement is executed only if the condition is True.
 
-```
-** alternative statement 
+```-- alternative statement 
   expect condition else statement;
-
-** alternative expression
+-- alternative expression
   expect condition else expression;
 ```
 
@@ -326,14 +322,12 @@ statement if condition;
 **Example:**
 ```
 rule main:
-  ** generate a random number
+-- generate a random number
   new a := random(Z);
-
-  ** conditional execution
+-- conditional execution
   new b := a;
   let b := -a if a < 0;
-
-  ** print result
+-- print result
   print "|b| = ", a;
 return;
 ```
@@ -367,12 +361,10 @@ expect y = 4;
 **priority:**
 
 Power operations have priority but we have support only for (+, -) no other operations are possible in exponent expressions. In next expressions, (n-1) is evaluated first before making the power operation.
-```
-** equivalent notation
+```-- equivalent notation
 xⁿ⁻¹ = x^(n-1)
 xˣ⁺¹ = x^(n+1)
-
-** equivalent  notation
+-- equivalent  notation
 x^(¹/₂) = √2(x)  
 x^(¹/₃) = √3(x) 
 ```
@@ -385,16 +377,13 @@ Instead of ternary operator we use conditional expressions. Conditional expressi
 **Syntax:**
 ```
 rule main:
-  ** define a local variable
+-- define a local variable
   new var ∈ type;
-
-  ** single condition matching
+-- single condition matching
   let var := (xp1 if cnd1 else xp);
-
-  ** multiple matching with default value
+-- multiple matching with default value
   let var := (xp1 if cnd1, xp2 if cnd2,..., xp);
-
-  ** alternative code alignment
+-- alternative code alignment
   let var := ( xp1 if cnd1 else
                xp2 if con2 else
                xp3 if cnd3 else
