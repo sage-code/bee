@@ -969,22 +969,20 @@ return;
 You can insert constants using notation $X or #(nn):
 
 
-Codes:
+**ASCI Special Codes:**
 
-
-| Table |
-| --- |
-| DEC | HEX | CODE | NAME |
-| 00 | 0x00 | $NL | Null |
-| 08 | 0x08 | $BS | Backspace |
-| 09 | 0x09 | $HT | Horizontal Tab |
-| 10 | 0x0A | $LF | Line Feed |
-| 11 | 0x0B | $VT | Vertical Tab |
-| 12 | 0x0C | $FF | Form Feed |
+| DEC | HEX | CODE| NAME            |
+| :---| :---| :---| :---            |
+| 00 | 0x00 | $NL | Null            |
+| 08 | 0x08 | $BS | Backspace       |
+| 09 | 0x09 | $HT | Horizontal Tab  |
+| 10 | 0x0A | $LF | Line Feed       |
+| 11 | 0x0B | $VT | Vertical Tab    |
+| 12 | 0x0C | $FF | Form Feed       |
 | 13 | 0x0D | $CR | Carriage Return |
-| 27 | 0x1B | $ES | Escape |
-| 39 | 0x27 | $AP | Apostroph '' |
-| 34 | 0x22 | $QM | Quotation "" |
+| 27 | 0x1B | $ES | Escape          |
+| 39 | 0x27 | $AP | Apostroph ''    |
+| 34 | 0x22 | $QM | Quotation ""    |
 
 
 
@@ -1034,11 +1032,8 @@ return;
 ```
 
 
-Placeholders:
-
-
+**Placeholders:**
 Format template stings can use escape sequences:
-
 
 ```
 "#(n)"   = natural number

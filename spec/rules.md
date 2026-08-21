@@ -1,6 +1,6 @@
 # Bee Rules
 
-Bee is a rule-oriented language. We use rules to create small sub-programs that serve diverse roles.
+Bee is a rule-oriented language. We use rules to create small sub-programs that serve diverse roles. You can define a rule and later you can apply a rule once or several times.
 
 ## Rule Anatomy
 
@@ -36,7 +36,7 @@ return;
 
 ## Rule Results
 
-A rule can have multiple results, declared in a result list similar to the parameter list.
+A rule can have multiple results, declared in a result list similar to the parameter list. A rule that have results can be used like a function in right side of the assign expression.
 
 ```bee
 ** rule with two results "s" and "d"
