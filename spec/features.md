@@ -1,11 +1,9 @@
 # Bee Features
 
-
-Bee is a disruptive strange looking language that will bring Math notation into the source code. Bee has some uncommon keywords, operators and symbols.
-
+Bee is an expressive language that integrates mathematical notation directly into source code. Bee features a clear, keyword-driven syntax with dedicated operators and domain-specific symbols.
 
 | # | Feature Name | How to Implement |
-| :--- | :--- | :--- |
+| :---| :---| :---|
 | 1 | readable | use English keywords |
 | 2 | efficient | use native types |
 | 3 | safe | avoid invalid references |
@@ -14,24 +12,21 @@ Bee is a disruptive strange looking language that will bring Math notation into 
 | 6 | deterministic | avoid side effects |
 | 7 | unicode | Unicode symbols and operators |
 
-
 ## Readable
 
-
-Bee is designed to be learn as first programming language for Sage-Code developers. We think that you can learn Bee by reading code examples in one week. Next design choices will make Bee code easier to read therefore easier to learn:
+Bee is designed to be learned as a first programming language for Sage-Code developers. Code examples can be understood quickly due to the following design choices:
 
 - Use short and familiar English keywords;
 - Use imperative statements based on verb keywords;
-- Use end of block keywords not curly brackets;
-- Use best operator symbols possible similar to Math;
-- Use comprehensive data literals for collections;
-- Enable comprehensive comments and code documentation;
-- Enable Greek and Cyrillic letters for identifiers;
+- Use end-of-block keywords rather than curly braces;
+- Use mathematical symbols for operators where appropriate;
+- Use intuitive data literals for collections;
+- Support structured inline comments and code documentation;
+- Enable Greek and Cyrillic letters for identifiers.
 
-The result of these choices is demonstrate below. You can observe different comment notations enable different color. Syntax colorizer is able to identify also the keywords and highlight every statement.
+The result of these choices is demonstrated below. Syntax highlighting identifies keywords, comment styles, and statement structures.
 
-
-```
+```bee
 --  Demo: Fibonacci Sequence
 -- declare Fibonacci rule
 rule fib(n ∈ N) => (y ∈ N):
@@ -43,104 +38,92 @@ rule fib(n ∈ N) => (y ∈ N):
 return;
 
 rule main:
--- call fib rule using argument 5
-   new r := fib(n: 5);
--- print the result to console
-   print r;
+  -- call fib rule using argument 5
+  new r := fib(n: 5);
+  -- print the result to console
+  print r;
 return; -- end of module
 ```
 
-
 ## Efficient
 
+Bee aims for efficiency rather than raw compute overhead. Performance can be obtained using intensive compute resources and distributed computing, whereas efficiency is achieved through better algorithms and native data types. Bee is designed for multi-core CPUs. It enables creating efficient applications using the following techniques and features:
 
-Bee is aiming for efficiency not performance. There is a difference, performance can be obtained using intensive computer resources and distributed computing. Efficiency is achieved using better algorithms and data types. Bee is designed for multi-core CPU. It enable you to create efficient applications using following techniques and features:
-
-- Use native data types;
-- Use mutable string types;
-- Use fixed precision arithmetic;
-- Use fixed size arrays and matrices;
-- Enable array slicing;
-- Enable lambda expressions;
-- Enable tail recursion;
-- Enable coroutines;
-- Enable concurrency;
+- Native data types;
+- Mutable string types;
+- Fixed precision arithmetic;
+- Fixed-size arrays and matrices;
+- Array slicing;
+- Lambda expressions;
+- Tail recursion;
+- Coroutines;
+- Concurrency.
 
 ## Safe
 
+Bee is designed to be safe yet expressive. To fulfill these goals, the language architecture is built on the following principles and beliefs:
 
-Bee is designed to be a safe but also comprehensive. To fulfill these goals we setup a runway architecture based on next principles and believes. Some of these principles create real challange for our design.
-
-- Safety is more important than performance.
-- If something can go wrong, eventually it will,
-- If you already know it can be a problem, prevent it,
-- It is better to be proactive than reactive,
-- Sometimes if you try a second time it may work,
-- There are more than one ways to resolve a problem,
-- If your problem is large, split it into parts,
-- Explicit is better than implicit even if require more work,
-- Efficiency is more important than high cost performance,
-- Good precision is more important than perfect precision,
+- Safety is more important than raw performance.
+- If something can go wrong, eventually it will.
+- Potential runtime issues must be prevented at compile time whenever possible.
+- Proactive error checks are better than reactive debugging.
+- Large problems should be decomposed into smaller modular subroutines.
+- Explicit syntax is better than implicit behavior, even if it requires more code.
+- Resource efficiency is prioritized over high-overhead abstractions.
+- Controlled fixed precision is preferred over unpredictable floating-point rounding.
 
 ## Modular
 
+Bee applications are typically compact, often residing in a single source file. However, Bee fully supports multi-file organization for separation of concerns. There are two kinds of modules in a large application: application modules and library modules.
 
-Bee applications are usually small, based on single source file. However Bee enable usage of multiple files for separation of concerns. There are 2 kind of modules in a large application: application modules and library modules.
+**Bee Modular Design:**
 
+- A Bee program consists of application modules and library modules.
+- The entry point module is called the main module and contains `rule main`.
+- Secondary modules can be reused across multiple Bee programs.
+- Library modules reside in designated Bee library folders.
+- External modules can be installed by a package manager in Bee library folders.
 
-Bee modular design
-
-- Bee program consist of application modules and library modules
-- Main program is called main module and contains rule: main
-- Secondary modules can be reused in multiple Bee programs
-- Library modules are modules installed in Bee library folders
-- External modules can be installed by a package manager in Bee library folders
-
-Note: Main module is the only executable module and is not reusable. Secondary modules can be loaded and public members can be executed from main() rule. Loaded modules are persistent in memory and can not be "unloaded" until the program ends. Bee has this limitation, it has to be small to be loaded in memory.
-
+`Note:` The main module is the only executable entry point and is not reusable by other modules. Secondary modules can be loaded and their public members executed. Loaded modules remain persistent in memory for the duration of program execution.
 
 ## Explicit
 
+Bee is an explicit language: explicit design choices prevent unintended side effects. The following design choices enforce explicit semantics:
 
-Bee is an explicit language: We believe explicit is better than implicit. For this we try to give as much control to developers as possible. Next design choices make Bee an explicit language:
-
-- Bee require declarations of data types for all elements: constants, variables, parameters and results. Unlike dynamic languages that use implicit data types that can be changed in the same scope.
-- Most languages do not have a name for result variables in functions. Bee allow developers to declare explicit names and types for every result. This is helpful when a subroutine has multiple results.
-- Precision is implicit and maximum possible in most other languages, forcing the computation of multiple decimals that are not necessary. In Bee you can define rational numbers that have fixed number of decimals therefore precision is explicit.
-- Variables and parameters are automatically initialized with zero value when there is no explicit initialization. Also, if a parameter has explicit initial value it becomes optional.
-- Bee has three assignment operators: ":", "::" and ":=". First is called "pair up". Second is called "clone", thread is called "assign". Developers can control what assignment operator actually do by using keywords: "make" to declare a new variable and "alter" to modify an existing variable.
-- In a rule, primitive type parameters are transferred by value while composite type parameters and objects are transferred by reference. Same rule apply for result variables.
-- Bee do not have pointers nor pointer arithmetic. However you can define references to primitive types using explicit boxing operator [x] that are as good as pointers.
+- Bee requires explicit data type declarations for all constants, variables, parameters, and rule results, unlike dynamically typed languages.
+- Bee allows developers to declare explicit names and types for every return result. This provides clarity when a subroutine produces multiple results.
+- Fixed-precision rational numbers (`Q`) allow developers to specify exact decimal precision rather than relying on floating-point approximations.
+- Variables and parameters without explicit initializers are automatically set to standard zero default values. Parameters with explicit default values become optional.
+- Bee provides three assignment operators: `:` (pair-up), `::` (clone), and `:=` (assign). Developers control variable mutation using `new` (declare variable) and `let` (modify existing variable).
+- Primitive type parameters are transferred by value, while composite types and objects are transferred by reference. The same rules apply to result variables.
+- Bee does not have raw pointers or pointer arithmetic. However, explicit boxing references `[x]` can be defined for primitive types.
 
 ### Deterministic Execution
 
-A deterministic system ensures that given the same input and initial state, the program will always produce the same output through the exact same sequence of internal states. In language design, this is critical for reliability, testing, and debugging.
+A deterministic system ensures that given the same input and initial state, the program always produces the same output through the exact same sequence of internal states. In language design, this is critical for reliability, testing, and formal verification.
 
 #### Achieving Determinism
 
-To enforce determinism in a new language, the following architecture constraints must be implemented:
+To enforce determinism, the language architecture incorporates the following constraints:
 
-1.  **Pure Functions by Default:** Encourage or enforce pure functions, where output depends solely on input parameters, with no reliance on or mutation of shared global state.
-2.  **Explicit Side-Effect Management:** If a function performs I/O, interacts with system clocks, or relies on external randomness, it must be explicitly marked (e.g., using a `system` or `impure` keyword). This separates logic from environment-dependent operations.
-3.  **Controlled Concurrency:** Avoid race conditions by disallowing shared-memory mutation across threads. Implement message-passing models or immutable data structures to ensure that execution order does not alter the outcome of calculations.
-4.  **Hardware/Platform Abstraction:** Normalize floating-point behavior and integer sizes across architectures. A language cannot be deterministic if the same code produces different results on ARM versus x86 due to varying IEEE 754 implementations or endianness.
-5.  **Deterministic Initialization:** Ensure the order of global object initialization and constant evaluation is defined by the language specification, not the compiler or linker’s internal heuristics.
+1. **Pure Functions by Default:** Enforce pure functions where outputs depend solely on input parameters, with no reliance on or mutation of shared global state.
+2. **Explicit Side-Effect Management:** Operations that perform I/O, interact with system clocks, or rely on external randomness must be explicitly declared (e.g., using `system` or `impure` qualifiers).
+3. **Controlled Concurrency:** Disallow un-synchronized shared-memory mutation across threads to eliminate race conditions. Use message-passing models or immutable structures.
+4. **Hardware/Platform Abstraction:** Normalize floating-point behavior and integer representations across target architectures (ARM, x86, WebAssembly).
+5. **Deterministic Initialization:** The order of global constant evaluation and module initialization is strictly specified by the language standard rather than compiler-dependent heuristics.
 
 ## Unicode Symbols
 
+Bee integrates carefully selected Unicode symbols into its syntax to express mathematical and set operations clearly:
 
-We have try and failed to create a consistend language because the people who invented Unicode symbols have done such a mess. Some symbols are duplicated, some are not ordered, some are missing. Sometimes the unicode symbol look like a Latin letter. We have done our best to select the most useful symbols.
-
-- Bee use Unicode operators: { ÷ × ¬ ∧ ∨ ∈ ≤ ≥ ≡ ≠ ≈ ± ⊂ ⊃ ∪ ∩ ↑ ↓ » « ⊕ ⊖ ∀ ∃}. We have alternative ASCII 2 symbols for some of these but not all. This is why Bee looks inconsistent & disruptive:
-- Bee use one single letter for primitive types: {A B C D T L U N Q R S X Z}, we have not used Unicode symbols: { ℂ ℍ ℕ ℙ ℚ ℝ ℤ } despite aparent inconsistency.
-- Bee support some Greek letters and symbols. These can be used as identifiers or operators: { Σ Π Δ Γ Λ Φ Ψ Ω, λ φ π α β ε δ μ ω }
-- Bee support Cyrilic letters: {Б Г Д Ж И Л Ф Ц Ч Ш Э Я}. We do not support all Cyrikic alphabet for identifiers but you can use them in strings.
-- Bee support superscript numbers: {⁺⁻⁰¹²³⁴⁵⁶⁷⁸⁹}. We recognize superscript as power: x^² and x^ⁿ. You can also use any Latin superscript characters: (ᵃ..ᶻ).
-- Subscript indices can be used to create identifiers starting with a letter and use a suffix: (x₁, x₂, α₁, β₂) are some valid identifiers in Bee.
-- Bee use Unicode symbols for geometric types. These symbols are intuitive and make geometric types shorter. For example: ∠ = Angle, ⊡ = Dot, ◷ = Arc. Many other shapes are recognized.
-- Bee define the "if" statement differently than most other languages. The "if" keyword is used as a conditional for other statements or in lambda expressions.
-- Bee use sigils: "$" for system variables. These are globals and we import all environment variables and configuration variables into the execution. Protecting these variables with a sigil is preventing overriding by mistake.
-- Bee use starting and ending keywords to define blocks of code, not curly brackets. This eliminate the nested bracket nightmares and improve visual aspect of the code. We can use brackets for data literals: ordinals, sets, hash tables and objects.
+- Bee uses Unicode operators: `{ ÷ × ¬ ∧ ∨ ∈ ≤ ≥ ≡ ≠ ≈ ± ⊂ ⊃ ∪ ∩ ↑ ↓ » « ⊕ ⊖ ∀ ∃ }`. Standard ASCII equivalents are supported for key operators.
+- Bee uses single uppercase letters for primitive types: `{ A, B, C, D, T, L, U, N, Q, R, S, X, Z, G }`.
+- Bee supports selected Greek letters for identifiers and mathematical operators: `{ Σ, Π, Δ, Γ, Λ, Φ, Ψ, Ω, λ, φ, π, α, β, ε, δ, μ, ω }`.
+- Bee supports selected Cyrillic letters for identifiers: `{ Б, Г, Д, Ж, И, Л, Ф, Ц, Ч, Ш, Э, Я }`. Full Cyrillic text is supported in string literals.
+- Bee supports superscript digits `{ ⁺ ⁻ ⁰ ¹ ² ³ ⁴ ⁵ ⁶ ⁷ ⁸ ⁹ }` for power expressions such as `x²` and `xⁿ`. Latin superscript characters `(ᵃ..ᶻ)` are also supported.
+- Subscript indices create distinct identifiers: `x₁`, `x₂`, `α₁`, `β₂`.
+- Bee uses the `$` sigil for system variables and environment variables to prevent accidental scope shadowing.
+- Bee uses starting and ending keyword pairs (`do..done`, `cycle..repeat`, `rule..return`) to delineate code blocks instead of curly braces. Brackets and braces are reserved for data literals (ordinals, sets, hash maps, and objects).
 
 ---
 
