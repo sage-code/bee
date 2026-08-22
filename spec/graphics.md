@@ -1,9 +1,7 @@
 
 # Bee Graphic
 
-Bee has natige graphic support. This is a speciality domain that require Unicode and makes Bee a versatile tool for drowing diagrams, 2D and 3D objects in Carthesian space. 
-
-Bee support radians using (π) prefix. Instead of (2 * π) you can write ( 2π ). Also Bee support ° symbol to represent decimal degree. These two domain specific notations will make Bee veru distruptive and uncomon but maybe useful.
+Bee has native minimal graphic support. This is a speciality domain that require Unicode and makes Bee a versatile tool for dynamic drowing, 2D and 3D objects in Carthesian spaces. Bee will support radians and decimal degree symbols. 
 
 **degree literal**
 
@@ -19,16 +17,19 @@ With Comb Dot: angle = 30°
 
 **π constant:**
 
-Key Rational Approximations
+Rational Approximations
 
 * Archimedes' Fraction: $\frac{22}{7} \approx 3.142857$ (accurate to 2 decimal places).
 * Milward's Fraction / Adrian Anthoniszoon: $\frac{355}{113} \approx 3.1415929$ (accurate to 6 decimal places, exceptionally efficient for its denominator size).
-
 * Algorithmic Computation via Rational SeriesComputers calculate $\pi$ using infinite series where each term is a rational number. Summing these rational fractions converges on $\pi$.
 
 * Leibniz Formula (Slow):
 
 $$\pi = 4 \sum_{k=0}^{\infty} \frac{(-1)^k}{2k+1} = 4 \left(1 - \frac{1}{3} + \frac{1}{5} - \frac{1}{7} + \dots\right)$$
+
+**compiler recalculation**
+
+** Bee will implement one of these algorithms to calculate and cash a constant value at runtime, with a specified precision, and cash this value for duration of execution. This is a small price to pay at the beginning just in case we need extreme precision.
 
 **decimal conversion**
 
@@ -48,19 +49,22 @@ new β:= 0°0′0″ ∈ G;
 - Relation operators can convert the measurement units;
 - Operator ± should work with degree, minutes and seconds;
 
+**Note:** Mandatory in the core language, we need support for these symbols.
+
 ## Graphic types
+
+We define specific subtypes for graphics as subsets of existing basic types. The signature is a proposal to define these subtypes.
 
 
 | Type | Name | Signature | Description |
-| :--- |:--- |:--- |:--- |
-| V | Canvas | {o ∈ P, w,h ∈ Z, m ∈ [Y]} | Canvas (with points and shapes) |
-| Y | Layer  | {c ∈ B, v ∈ L, m ∈ [H]}   | Layer with c = color, m = set of shapes |
-| H | Shape  | {o ∈ P, s ∈ ⌂, θ ∈ G }    | Shape, with origin and rotation |
-| G | Tag    | {o ∈ P, t ∈ S, α, β ∈ G}  | Graphic label with rotation |
+|:--- |:--- |:--- |
+| Canvas  | {o ∈ P, w,h ∈ Z, m ∈ [Layer]} | Canvas (with points and shapes) |
+| Layer   | {c ∈ B, v ∈ B, m ∈ [Shape]}   | Layer with c = color, m = set of shapes |
+| Shape   | {o ∈ P, s ∈ ⌂,   θ ∈ Angle }  | Shape, with origin and rotation |
+| Label   | {o ∈ P, t ∈ S, α, β ∈ Angle}   | Graphic label with rotation |
 
 
-
-legend
+**legend**
 
 
 ```
@@ -72,49 +76,48 @@ d = distance
 v = visible
 ```
 
+**Note:** Can be implemented as language extensions using Bee itself, no need for core implementation
 
 ## Drawing Elements
-
 
 Each graphic element is a composite data type.
 
 
-| Table |
-| --- |
-| Type | Name | Description |
-| :--- | :--- | :--- |
-| G    | Angle | (0 .. 2π) or (0°..360°) |
-| C    | Cartesian | {x, y ∈ Q} |
-| ⊙    | Polar | {r ∈ P, θ ∈ G } |
-| ↗     | Vector | {o, p ∈ ⊡} |
-| ↺    | Relative | {o ∈ ⊡, r ∈ P, θ ∈ G } |
-| ○    | Circle | {o ∈ ⊡, r ∈ P} |
-| ◷    | Arc | {o ∈ ⊡, r ∈ P, θ₁, θ₂ ∈ G } |
-| □    | Square | {o ∈ ⊡, b ∈ P} |
-| ◁    | Triangle | {o ∈ ⊡, b ∈ P, θ₁, θ₂, θ₃ ∈ G} |
-| ◇    | Diamond | {o ∈ ⊡, θ₁, θ₂ ∈ G} |
-| ⎊    | Regular | {o ∈ ⊡, r, n ∈ P} |
-| ⌂    | Polygon | {o ∈ ⊡, c ∈ [⊡]} |
-| ◪    | Fill | { ▤, ▥, ▦, ▧, ▨, ▩ } |
+| Name | Signature   | Meaning
+| :--- | :---        | :---         |
+| RAD  | (0 .. 2π)   | Radian Range |
+| DEG  | (0°..360°)  | Degree Range |
+| CRT  | {x, y ∈ Q}  | Cartesian Point   |
+| POL  | {r ∈ P, θ ∈ RAD }   | Polar Point |
+| VEC  | {o, p ∈ CRT }       | Vector |
+| CRC  | {o ∈ CRT,  r ∈ P }  |  Circle  |
+| ARC  | {o ∈ CRT,  r ∈ P, θ₁, θ₂ ∈ DEG } | Arc | 
+| SQR  | {o ∈ CRT,  r ∈ P, θ ∈ DEG} | Square with rotation |
+| TRG  | {a, b, c ∈ CRT, θ₁, θ₂, θ₃ ∈ DEG} | Triangle |
+| REG  | {o ∈ CRT, n, r ∈ P, θ ∈ DEG} | Regular Shape |
+| PLG  | {v ∈ [VEC] } | Polygon Shape |
+| ISO  | {d ∈ P, θ₁, θ₂ DEG} | ISO Fill Pattern  {▤, ▥, ▦, ▧, ▨, ▩} |
 
 
-- We use default rational numbers Q
-- We use P = positive numbers for distance
+- We use default rational numbers Q for precisi
+
+**Note:** Can be implemented as language extensions using Bee itself, no need for core implementation
 
 ## Drawing keywords
 
+In the future we can define comands to draw as keywords:
 
 | Table |
 | --- |
 | Keyword | Description |
-| draw | put shape on layer |
-| wipe | remove drown shapes |
+| draw | create a shape on a layer |
+| wipe | remove a drown shapes from a layer |
 | show | show canvas |
 | hide | hide canvas |
 
+**TODO:** - Need to define if these are rules or hard coded keywords.
 
 ## Latitude Longitude
-
 
 Any location on Earth is described by two numbers: its latitude and its longitude. If a pilot or a ship captain wants to specify position on a map, these are the "coordinates" they would use.
 
@@ -125,79 +128,23 @@ Latitude and longitude are two angles, measured in degrees, "minutes of arc" and
 Bee language has limited support for measurement units. Calculations often represent angles by small letters of the Greek alphabet, and that way latitude will be represented by λ (lambda, Greek L), and longitude by φ (phi, Greek F). Here is how they are defined.
 
 
-## Precision
-
-
-Earth coordinates can be represented using default Q numbers on 32 bit.
-
-
-| Table |
-| --- |
-| .digits | angle (g°) | equivalent | 2 | 0.01° | 1.1132 km | 3 | 0.001° | 111.32 m | 4 | 0.0001° | 11.132 m | 5 | 0.00001° | 1.1132 m (default precision) | Type | Description | Galactic | Galactic space | Solar | Solar space | Star | A celestial body similar to the Sun with position relative to our Sun | Planet | Planed similar to Earth with: mass, radius, year duration, day duration | Moon | Natural celestial body bound to a planet by gravity | Satellite | Artificial celestial body bound to a planet or moon by gravity | Craft | Space-craft capable to travel in space, not bounded to a planet | Type | Name | ☀ | Sun | ☿ | Mercury | ♀ | Venus | ♁ | Earth | ♂ | Marth | ♃ | Jupiter | ♄ | Saturn | ♅ | Uraus | ♆ | Neptun | ♇ | Pluto |
-| 2 | 0.01° | 1.1132 km |
-| 3 | 0.001° | 111.32 m |
-| 4 | 0.0001° | 11.132 m |
-| 5 | 0.00001° | 1.1132 m (default precision) |
-| Type | Description |
-| Galactic | Galactic space |
-| Solar | Solar space |
-| Star | A celestial body similar to the Sun with position relative to our Sun |
-| Planet | Planed similar to Earth with: mass, radius, year duration, day duration |
-| Moon | Natural celestial body bound to a planet by gravity |
-| Satellite | Artificial celestial body bound to a planet or moon by gravity |
-| Craft | Space-craft capable to travel in space, not bounded to a planet |
-| Type | Name |
-| ☀ | Sun |
-| ☿ | Mercury |
-| ♀ | Venus |
-| ♁ | Earth |
-| ♂ | Marth |
-| ♃ | Jupiter |
-| ♄ | Saturn |
-| ♅ | Uraus |
-| ♆ | Neptun |
-| ♇ | Pluto |
-
-
-
-| Table |
-| --- |
-| Type | Description |
-| Galactic | Galactic space |
-| Solar | Solar space |
-| Star | A celestial body similar to the Sun with position relative to our Sun |
-| Planet | Planed similar to Earth with: mass, radius, year duration, day duration |
-| Moon | Natural celestial body bound to a planet by gravity |
-| Satellite | Artificial celestial body bound to a planet or moon by gravity |
-| Craft | Space-craft capable to travel in space, not bounded to a planet |
-| Type | Name |
-| ☀ | Sun |
-| ☿ | Mercury |
-| ♀ | Venus |
-| ♁ | Earth |
-| ♂ | Marth |
-| ♃ | Jupiter |
-| ♄ | Saturn |
-| ♅ | Uraus |
-| ♆ | Neptun |
-| ♇ | Pluto |
-
-
-
 ## Data Types
 
-- Δ = Distance :meters
-- Λ = Longitude :g° m′ s″
-- Φ = Latitude :g° m′ s″
+- Δ = Distance  :meters
+- λ = Longitude :g° m′ s″
+- φ = Latitude  :g° m′ s″
 
 ```
-type Δ: (0..+100000000) <: Q; -- twice equatorial
-type Λ: (-180°..+180° ) <: Q; -- longitude angle (degree)
-type Φ: (-90°..+90°   ) <: Q; -- latitude angle (degree)
+type DST: (0..+100000000) <: Q; -- Δ twice equatorial precision
+type LON: (-180°..+180° ) <: Q; -- λ longitude angle range (degree)
+type LAT: (-90°..+90°   ) <: Q; -- φ latitude angle range (degree)
 ```
 
+**Note:** May be implemented for cartography extension
 
-Map data types are represented by Unicode symbols:
+## Map Data
+
+Map data is a special use-case. We can define Unicode symbols to be used as data types:
 
 - • = Node: { Shape Point }
 - ↯ = Link: { Street, Trail }
@@ -206,12 +153,13 @@ Map data types are represented by Unicode symbols:
 - ◉ = Intersection
 - ◈ = Place of Interest ( Food, Market, Gas ...)
 - ▣ = Area of Interest ( Park, Stadium, Golf )
-- § = Line ( Border, Railway, River)
+- § = SpLine ( Border, Railway, River)
 - ■ = Area ( Water, Forest )
-- ♁ = Map
-- ⁉ = Condition
 
-```-- map simple point: λ = Latitude, φ = Longitude, i = index
+This could lead to very compact definitions, easy for trained eye to see.
+
+```
+-- map simple point: λ = Latitude, φ = Longitude, i = index
   type • : {i ∈ N, λ ∈ Λ, φ ∈ Φ} <: Object;
 -- network node:  λ = Latitude, φ = Longitude, ε = Elevation
   type ◉ : {id ∈ N, λ ∈ Λ, φ ∈ Φ, ε ∈ P} <: Object;
@@ -229,17 +177,18 @@ Map data types are represented by Unicode symbols:
              area ∈ [■], pint ∈ [◈], aint ∈  [▣] } <: Object;
 ```
 
-
-legend
+**legend**
 
 - φ = longitude
 - λ = latitude
 - ε = elevation
 
+**Note:** May be implemented in extension libraries.
+
 ## Space objects
 
+For games and space maps, maybe is a good idea to create a special library that define additional types.
 
-| Table |
 | Type | Description |
 | :--- | :--- |
 | Galactic | Galactic space |
@@ -250,11 +199,11 @@ legend
 | Satellite | Artificial celestial body bound to a planet or moon by gravity |
 | Craft | Space-craft capable to travel in space, not bounded to a planet |
 
+**Note:** May be implemented in extension libraries.
 
+## Planets symbols
 
-## Planets
-
-This is a curiosity. Planets have symbols. Is a feature I have no intention to implement in the language but just in case here is a table:
+We aknowledge these symbols but we have no intention to implement in the language:
 
 | Table |
 | --- |
@@ -270,6 +219,7 @@ This is a curiosity. Planets have symbols. Is a feature I have no intention to i
 | ♆ | Neptun |
 | ♇ | Pluto |
 
+**Note:** May be implemented in extension libraries.
 
 ---
 
