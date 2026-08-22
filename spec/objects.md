@@ -5,16 +5,14 @@
 Bee has pre-defined root Object with standard methods and attributes. The Object can be extended and can have a custom design constructor. You can create instances of Object and, you can use dot notation to access object members.
 
 
-Method Call
-
-
 ## Instantiation
 
 
 An object can be instantiated using reserved keyword "new" and  JSON literal or constructor Object() with arguments. After the object is created you can enhance the object.
 
 
-```-- empty object
+```
+-- empty object
 new object := {}; 
 -- set attribute values
 new object.a1 := 1;

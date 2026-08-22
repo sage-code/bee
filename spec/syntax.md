@@ -1,406 +1,274 @@
 # Bee Syntax
 
+This document details the fundamental concepts and grammar rules of Bee syntax.
 
-Next we enumerate the fundamental concepts to grasp Bee syntax. After this overview we will go in details. We use long pages you can scroll down and reaad. A better experience is on our homepage where we have bookmarks for headers.
+Syntax rules are described using illustrative examples and Backus-Naur Form (BNF) notation:
 
-We use examples and sometimes a simplified version of BNF notation to explain the syntax rules. If you do not know anything about BNF don't wary, here is a short introduction to this weird notation:
-
-- We use suggestive descriptors for language elements,
-- We use "::=" to explain a descriptor,
-- We use "..." for repetitive sequences of symbols,
-- We use notes to explain the semantics,
-- Optional keyword is enclosed in square brackets [];
+- Descriptor names are used for syntax elements.
+- `::=` defines a syntactic descriptor.
+- `...` represents repetitive sequences of symbols.
+- Optional elements are enclosed in square brackets `[]`.
 
 ## Comments
 
-We have two conventions for making good comments for any project, inspired from Ada language. Bee comments are tailored by architectural principle: "Code without comments is wrong."
+Bee supports two comment styles inspired by Ada.
 
-**Example:**
+Example:
 
-
-```          
+```bee
 -------------------------------------------------------------------
                   -- Bee Language Syntax Example --
 +------------------------------------------------------------------
-| At the beginning of program you can have  several comments,     |
-| to explain how the program works. This notation is preferred.   |
+| Header block comment describing application behavior            |
 +-----------------------------------------------------------------+
 rule main:
-  -- next statement ";" does nothing is an emtpy statement
+  -- empty statement ';'
   ; 
-  -- next statement demonstrate end of line comments in arguments
-  print ("end of line comments",    -- first argument
-         "can be used to explain",  -- second argument
-         "diverse arguments"        -- third argument
+
+  -- inline argument comments
+  print ("end-of-line comments", -- first argument
+         "can explain arguments", -- second argument
+         "across multiple lines"  -- third argument
         );
 return;
 ```
 
-** Single line comment **
+### Single-Line Comments
 
-For single line comments we use two stars like this: "--"
+Single-line comments begin with two dashes `--`:
 
-- This comment can be extended to multiple lines to create a separator,
-- You can use single line comment at beginning of new line,
-- You can use indentation the comment a line and align with the code.
+- Can extend across an entire line as a visual separator.
+- Can be placed at the start of a line or indented alongside statements.
+- When placed at the end of a line (EOL comment), the comment begins with `-- `.
 
-**end of line comments**
+### Block Comments
 
-Before new line of code: (EOL) you can use comments starting with: "-- "
+Bee uses a distinct box syntax for multi-line block comments:
+- Starts with `+-` at the upper-left boundary.
+- Ends with `-+` at the lower-right boundary.
 
-- notice one line may be or not a full statement. the end of statement is not (EOL),
-- you can use "-- " in the middle of an expression, only if the expression span over multiple lines,
-- you can have multiple statements separated by ";" in a line but only one comment at the end of all statements on a single line.
+## Keywords
 
-**block comments**
+Bee defines approximately 72 reserved keywords:
 
-Bee has a specific notation for block comments not used in any other language so far. It is a multi-line comment starting with "+-" and end with "-+". The upper right corner is missing in a block comment. I guess you will notice this defect later. 
+`{ alias, and, apply, abort, as, begin, case, continue, cycle, default, do, done, else, expect, exit, fail, final, for, hide, if, in, is, job, let, like, load, match, miss, next, none, not, or, other, over, panic, pass, print, read, raise, redo, repeat, rest, resum, retry, return, rule, scrap, set, start, stop, trial, try, type, use, void, wait, when, with, write, xor, yield }`
 
-## Bee Keywords
+Key rules:
+- Keywords cannot be used as identifier names.
+- Keywords are reserved and case-sensitive.
 
-Bee is an expressive language but it's core has about 72 reserved keywords so far:
-
-{begin , alias , and , apply , abort , other , case , continue , done , default , if , is , do , else , exit , fail , final , miss , panic , like , load , next , job , match , over , print , pass , void , rule , return , fail , retry , none , scrap , type , read , trial , stop , yield , xor , write , wait , when , or , with , hide , new , cycle , let , set , while , for , resum , put , pop , raise , not , as , in , start , try , expect} 
-
-
-- You can not use these keywords as identifiers;
-- Some of these keywords are reserved but not implemented;
-- New keywords are going to be created for new features;
-
-### Semantic keywords
+### Semantic Keywords
 
 | Keyword | Purpose |
-| :--- | :--- |
-| if | conditional executor for one statement block |
-| is | query element or variable data type |
-| as | create alias for used modules |
-| or | alternative for ladder decision |
-| in | alternative for belong operation |
-| and | alternative for cascade decision |
-| xor | alternative for logic operation |
-| not | alternative for logic operation |
-
+| :---| :---|
+| `if` | Conditional executor for a statement or block |
+| `is` | Query data type of an element or variable |
+| `as` | Create alias qualifier for imported modules |
+| `or` | Short-circuit logical OR |
+| `in` | Set membership check |
+| `and` | Short-circuit logical AND |
+| `xor` | Logical exclusive OR |
+| `not` | Logical negation |
 
 ## Statements
 
-Statements can start with an imperative or declarative keyword and must end with a mandatory semicolon `;`. While one statement can span multiple lines, all statements must be explicitly terminated.
+Statements start with an imperative or declarative keyword and end with a mandatory semicolon `;`. A single statement may span multiple lines.
 
-- Statements are indented by 2 or more spaces.
+- Statements inside blocks are indented by 2 or more spaces.
 - Multiple statements on a single line are separated by `;`.
-- Expressions within a statement may span multiple lines.
-- **Note:** All code examples in this specification strictly follow this rule, and the compiler will issue an error for any missing semicolons.
+- Missing semicolons produce a compiler syntax error.
 
-| Key | Description |
-| :--- | :--- |
-| `set` | Create a constant |
-| `new` | Create a variable |
-| `let` | Modify a variable |
-| `type` | Create a data type |
+### Declarative Statements
+
+| Keyword | Description |
+| :---| :---|
+| `set` | Declare an immutable constant |
+| `new` | Declare a new variable |
+| `let` | Mutate an existing variable |
+| `type` | Declare a custom sub-type or alias |
 | `read` | Accept input from console into a variable |
-| `write` | Register in console cache a string |
-| `print` | Output to console with end of new line |
+| `write` | Write formatted text to output buffer |
+| `print` | Output expression to console with newline |
 
+### Code Blocks
 
-### Code blocks
+Code blocks enclose groups of statements inside scope boundaries:
 
-Statements can be contained in blocks of code.
+| Keyword | Block Description |
+| :---| :---|
+| `start` | Non-repetitive local scope block |
+| `with` | Qualifier suppression block for module members |
+| `if` | Conditional decision block |
+| `cycle` | Repetitive / iterative execution loop block |
+| `match` | Multi-path value selection block |
+| `trial` | Exception handler block |
 
+Block termination keywords: `{ done, cycle, repeat }`.
 
-| Kword | Block description |
-| :---  | :--- |
-| start | start local scope for do block |
-| with  | qualifier suppression block |
-| if    | first block in decision statement |
-| cycle | repetitive or iterative blocks |
-| match | multi-path value selector block |
-| trial | exception handler block |
-
-
-- Block ending keyword can be one of: { done, cycle },
-- Statements in nested blocks are using indentation.
-
-### Definition statements
-
-
-Next statements are used to declare new elements in a module.
-
+### Module Definition Statements
 
 | Keyword | Purpose |
-| :--- | :--- |
-| use | Load module or module |
-| alias | Eliminate scope qualifier |
-| hide | Hiding public members from a loaded module |
-| rule | Create a new business rule or prototype |
-| return | End rule declaration and transfer control to caller |
+| :---| :---|
+| `use` | Load an external or library module |
+| `alias` | Create a local alias for a qualified module member |
+| `hide` | Suppress public members from an imported module |
+| `rule` | Declare a subroutine or business rule |
+| `return` | End rule declaration and return control to caller |
 
-
-### Execution statements
-
-Next keywords are simple statements. These represents actions called imperative statements.
-
+### Imperative Execution Statements
 
 | Keyword | Purpose |
-| :--- | :--- |
-| apply | Execute a rule and ignore the result if there is one |
-| begin | Commence execution of a coroutine |
-| wait | Suspend current thread execution for a number of seconds |
-| read | Flush the console buffer and accept user input from console |
-| write | Add something to console buffer but no new line |
-| print | Output expression result, variable or constant to console |
-| let | Mutate variable value using an expression |
-| new  | Create a new variable and allocate space in memory |
-| scrap | Remove one element from its collection |
+| :---| :---|
+| `apply` | Execute a rule and discard return results |
+| `begin` | Spawn an asynchronous thread / coroutine |
+| `wait` | Suspend thread execution for $t$ seconds or until child threads finish |
+| `read` | Flush output buffer and read console user input |
+| `write` | Append text to output buffer without newline |
+| `print` | Evaluate and output expression to console with newline |
+| `let` | Mutate a variable using an expression |
+| `new` | Allocate memory and initialize a variable |
+| `scrap` | Remove an element from a collection |
 
-
-## Control statements
-
-Control statements are used to create local blocks of code that resolve a small task synchronously. After task is finished the control is returned to the main thread.
-
+### Control Statements
 
 | Keyword | Purpose |
-| :--- | :--- |
-| start | Create non repetitive local scope |
-| if | Start a conditional branch |
-| else | Start an alternative branch |
-| do | Start a block of code |
-| cycle | Create repetitive local scope |
-| for | Create finite iterative block |
-| while | Create conditional repetitive block |
-| match | Value multi-path search selector |
-| when | Create node for match statement |
-| other | Default branch for match statement |
-| trial | Start declaration region for a protected block of code |
-| try | Begin the executable region in a trial statement |
-| case | Associated with trial to resolve specific errors |
-| miss | Default trial block, executed when there is no case |
-| final | Associated with trial to finalize the trial block |
+| :---| :---|
+| `start` | Non-repetitive local scope |
+| `if` | Start conditional branch |
+| `else` | Start alternative branch |
+| `do` | Start executable statement block |
+| `cycle` | Repetitive loop block |
+| `for` | Finite iterative loop |
+| `while` | Conditional loop |
+| `match` | Pattern matching value selector |
+| `when` | Branch node in match statement |
+| `other` | Default catch-all branch in match statement |
+| `trial` | Declare protected exception region |
+| `try` | Execute guarded block inside trial statement |
+| `case` | Catch specific exception error code |
+| `miss` | Default catch-all exception handler |
+| `final` | Always-executed cleanup block |
 
-
-## Transfer statements
-
-
-These statements execute a jump or make an interruption of current thread.
-
+### Transfer Statements
 
 | Keyword | Purpose |
-| :--- | :--- |
-| panic | Create unrecoverable error code and stop current program |
-| over | Silent termination of program. No error is raised in this case. |
-| exit | Silently stop execution of current rule and return to the caller |
-| yield | Suspend one coroutine and give control to another routine |
-| rest | Suspend a routine and wait for all threads created by the routine to finish |
-| stop | Interrupt execution for current cycle and continue after the cycle, | redo | Continue current cycle from the beginning making a shortcut, | next | Continue current iteration from the beginning making a shortcut, | abort | stop early a trial block | fail | Create error message and continue with next step | pass | Skip the rest and continue with next step | expect | Does nothing if condition is true, otherwise create an $unexpected exception | raise | Intrerupt a try job or trial and issue an error | retry | Repeat a trial block from the begioning | resume | Mark error as handled and continue trial | done | end a block statement | repeat | end a repetitive block |
-| stop | Interrupt execution for current cycle and continue after the cycle, |
-| redo | Continue current cycle from the beginning making a shortcut, |
-| next | Continue current iteration from the beginning making a shortcut, |
-| abort | stop early a trial block |
-| fail | Create error message and continue with next step |
-| pass | Skip the rest and continue with next step |
-| expect | Does nothing if condition is true, otherwise create an $unexpected exception |
-| raise | Intrerupt a try job or trial and issue an error |
-| retry | Repeat a trial block from the begioning |
-| resume | Mark error as handled and continue trial |
-| done | end a block statement |
-| repeat | end a repetitive block |
+| :---| :---|
+| `panic` | Raise unrecoverable error and abort execution |
+| `over` | Cleanly terminate program execution |
+| `exit` | Terminate current rule execution and return to caller |
+| `yield` | Yield control from active coroutine |
+| `rest` | Suspend routine until child threads complete |
+| `stop` | Break out of active loop execution |
+| `redo` | Restart current loop iteration from the beginning |
+| `next` | Skip remainder of current iteration and proceed to next |
+| `abort` | Abort execution of a trial block |
+| `fail` | Raise recoverable error message and continue |
+| `pass` | No-op pass statement |
+| `expect` | Assert condition; raise `$unexpected` exception if false |
+| `raise` | Raise runtime exception |
+| `retry` | Restart guarded trial block from beginning |
+| `resume` | Mark error as handled and resume execution |
+| `done` | Close scope block statement |
+| `repeat` | Close repetitive loop statement |
 
 ## Identifiers
 
-Bee identifiers (names), can start with Latin letters. An identifier can contain numbers but can not start with a number and can't use spaces inside. Bee is Unicode language but does not permit Unicode identifiers for a good reason: Unicode characters are hard to find and select. 
+Identifier names begin with a Latin letter, Greek letter, or Cyrillic letter. Identifiers may contain numeric digits in subsequent positions but cannot contain spaces or start with a number.
 
+### Greek and Cyrillic Letters
 
-In mathematics is very popular notation for angles to use Greek letters. Bee will support a limited set of Greek an Cyrillic letters for identifiers. We include these letters on the Bee keyboard design for easy access. 
+Supported mathematical and Cyrillic identifier symbols:
 
-```
+```text
 Σ Π Δ Ξ Γ Ψ Ω ζ
 α β ɣ λ π μ φ ε δ η σ ω
 Б Г Д Ж И Л Ф Ц Ч Ш Э Я
 ```
 
+### Subscript Identifiers
 
-### Subscript
+Subscript numbers and letters are permitted as suffix characters in identifiers:
 
-
-You can use a limited number of letters and numbers available in Unicode as subscript. If used these are permited to make identifier names in second and next positions but not first postion. You can not start an identifier with one of these symbols:
-
-**examples**
-
-```
+```text
 x₀ x₁ x₂ x₃ x₄ x₅ x₆ x₇ x₈ x₉ x₁₀
-aₐ eₑ hₕ iᵢ jⱼ kₖ lₗ mₘ nₙ oₒ pₚ rᵣ sₛ tₜ uᵤ vᵥ zₓ
+aₐ eₑ hₕ iᵢ jⱼ kₖ lₗ mₘ nₙ o⒪ pₚ rᵣ sₛ tₜ uᵤ vᵥ zₓ
 ```
 
-**restrictions**
+Rules:
+- Subscript symbols must appear at the end of an identifier name.
+- Once a subscript character appears, subsequent characters in that identifier must also be subscripts.
 
-* subscript symbol must be last letter in identifier
-* after first subscript, next symbols can be only subscript
-* not all letters in latin alphabet have a subscript unfortunately
+### Superscript Exponents
 
+Superscript numbers and variable letters express exponentiation directly without requiring the caret `^` operator:
 
-### Superscript
-
-Bee has support for exponent using superscript. You can make any integer exponent including negative numbers but you can not use dot in the exponent. Here are some examples permitted:
-```
-x⁺ x⁻ x¹ x² x³ x⁴ x⁵ x⁶ x⁷ x⁸ x⁹ x¹⁰
-```
-**Note:**
-
-Symbol (^) is exponent operator and is not required when you use superscript exponent. You can use it with expressions, constants or rational numbers to resolve the exceptional cases.
-
-**Lowercase exponent:**
-
-Identifiers can be used as exponent. The superscript variable can start with a letter and can also use numbers. An exponent therefore can be a number or a variable or a constant recognized by Bee and replaced by it's value.
-```
-aᵃ bᵇ cᶜ dᵈ eᵉ fᶠ gᵍ hʰ iⁱ jʲ kᵏ lᶩ 
-mᵐ nⁿ oᵒ pᵖ rʳ sˢ tᵗ uᵘ vᵛ wʷ xˣ yʸ zᶻ
+```bee
+new x := 2;
+new y := x³; -- equivalent to x^3 (value = 8)
 ```
 
-**restrictions**
-* there is limited support for expressions
-* only 3 expressions are permited in superscript (+, -, /)
-
-**Uppercase exponent:**
-
-If you define a constant or variable that start with capital letter there may be some issues. You can't use all Latin letters or any Greek or Cyrilic capital letters in exponent. So your options are limited to create uppercase exponents.
-
-```
-Aᴬ Bᴮ Dᴰ Eᴱ Eᴲ Gᴳ Hᵸ Iᴵ Jᴶ Kᴷ Lᴸ 
-Mᴹ Nᴺ Nᴻ Oᴼ Pᴾ Rᴿ Tᵀ Uᵁ Wᵂ
+Lowercase superscript characters:
+```text
+aᵃ bᵇ cᶜ dᵈ eᵉ fᶠ gᵍ hʰ iⁱ jʲ kᵏ lᶩ mᵐ nⁿ oᵒ pᵖ rʳ sˢ tᵗ uᵘ vᵛ wʷ xˣ yʸ zᶻ
 ```
 
-**Caution:** Observe letters: {C, F ,S ,Q, X, Y, Z} are missing unfortunately. We just don't find them in Uncode set. I think this is a Unicode bug. So if you define a constant that use any of these letters, you will need symbol (^) to create exponent instead of superscript.
+Uppercase superscript characters:
+```text
+Aᴬ Bᴮ Dᴰ Eᴱ Gᴳ Hᵸ Iᴵ Jᴶ Kᴷ Lᴸ Mᴹ Nᴺ Oᴼ Pᴾ Rᴿ Tᵀ Uᵁ Wᵂ
+```
 
-All exponents will be replaced with variable value. For example if a variable A has value 3, the expression Aᴬ becomes 9, because 3^3 = 9. 
-
-**Variable declarations**
-
-In Bee, all variables must be declared using an imperative statement Variables can be dynamic or static and can have a data type. Data type can be custom or pre-defined.
-
-
-* type - declare custom data type
-* new  - declare a dynamic variable
-* set  - declare a static variable
+Note:
+For missing uppercase superscript characters (`C`, `F`, `Q`, `S`, `X`, `Y`, `Z`), or for complex exponent expressions, the caret operator `^` with parentheses must be used (e.g. `x^(n+1)`).
 
 ## Expressions
 
-Expressions are created using identifiers, operators, rules, and constant literals. 
+Expressions are constructed using identifiers, operators, subroutines, and literals.
 
-- Mathematical multiplication is performed using the `*` operator. The middle dot `·` may be used in documentation for illustrative purposes but is not a valid operator in Bee code.
-- Boolean operations utilize the symbols `∧` (AND) and `∨` (OR). The keywords `and` and `or` act as semantic aliases in formal language descriptions but must not be used as operators in expressions.
-
-**Precedence and Power Operators:**
-- Simple integer or negative powers may be represented via superscript notation (e.g., `x²`, `x⁻¹`).
-- For fractional powers, complex expressions, or any case where superscript characters are unavailable, the caret `^` operator is mandatory (e.g., `x^(n+1)`, `x^(¹/₂)`, `x^y`).
-- The compiler strictly enforces the use of `^` and parentheses for complex exponents to eliminate ambiguity.
+- Multiplication uses `*`.
+- Logical AND uses `∧`, logical OR uses `∨`.
+- Exponentiation uses superscripts (e.g. `x²`) or caret syntax (`x^y`, `x^(1/2)`).
 
 ## Conditional Execution
 
-A condition is a logic expression used to control statement execution. For this we use {"if", "else"} keywords at end of statements.
+Statements can include trailing conditional modifiers using `if` or `else`:
 
-** conditional statement execution
+```bee
+-- trailing statement execution condition
 statement if condition;
 
-**Note:** Previous statement is executed only if the condition is True.
-
-```-- alternative statement 
-  expect condition else statement;
--- alternative expression
-  expect condition else expression;
-```
-
-**Note:** Previous statement is executed only if the condition is False.
-
-**restrictions:**
-
-* Can not use "if" with set statement;
-* Can not use "if" with new statement;
-* Can not use "if" after done;
-
-**Example:**
-```
-rule main:
--- generate a random number
-  new a := random(Z);
--- conditional execution
-  new b := a;
-  let b := -a if a < 0;
--- print result
-  print "|b| = ", a;
-return;
-```
-
-**Operations:**
-
-Bee has support for fractional power. Bee is using regular slash "/" for all fractions. You can use superscript for left and subscript for right: These two are equivalent 1/2 = (¹/₂). Using ^() when we create fractional power expressions is mandatory. For example:
-
-```
-x^(¹/₂)  
-x^(¹/₆) 
-x^(¹/₁₀)
-```
-
-**negative power**
-
-```
-x⁻¹ = 1/x¹ 
-x⁻² = 1/x² 
-x⁻³ = 1/x³
-```
-**expressions power**
-
-```
-new n := 3;   -- define new variable to be used as exponent 
-new y := 2ⁿ⁻¹; -- expression n-1 is evaluated first to 3 then power 
-expect y = 4; 
-```   
-
-
-**priority:**
-
-Power operations have priority but we have support only for (+, -) no other operations are possible in exponent expressions. In next expressions, (n-1) is evaluated first before making the power operation.
-```-- equivalent notation
-xⁿ⁻¹ = x^(n-1)
-xˣ⁺¹ = x^(n+1)
--- equivalent  notation
-x^(¹/₂) = √2(x)  
-x^(¹/₃) = √3(x) 
-```
-
-**Note:** The compiler will detect missing paranthesis and missing carot symbol "^" and will signal error. This will improve code readability and eliminate confusions. Using "^" enable complex expressions inclusiv fraction exponent.
-
-### Pattern Matching
-Instead of ternary operator we use conditional expressions. Conditional expressions enable many choices unlike ternary operator that enable only 2 choices. Conditional expressions are also known as pattern matching expressions.
-
-**Syntax:**
-```
-rule main:
--- define a local variable
-  new var ∈ type;
--- single condition matching
-  let var := (xp1 if cnd1 else xp);
--- multiple matching with default value
-  let var := (xp1 if cnd1, xp2 if cnd2,..., xp);
--- alternative code alignment
-  let var := ( xp1 if cnd1 else
-               xp2 if con2 else
-               xp3 if cnd3 else
-               xp
-              );
-return;
+-- trailing statement alternative execution
+expect condition else statement;
 ```
 
 Example:
 
-```
+```bee
 rule main:
-   new x := '0'; -- symbol
-   write "x:";
-   read   x;
+  new a := random(Z);
+  new b := a;
+  let b := -a if a < 0; -- trailing conditional execution
+  print "|b| = ", b;
+return;
+```
 
-   new kind := ("digit"  if x ∈ ['0'..'9'] else
-                "letter" if x ∈ ['a'..'z'] else
-                "unknown");
+Restrictions:
+- Trailing `if` cannot be attached to `set`, `new`, or `done` statements.
 
-   print ("x is " + kind); -- expect: "x is digit"
+## Pattern Matching
+
+Conditional expressions support pattern-matching selections:
+
+```bee
+rule main:
+  new x := '0';
+  write "x:";
+  read x;
+
+  new kind := ("digit"   if x ∈ ['0'..'9'] else
+               "letter"  if x ∈ ['a'..'z'] else
+               "unknown");
+
+  print ("x is " + kind);
 return;
 ```
 

@@ -1,4 +1,3 @@
-
 # Sage Bee Language
 
 Bee is an experimental computer language designed by Sage-Code Laboratory. The intention is to create a fast language with a reference compiler. We use a Bee (insect) as a metaphor model to explain the Bee architecture. We envision Bee programs as small projects that are send to execute small tasks and return to the hive with the work results.

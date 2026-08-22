@@ -1,4 +1,3 @@
-
 # Code Structure
 
 
@@ -127,7 +126,7 @@ As we mentioned already Bee is modular. It means one large project can be split 
 Main module contains declarations for the main rule. One project can have one or more main modules. Each main module represent one single application.  Main module is located in the project root folder.
 
 
-Notes:
+**Notes:**
 
 - The main module can not be loaded, in other modules;
 - The main module do not have public members;
@@ -140,7 +139,7 @@ Notes:
 A good designer will split a large problem into secondary modules. These modules are similar to the main module except they do not have the main rule. One secondary module can be used in one or more relate applications. Secondary modules are located in src folder. These modules can be loaded into other modules to be re-used.
 
 
-Notes:
+**Notes:**
 
 - Secondary modules are specific to a project;
 - Secondary modules should be loaded in other modules;
@@ -161,7 +160,6 @@ A library module is a file located in "lib" folder having extension *.bee. It is
 - Library modules can be installed in: bee/lib folder for multiple projects
 
 ### Main rule
-
 
 A module can define "rules". These are sub-programs that can be executed on demand. One special rule is the main rule that can be defined only in the main module. This rule can receive multiple parameters and is automatically executed when a program starts.
 
@@ -271,7 +269,7 @@ return;
 The main module can load numerous secondary modules or libraries. After loading, all public elements of a library can be accessed on demand using dot notation. You can not have collisions of names, except if you use "with" blocks. To simplify the code you can use "alias" statement and can rename a rule belonging to loaded modules.
 
 
-Aliases:
+**Aliases:**
 
 
 You can create an alias for a specific member to eliminate the qualifier. This rule can be used to "merge" public members into current scope. A member can have one single alias in a module. If you do it multiple times, only the last alias is used. It is a bad practice to change the alias of a member.
