@@ -1,37 +1,34 @@
 
 # Bee Graphic
 
+Bee has natige graphic support. This is a speciality domain that require Unicode and makes Bee a versatile tool for drowing diagrams, 2D and 3D objects in Carthesian space. 
 
-## Degree
+Bee support radians using (π) prefix. Instead of (2 * π) you can write ( 2π ). Also Bee support ° symbol to represent decimal degree. These two domain specific notations will make Bee veru distruptive and uncomon but maybe useful.
 
+**degree literal**
 
-Bee support radians using (π) prefix. Instead of (2 * π) you can write ( 2π )
+With Comb Dot: angle = 30°
 
-
-With Comb Dot: ° 30°_30′_30″
-
-
-| Table |
-| --- |
-| symbol | same value in degree |
-| 0 | 0°0′0″ |
+| symbol | decima degree |
+| :--- | :--- |
+| 0   | 0°0′0″ |
 | π/4 | 45° |
 | π/2 | 90° |
-| π | 180° |
-| 2π | 360° |
+| π   | 180° |
+| 2π  | 360° |
 
 
+$$\text{degrees} = \text{radians} \times \frac{180}{\pi}$$
 
-Minutes and Seconds:
+**Minutes and Seconds:**
 
+Bee is using Unicode symbols prime (′) for minutes and (″) for seconds of arc. These symbols are different from classing single quote or double quotes: `," you usually find on a keyboard.
 
-Bee is using Unicode symbols prime (′) for minutes and (″) for seconds of arc:
-
+**Examples:**
 
 ```
-α:= 180°   ∈ ∠;
-β:= 0°0′0″ ∈ ∠;
-claim α ≈ π;  -- α ≠ π
+new α:= 180°   ∈ G;
+new β:= 0°0′0″ ∈ G;
 ```
 
 - Relation operators can convert the measurement units;
@@ -40,13 +37,12 @@ claim α ≈ π;  -- α ≠ π
 ## Graphic types
 
 
-| Table |
-| --- |
 | Type | Name | Signature | Description |
-| V | Canvas | {o ∈ ⊡, w,h ∈ Z, m ∈ [Y]} | Canvas (with points and shapes) |
-| Y | Layer | {c ∈ B, v ∈ L, m ∈ [H]} | Layer with c = color, m = set of shapes |
-| H | Shape | {o ∈ ⊡, s ∈ ⌂, α ∈ ∠ } | Shape, with origin and rotation |
-| G | Tag | {o ∈ ⊡, t ∈ S, α, β ∈ ∠} | Graphic label with rotation |
+| :--- |:--- |:--- |:--- |
+| V | Canvas | {o ∈ P, w,h ∈ Z, m ∈ [Y]} | Canvas (with points and shapes) |
+| Y | Layer  | {c ∈ B, v ∈ L, m ∈ [H]}   | Layer with c = color, m = set of shapes |
+| H | Shape  | {o ∈ P, s ∈ ⌂, θ ∈ G }    | Shape, with origin and rotation |
+| G | Tag    | {o ∈ P, t ∈ S, α, β ∈ G}  | Graphic label with rotation |
 
 
 
@@ -72,19 +68,20 @@ Each graphic element is a composite data type.
 | Table |
 | --- |
 | Type | Name | Description |
-| ∠ | Angle | (0 .. 2π) or (0°..360°) |
-| ⊡ | Cartesian | {x, y ∈ Q} |
-| ⊙ | Polar | {r ∈ P, α ∈ ∠ } |
-| ↗ | Vector | {o, p ∈ ⊡} |
-| ↺ | Relative | {o ∈ ⊡, r ∈ P, α ∈ ∠ } |
-| ○ | Circle | {o ∈ ⊡, r ∈ P} |
-| ◷ | Arc | {o ∈ ⊡, r ∈ P, α,β ∈ ∠ } |
-| □ | Square | {o ∈ ⊡, b ∈ P} |
-| ◁ | Triangle | {o ∈ ⊡, b ∈ P, α,β,ɣ ∈ ∠} |
-| ◇ | Diamond | {o ∈ ⊡, α,β ∈ ∠} |
-| ⎊ | Regular | {o ∈ ⊡, r, n ∈ P} |
-| ⌂ | Polygon | {o ∈ ⊡, c ∈ [⊡]} |
-| ◪ | Fill | { ▤, ▥, ▦, ▧, ▨, ▩ } |
+| :--- | :--- | :--- |
+| G    | Angle | (0 .. 2π) or (0°..360°) |
+| C    | Cartesian | {x, y ∈ Q} |
+| ⊙    | Polar | {r ∈ P, θ ∈ G } |
+| ↗     | Vector | {o, p ∈ ⊡} |
+| ↺    | Relative | {o ∈ ⊡, r ∈ P, θ ∈ G } |
+| ○    | Circle | {o ∈ ⊡, r ∈ P} |
+| ◷    | Arc | {o ∈ ⊡, r ∈ P, θ₁, θ₂ ∈ G } |
+| □    | Square | {o ∈ ⊡, b ∈ P} |
+| ◁    | Triangle | {o ∈ ⊡, b ∈ P, θ₁, θ₂, θ₃ ∈ G} |
+| ◇    | Diamond | {o ∈ ⊡, θ₁, θ₂ ∈ G} |
+| ⎊    | Regular | {o ∈ ⊡, r, n ∈ P} |
+| ⌂    | Polygon | {o ∈ ⊡, c ∈ [⊡]} |
+| ◪    | Fill | { ▤, ▥, ▦, ▧, ▨, ▩ } |
 
 
 - We use default rational numbers Q
@@ -100,7 +97,6 @@ Each graphic element is a composite data type.
 | wipe | remove drown shapes |
 | show | show canvas |
 | hide | hide canvas |
-
 
 
 ## Latitude Longitude
@@ -230,8 +226,8 @@ legend
 
 
 | Table |
-| --- |
 | Type | Description |
+| :--- | :--- |
 | Galactic | Galactic space |
 | Solar | Solar space |
 | Star | A celestial body similar to the Sun with position relative to our Sun |

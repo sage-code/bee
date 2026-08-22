@@ -481,14 +481,12 @@ rule main:
 return;
 ```
 
-
 Escape You can use this literal with escape sequence: \n to break a line
 
 
 ```
 print("this represents \n new line in string");
 ```
-
 
 ```
 this represents
@@ -515,7 +513,6 @@ return;
 
 
 ## Errors
-
 
 An error is when program enter a difficult state that is confusing. An error can be declared by the user or by the system. Bee has predefined type: Error that can be used to declare your own kind of errors. In other languages we use therm Exception, that is synonim to Error.
 
