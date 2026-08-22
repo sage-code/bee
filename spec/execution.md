@@ -70,3 +70,5 @@ return;
 
 
 **Note:** By using begin and wait you can create multi-session applications. Each aspect is executed on a different core, and the application runs them in parallel. The main thread is waiting using resolve keyword for the threads to finish.
+
+[Go back](structure.md) | [Read next](types.md)
