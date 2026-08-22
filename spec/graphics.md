@@ -17,6 +17,20 @@ With Comb Dot: angle = 30°
 | π   | 180° |
 | 2π  | 360° |
 
+**π constant:**
+
+Key Rational Approximations
+
+* Archimedes' Fraction: $\frac{22}{7} \approx 3.142857$ (accurate to 2 decimal places).
+* Milward's Fraction / Adrian Anthoniszoon: $\frac{355}{113} \approx 3.1415929$ (accurate to 6 decimal places, exceptionally efficient for its denominator size).
+
+* Algorithmic Computation via Rational SeriesComputers calculate $\pi$ using infinite series where each term is a rational number. Summing these rational fractions converges on $\pi$.
+
+* Leibniz Formula (Slow):
+
+$$\pi = 4 \sum_{k=0}^{\infty} \frac{(-1)^k}{2k+1} = 4 \left(1 - \frac{1}{3} + \frac{1}{5} - \frac{1}{7} + \dots\right)$$
+
+**decimal conversion**
 
 $$\text{degrees} = \text{radians} \times \frac{180}{\pi}$$
 
