@@ -1,27 +1,26 @@
 # Code Structure
 
+This document outlines the architectural organization of Bee applications:
 
-Next you can learn general concepts about Bee applications:
-
-- Project
-- Modules
-- External Code
-- Name space
-- Execution
+- [Projects](#projects)
+- [System Variables](#system-variables)
+- [Compiler Directives](#compiler-directives)
+- [Global Variables](#global-variables)
+- [Modules](#modules)
+- [External Code](#external-code)
+- [Global Scope](#global-scope)
+- [Namespaces](#namespaces)
+- [Execution Modes](#execution-modes)
 
 ## Projects
 
+A Bee project is a structured directory containing one or more application modules, secondary modules, libraries, and documentation. Applications within a project can execute independently on a single machine or collaborate across an n-tier architecture.
 
-A Bee project is a folder with a specific structure. A project contains one or more applications that can run independent of each other on same computer or a group of computers. For example applications can be designed to collaborate with each other into n-tire architecture or can be a group of OS commands for image manipulation.
+### Recommended Project Layout
 
+The following tree illustrates a project structure containing client and server applications, source modules (`src`), shared libraries (`lib`), and documentation (`doc`):
 
-project tree
-
-
-Next project tree contains two applications: client/server and show folders where you should put your code (src+lib) and documentation (doc). This is a recommendation but not a hard rule. You can organize your project better if you are experienced developer.
-
-
-```
+```text
 $pro_home
   |-- bin
   |   |-- client.exe
@@ -46,189 +45,152 @@ $pro_home
 
 ### System Variables
 
+System variables use the `$` prefix. Predefined system variables locate project directories, libraries, or system resources. New system variables can be declared in the main module or configuration files.
 
-System variables are using "$" prefix. There are several predefined system variables available in Bee. These can be used to locate project files or connect to databases. You can define new system variables at the beginning of main module or in configuration files.
-
-
-| Table |
-| --- |
 | Variable | Environment | Description |
-| $bee_home | BEE_HOME | Bee home folder |
-| $bee_lib | BEE_LIB | Bee library home |
-| $bee_path | BEE_PATH | Bee library path |
-| $pro_home | N/A | Project home folder |
-| $pro_lib | N/A | Project library folder |
-| $pro_mod | N/A | Project modules folder |
-| $pro_log | N/A | Log output folder |
+| :---| :---| :---|
+| `$bee_home` | `BEE_HOME` | Bee installation root folder |
+| `$bee_lib` | `BEE_LIB` | Bee core library folder |
+| `$bee_path` | `BEE_PATH` | Bee library search path |
+| `$pro_home` | N/A | Current project root folder |
+| `$pro_lib` | N/A | Project library folder |
+| `$pro_mod` | N/A | Project modules folder |
+| `$pro_log` | N/A | Log output directory |
 
 
 
-### Compiler directives
+### Compiler Directives
 
+Compiler directives are system variables that control compilation and execution options. These can be configured in compiler configuration files or within the main source file prior to execution.
 
-Compiler directives are system variables that control the compilation process. You can setup these options in compiler configuration file or in source file. You can not change these options after compilation. They are available for introspection.
+To distinguish compiler directives from environment variables, system directives use lowercase names while imported environment variables use uppercase names.
 
+| Directive | Default | Description |
+| :---| :---| :---|
+| `$max_precision` | `0.00001` | Numeric precision tolerance for rational arithmetic |
+| `$max_recursion` | `10000` | Maximum call stack recursion depth |
+| `$max_iteration` | `0` | Maximum loop iteration count (0 = unlimited) |
+| `$loop_timeout` | `60` | Maximum execution time in seconds for a single loop |
+| `$log_debug` | `"Off"` | Include debug information and symbols |
+| `$log_echo` | `"Off"` | Print statements to console on error |
+| `$log_trace` | `"Off"` | Populate `$trace` system variable with execution information |
+| `$date_format` | `"DMY"` | Date formatting (`"DMY"` or `"MDY"`) |
+| `$time_format` | `"T24"` | Time formatting (`"T24"` or `"T12"`) |
+| `$platform` | `"Windows"` | Target platform (`"Windows"`, `"Linux"`, `"Mac"`) |
 
-System environment variables are using the same prefix "$". So there is a conflict. To avoid this conflict, you should use capital letters for environment variables. Bee is loading only environment variables specific to Bee.
-
-
-| Table |
-| --- |
-| Constant | Default | Description |
-| $max_precision | 0.00001 | Control numeric precision |
-| $max_recursion | 10000 | Control how deep a recursion before give up |
-| $max_iteration | 0 | Control how many iterations before give up |
-| $loop_timeout | 60 | Control time in seconds before a loop is forced to give up |
-| $log_debug | "Off" | Control if debug information is included |
-| $log_echo | "Off" | Control if statement is printed to console in case of error |
-| $log_trace | "Off" | Control if @trace variable is getting populated with information |
-| $date_format | "DMY" / "MDY" | Control date format: DD/MM/YYYY or MM/DD/YYYY |
-| $time_format | "T24" / "T12" | Control time format: HH:MM:SS,MS am/pm or HH:MM:SS,MS |
-| $platform | "Windows" | Alternative: "Linux", "Mac" is the target platform |
-
-
-- You can set compiler parameters in the main module but not in secondary modules
-- Precision is controlling only rational numbers.;
+Notes:
+- Compiler directives can only be set in the main module.
+- Precision settings apply strictly to rational number operations.
 
 ### Global Variables
 
+Global variables are declared outside rule blocks. The following system variables are available at runtime for debugging and introspection:
 
-Global variables are defined usually at the beginning of a module outside of any rule.
+| Variable | Description |
+| :---| :---|
+| `$timer` | Duration information for the last executed statement |
+| `$stack` | Call stack frame information |
+| `$trace` | Execution trace log |
+| `$query` | Last executed database query statement |
+| `$error` | Active error object |
+| `$threads` | Count of active execution threads |
+| `$trial` | Trial object containing exception log messages |
 
-
-Following system variables are available for debugging:
-
-
-| Table |
-| --- |
-| $timer | duration information about last statement |
-| $stack | debug information about current call stack |
-| $trace | reporting information about statements |
-| $query | last query statement |
-| $error | last error object |
-| $threads | number of active threads |
-| $trial | trial object, contain last trial messages |
-
-
-- System variables are global and are defined in core library;
-- You can define your own global variables in main module;
-- Prefix "$" is used to improve code readability;
+Notes:
+- System variables are defined globally by the core runtime library.
+- Custom global variables can be declared in the main module using `new` or `set`.
 
 ## Modules
 
-
-As we mentioned already Bee is modular. It means one large project can be split into parts. Each part can contain reusable rules. A module can load several other modules. An application need an entry point that orchestrate the program execution. This is called the "main" module. Below we explain each kind of module:
-
+Bee programs are organized into modular units. A project decomposes into executable entry points (main modules), project-specific subroutines (secondary modules), and shared dependencies (library modules).
 
 ### Main Modules
 
+A main module defines `rule main`, serving as the application entry point. A project may contain multiple main modules representing separate application executables. Main modules reside in the project root directory.
 
-Main module contains declarations for the main rule. One project can have one or more main modules. Each main module represent one single application.  Main module is located in the project root folder.
-
-
-**Notes:**
-
-- The main module can not be loaded, in other modules;
-- The main module do not have public members;
-- One project can have many main modules;
-- The main module can receive parameters;
+Key characteristics:
+- Main modules cannot be loaded by other modules.
+- Main modules do not export public members.
+- A single project can contain multiple main modules.
+- Main modules accept command-line parameters in `rule main`.
 
 ### Secondary Modules
 
+Secondary modules decompose large application logic into reusable units. They reside in the `src` directory and export public members for use by main modules or other secondary modules.
 
-A good designer will split a large problem into secondary modules. These modules are similar to the main module except they do not have the main rule. One secondary module can be used in one or more relate applications. Secondary modules are located in src folder. These modules can be loaded into other modules to be re-used.
-
-
-**Notes:**
-
-- Secondary modules are specific to a project;
-- Secondary modules should be loaded in other modules;
-- Secondary modules usually do not have rule main()
-Secondary modules usually have public members;
-- Secondary modules usually have public members;
+Key characteristics:
+- Specific to the parent project.
+- Reside in the `src` directory.
+- Export public members using the `.` prefix.
+- Do not contain `rule main`.
 
 ### Library Modules
 
+Library modules reside in the `lib` directory (or system `$bee_lib`) with a `.bee` extension. They provide shared utility routines and external packages.
 
-A library module is a file located in "lib" folder having extension *.bee. It is called simply: module. A library module can load other library modules and can execute its rules multiple times. You can install new libraries by downloading from the internet a package. Lib folder can have multiple sub-folders, where you create or modify a set of related libraries to be distributed for other people using a package creator tool.
+Key characteristics:
+- Must export public elements for external access.
+- Can import other library modules.
+- Do not contain `rule main`.
+- Are loaded once per module scope.
+- Cannot be loaded conditionally inside local block statements.
 
-- Any library module should have public elements,
-- One library module can load multiple other library modules,
-- One library module do not contain rule main(),
-- One library module can be loaded a single time in another module,
-- You can not load a module from a block statement,
-- Library modules can be installed in: bee/lib folder for multiple projects
+### Main Rule
 
-### Main rule
+The entry point rule is `rule main`, defined strictly within a main module. It accepts command-line parameters and executes automatically upon program launch.
 
-A module can define "rules". These are sub-programs that can be executed on demand. One special rule is the main rule that can be defined only in the main module. This rule can receive multiple parameters and is automatically executed when a program starts.
-
-
-```
---  main rule
+```bee
+-- main rule example
 rule main(*params ∈ S):
--- read the number of parameters
-   new c := params.count;
-   panic if (c = 0);
--- print comma separated parameters
-   new i:= 0 ∈ Z;
-   while (i < c) do
-     write params[i];
-     let i += 1;
-     write "," if (i < c);
-   repeat;
--- print the buffer to console
-   print;
+  -- read parameter count
+  new c := params.count;
+  panic if (c = 0);
+
+  -- print comma-separated parameters
+  new i := 0 ∈ Z;
+  while (i < c) do
+    write params[i];
+    let i += 1;
+    write "," if (i < c);
+  repeat;
+
+  -- print buffer to console
+  print;
 return;
 ```
 
+Key observations:
+- Input parameter `*params` is a variadic array of strings representing command-line arguments.
+- Early program termination can be triggered using `over` (clean exit) or `panic` (error exit).
+- Every rule definition terminates with the mandatory keyword `return;`.
 
-Do not try to understand this example right now. It is just a warming-up code!
+## External Code
 
-- This program has a single module, that is main module;
-- Input parameter  *params is an array of strings;
-- Early program termination can be trigger using: over or panic;
-- Any rule is ending with mandatory keyword: "return";
+Reusable library modules are imported from `$bee_lib` or local project paths using `use` directives:
 
-## External code
-
-
-Library modules that are reusable for multiple projects can be imported in Bee "lib" sub-folder. This folder is available in Bee as a system constant called: $bee_lib. You can install a set of libraries in a sub-folder of "$bee_lib". Then you can reuse external library by using "load" keyword. The folders can be concatenated using "." string operator.
-
-
-```
---  loading modules
-use $bee_lib.folder_name.(*);     -- load all modules from folder
-use $bee_lib.folder_name.(x,y,z); -- load modules x.bee, y.bee and z.bee
+```bee
+-- loading modules
+use $bee_lib.folder_name.(*);     -- load all modules from directory
+use $bee_lib.folder_name.(x,y,z); -- load specific modules x.bee, y.bee, z.bee
 ```
 
-- using.(*) all modules from a folder are loaded in local scope;
-- using.(x,y,z) only some modules are loaded in local scope;
-- loaded modules, will merge all public elements in global scope;
+### Module Qualifiers and Aliases
 
-Qualifier Bee can use  "dot notation" to locate external members. This technique is used to avoid name collision if one library has names that collide with other library.
+Dot notation provides qualified access to exported members, preventing symbol name collisions between imported modules.
 
+```bee
+-- load a module with a specific qualifier
+use $bee_lib.folder_name.module_name as qualifier;
 
-```
---  load a single module and create a qualifier
-use  $bee_lib.folder_name.module_name as qualifier; -- load a single module
-...
-apply qualifier.member_name; -- using dot notation with qualifier
-...
+apply qualifier.member_name; -- access member via qualifier
 ```
 
+Qualifiers can be stripped for local regions using `with` blocks or mapped to short aliases using `alias`:
 
-1. A module can be loaded using a qualifier multiple times. However I do not see a useful use-case for this feature yet. I think is unusual to have same module loaded twice. It will be a waste of resources to do this.
-
-
-2. All public members must use the specified qualifier or you can use "with" block to suppress the qualifier for a region of code. Using "with" is useful but sometimes not good enough so we have also invented the "alias".
-
-
-```
-#load examples
-use cpp:$runtime.cpp_lib.(*); -- load cpp library
-use asm:$runtime.asm_lib.(*); -- load asm library
-use bee:$runtime.bee_lib.(*); -- load bee core library
+```bee
+use cpp:$runtime.cpp_lib.(*); -- load C++ runtime library
+use asm:$runtime.asm_lib.(*); -- load Assembly library
+use bee:$runtime.bee_lib.(*); -- load Bee core library
 use pro:$program.pro_lib.(*); -- load project library
 ```
 
@@ -236,80 +198,67 @@ use pro:$program.pro_lib.(*); -- load project library
 ## Global scope
 
 
-One application has a global scope where variables and constants are allocated. Each secondary module can contribute with global variables and public elements that can be merged in this single scope. Global scope can be also called application scope;
+## Global Scope
 
-- Global scope helps to use public identifiers from loaded modules;
-- When a module is loaded, its public members are defined in the global scope;
-- Public members of other modules can be used with quialifier.;
+An application shares a top-level global scope (application scope) where exported variables, constants, and public members from loaded modules are bound.
 
-## Name space
+Key rules:
+- Public members of loaded modules are accessible in the global scope.
+- Qualified module names prevent symbol collisions across libraries.
 
+## Namespaces
 
-A module has its own scope, that is called name-space where you can define members and statements. Module scope can contain public or private members. Public members start with "." while private members do not have any prefix or suffix.
+Each module establishes its own namespace. Members defined within a module are either private (default) or public (prefixed with `.`).
 
-
-```
-#define a module
+```bee
 module demo_module:
--- public constant
-set .pi: 3.14;
--- expression rule foo is private
-rule foo(x ∈ N) ∈ N => (x + 1);
--- block rule bar is public
-rule .bar(x, y ∈ N) => (r ∈ N):
--- define local variable
-  new str := "test";
-  ...
--- assign the result
-  let r := x + y; -- r, x, y are locals
-return;
+  -- public constant
+  set .pi: 3.14;
+
+  -- private rule
+  rule foo(x ∈ N) ∈ N => (x + 1);
+
+  -- public rule
+  rule .bar(x, y ∈ N) => (r ∈ N):
+    new str := "test";
+    let r := x + y;
+  return;
 ```
 
+### Symbol Aliases and Scope Suppression
 
-The main module can load numerous secondary modules or libraries. After loading, all public elements of a library can be accessed on demand using dot notation. You can not have collisions of names, except if you use "with" blocks. To simplify the code you can use "alias" statement and can rename a rule belonging to loaded modules.
+Aliases bind local identifiers to qualified public members, stripping the qualifier prefix:
 
-
-**Aliases:**
-
-
-You can create an alias for a specific member to eliminate the qualifier. This rule can be used to "merge" public members into current scope. A member can have one single alias in a module. If you do it multiple times, only the last alias is used. It is a bad practice to change the alias of a member.
-
-
-```-- import library module
-use library as qualifier
--- create alias for a particular member
+```bee
+use library as qualifier;
 alias new_name: qualifier.member_name;
 ```
 
+Example demonstrating module imports, qualifiers, aliases, and `with` blocks:
 
-This example demonstrate how to use a rule from a module named "module_name"
-
-
-```
-#define program name
--- loading a module with qualifier
+```bee
 use $pro.src.demo_module as demo;
--- give alias to module rule
+
 alias sum = demo.bar;
--- define main rule
+
 rule main:
--- call rule using qualifier
-    new test := demo.bar(1,1); -- 2
--- call rule using alias
-    new result := sum(1,1); -- 2
--- call rule using "with" block
-    with demo do
-         print foo(2);   -- 3
-         print bar(2,1); -- 3
-    done;
+  -- call rule using qualifier
+  new test := demo.bar(1, 1); -- 2
+
+  -- call rule using alias
+  new result := sum(1, 1);    -- 2
+
+  -- call rule using 'with' block
+  with demo do
+    print foo(2);   -- 3
+    print bar(2, 1); -- 3
+  done;
 return;
 ```
 
+To suppress specific public symbols from an imported library, use `hide`:
 
-Hiding: To hide a public member instead of making an alias you can use keyword "hide". You can hide any public members from a loaded module. If you use a regular expression you can hide several public members that use a specific pattern.
-
-
-```
+```bee
 hide qualifier.member_name;
 hide qualifier.(reg_exp_pattern);
 ```

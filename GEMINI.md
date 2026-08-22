@@ -19,3 +19,4 @@
 - **Prohibition of Unsolicited Changes:** Do not refactor, reformat, or alter adjacent files, imports, configurations, or directory structures unless explicitly commanded.
 - **Explicit Confirmation:** If a task requires touching secondary dependencies or related files, halt execution and request explicit user authorization before proceeding.
 - **Zero Scope Creep:** Confine execution strictly to the literal parameters of the prompt. No proactive optimizations, cleanups, or structural suggestions outside the requested change.
+- **Process Incremental:** For large files, process the file in 10 phases, save each phase to reduce load and avoid errors. Make a pause of 20 seconds between phases.

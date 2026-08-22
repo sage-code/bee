@@ -12,6 +12,7 @@ This specification is now (2026) the new specification for Bee. It was reverse e
 | [Syntax](syntax.md) | Syntax rules and examples |
 | [Operators](operators.md) | Bee operators by category |
 | [Structure](structure.md) | Language structure and organization |
+| [Execution](execution.md) | Recomandations for runtime |
 | [Data Types](types.md) | Built-in data types |
 | [Control Flow](control.md) | Control flow statements |
 | [Rules](rules.md) | Language design rules |
